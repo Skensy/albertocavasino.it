@@ -1,0 +1,116 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
+const navLinks = [
+  { label: "Home", href: "#home" },
+  { label: "Chi Sono", href: "#about" },
+  { label: "Servizi", href: "#services" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Contatti", href: "#contact" },
+];
+
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? "glass-nav-scrolled" : "glass-nav"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo / Nome */}
+          <a
+            href="#home"
+            className={`text-xl md:text-2xl font-serif font-semibold tracking-wide transition-colors duration-300 ${
+              scrolled
+                ? "text-brand-900"
+                : "text-white drop-shadow-sm"
+            }`}
+          >
+            Alessandro Rizzo
+          </a>
+
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  scrolled
+                    ? "text-brand-700/80 hover:text-accent"
+                    : "text-white/80 hover:text-white"
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden flex flex-col gap-1.5 p-2 relative z-10"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Menu"
+          >
+            <span
+              className={`block w-6 h-[1.5px] transition-all duration-300 ${
+                scrolled ? "bg-brand-800" : "bg-white/90"
+              } ${menuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`}
+            />
+            <span
+              className={`block w-6 h-[1.5px] transition-all duration-300 ${
+                scrolled ? "bg-brand-800" : "bg-white/90"
+              } ${menuOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`block w-6 h-[1.5px] transition-all duration-300 ${
+                scrolled ? "bg-brand-800" : "bg-white/90"
+              } ${menuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`}
+            />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu — glass panel */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-400 ${
+          menuOpen ? "max-h-96" : "max-h-0"
+        }`}
+      >
+        <nav
+          className={`mx-4 mb-4 px-4 py-5 flex flex-col gap-4 rounded-2xl backdrop-blur-xl transition-colors duration-300 ${
+            scrolled
+              ? "glass-panel border-white/15 text-brand-700/80"
+              : "bg-brand-900/60 border border-white/[0.08] text-white/80"
+          }`}
+        >
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className={`text-base font-medium transition-colors ${
+                scrolled
+                  ? "text-brand-700/80 hover:text-accent"
+                  : "text-white/80 hover:text-white"
+              }`}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+  );
+}
