@@ -87,7 +87,7 @@ const DEFAULT_CONTENT: SiteContent = {
   colors: {
     primary: "#C8A97E",
     primaryHover: "#B8946A",
-    bgLight: "#FAF7F2",
+    bgLight: "#F5F5F5",
     bgDark: "#2D2D2D",
     textPrimary: "#2D2D2D",
     textSecondary: "#7D6148",
