@@ -4,6 +4,7 @@ import "./globals.css";
 import { ContentProvider } from "@/lib/content-context";
 import ColorVarsInjector from "@/lib/color-vars-injector";
 import SeoInjector from "@/lib/seo-injector";
+import ScrollProgress from "@/components/ScrollProgress";
 import staticContent from "@/lib/content";
 
 const inter = Inter({
@@ -40,6 +41,7 @@ export default function RootLayout({
       </head>
       <body className="relative min-h-full flex flex-col bg-gradient-to-br from-brand-50 via-white to-brand-100 text-brand-800 font-sans overflow-x-hidden">
         <SeoInjector />
+        <ScrollProgress />
         {/* Decorative glass blobs — liquid depth effect */}
         <div className="noise-bg" aria-hidden="true" />
         <div

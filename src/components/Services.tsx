@@ -32,7 +32,7 @@ export default function Services() {
   const { services } = content;
 
   return (
-    <section id="services" className="relative py-20 md:py-28">
+    <section id="services" className="relative py-20 md:py-28 section-fade-top">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -61,11 +61,17 @@ export default function Services() {
             <motion.div
               key={`${item.title}-${i}`}
               variants={cardItem}
-              className="glass-card glass-card-hover rounded-2xl p-6 md:p-8"
+              whileHover={{ y: -6, boxShadow: "0 20px 60px rgba(0,0,0,0.08)" }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="glass-card rounded-2xl p-6 md:p-8"
             >
-              <div className="text-accent mb-4 service-icon-glow">
+              <motion.div
+                className="text-accent mb-4 service-icon-glow"
+                whileHover={{ scale: 1.15 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 {renderServiceIcon(item.iconName)}
-              </div>
+              </motion.div>
               <h3 className="text-lg font-semibold text-brand-900 mb-2">
                 {item.title}
               </h3>

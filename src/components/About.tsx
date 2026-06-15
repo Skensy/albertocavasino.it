@@ -32,7 +32,7 @@ export default function About() {
   const { about } = content;
 
   return (
-    <section id="about" className="relative py-20 md:py-28">
+    <section id="about" className="relative py-20 md:py-28 section-fade-top">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={container}

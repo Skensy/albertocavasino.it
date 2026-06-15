@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useContent } from "@/lib/content-context";
 
 const fadeUp = {
@@ -17,12 +17,17 @@ export default function Hero() {
   const content = useContent();
   const { hero } = content;
 
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 800], [0, 200]);
+
+  const line1Words = hero.headingLine1.split(" ");
+
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      <div className="absolute inset-0 z-0">
+      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
         <Image
           src={hero.bgImage}
           alt={hero.bgAlt}
@@ -31,7 +36,7 @@ export default function Hero() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-br from-brand-900/30 via-brand-900/15 to-brand-950/40 backdrop-blur-[2px]" />
-      </div>
+      </motion.div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <motion.div
@@ -46,16 +51,31 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        <motion.h1
-          custom={1}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-          className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-tight mb-6 drop-shadow-lg"
-        >
-          {hero.headingLine1}{" "}
-          <span className="text-accent">{hero.headingAccent}</span>
-        </motion.h1>
+        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-tight mb-6 drop-shadow-lg">
+          {line1Words.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{
+                delay: 0.3 + i * 0.08,
+                duration: 0.6,
+                ease: "easeOut",
+              }}
+              className="inline-block mr-[0.25em]"
+            >
+              {word}
+            </motion.span>
+          ))}{" "}
+          <motion.span
+            initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ delay: 0.3 + line1Words.length * 0.08, duration: 0.6, ease: "easeOut" }}
+            className="text-accent inline-block"
+          >
+            {hero.headingAccent}
+          </motion.span>
+        </h1>
 
         <motion.p
           custom={2}

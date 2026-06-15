@@ -34,7 +34,7 @@ export default function Portfolio() {
   const [tappedIndex, setTappedIndex] = useState<number | null>(null);
 
   return (
-    <section id="portfolio" className="relative py-20 md:py-28">
+    <section id="portfolio" className="relative py-20 md:py-28 section-fade-top">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -63,12 +63,14 @@ export default function Portfolio() {
             <motion.div
               key={`${project.title}-${i}`}
               variants={cardItem}
+              whileHover={{ scale: 1.03, y: -4 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               onClick={() => {
                 if (window.innerWidth < 768) {
                   setTappedIndex(tappedIndex === i ? null : i);
                 }
               }}
-              className="group relative block rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer"
+              className="group relative block rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 cursor-pointer"
             >
               <div className="relative w-full aspect-[4/3]">
                 <Image
@@ -79,7 +81,15 @@ export default function Portfolio() {
                 />
               </div>
 
-              {/* Overlay: hover desktop + tap mobile */}
+              {/* Animated overlay gradient */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/20 to-transparent pointer-events-none"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+
+              {/* Hover overlay: desktop hover + mobile tap */}
               <div
                 className={`absolute inset-0 transition-all duration-500 flex items-center justify-center ${
                   tappedIndex === i
