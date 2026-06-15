@@ -2,20 +2,21 @@
 
 /* ── Brand palette + Glass design tokens (Tailwind v4) ── */
 @theme inline {
-  --color-brand-50: #FAF7F2;
-  --color-brand-100: #F5F0EB;
-  --color-brand-200: #EDE4DA;
-  --color-brand-300: #DAC8B4;
-  --color-brand-400: #C8A97E;
-  --color-brand-500: #B8946A;
-  --color-brand-600: #9A7A58;
-  --color-brand-700: #7D6148;
-  --color-brand-800: #5E4A38;
-  --color-brand-900: #2D2D2D;
-  --color-brand-950: #1A1A1A;
+  --color-brand-50: var(--user-brand-50, #FAF7F2);
+  --color-brand-100: var(--user-brand-100, #F5F0EB);
+  --color-brand-200: var(--user-brand-200, #EDE4DA);
+  --color-brand-300: var(--user-brand-300, #DAC8B4);
+  --color-brand-400: var(--user-brand-400, #C8A97E);
+  --color-brand-500: var(--user-brand-500, #B8946A);
+  --color-brand-600: var(--user-brand-600, #9A7A58);
+  --color-brand-700: var(--user-brand-700, #7D6148);
+  --color-brand-800: var(--user-brand-800, #5E4A38);
+  --color-brand-900: var(--user-brand-900, #2D2D2D);
+  --color-brand-950: var(--user-brand-950, #1A1A1A);
 
-  --color-accent: #C8A97E;
-  --color-accent-hover: #B8946A;
+  --color-accent: var(--user-accent, #C8A97E);
+  --color-accent-hover: var(--user-accent-hover, #B8946A);
+  --color-accent-rgb: var(--user-accent-rgb, 200 169 126);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), Georgia, serif;
@@ -68,7 +69,7 @@ body {
   background: rgba(250, 247, 242, 0.8);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgb(var(--color-accent-rgb) / 0.15);
+  border-bottom: 1px solid rgb(var(--user-accent-rgb, 200 169 126) / 0.15);
   box-shadow: 0 4px 24px rgb(0 0 0 / 0.04);
 }
 
@@ -106,8 +107,8 @@ body {
 }
 .glass-input:focus {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgb(var(--color-accent-rgb) / 0.4);
-  box-shadow: 0 0 0 3px rgb(var(--color-accent-rgb) / 0.15);
+  border-color: rgb(var(--user-accent-rgb, 200 169 126) / 0.4);
+  box-shadow: 0 0 0 3px rgb(var(--user-accent-rgb, 200 169 126) / 0.15);
   outline: none;
 }
 
@@ -121,7 +122,7 @@ body {
 .glass-button:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgb(var(--color-accent-rgb) / 0.15);
+  box-shadow: 0 8px 32px rgb(var(--user-accent-rgb, 200 169 126) / 0.15);
 }
 
 .glass-divider {
@@ -173,8 +174,8 @@ body {
 
 /* ── Accent glow utilities (rispondono ai colori custom della dashboard) ── */
 .service-icon-glow {
-  filter: drop-shadow(0 0 8px rgb(var(--color-accent-rgb) / 0.3));
+  filter: drop-shadow(0 0 8px rgb(var(--user-accent-rgb, 200 169 126) / 0.3));
 }
 .contact-icon-glow {
-  filter: drop-shadow(0 0 4px rgb(var(--color-accent-rgb) / 0.3));
+  filter: drop-shadow(0 0 4px rgb(var(--user-accent-rgb, 200 169 126) / 0.3));
 }

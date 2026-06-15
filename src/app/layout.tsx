@@ -21,30 +21,70 @@ export const metadata: Metadata = {
     "Graphic designer con anni di esperienza in agenzia: siti web, brochure, locandine, loghi, marchi e brand identity.",
 };
 
+/* ── Color helpers ── */
+function hexToRgb(hex: string): string {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  return `${r} ${g} ${b}`;
+}
+
+function hexToRgbArray(hex: string): [number, number, number] {
+  const h = hex.replace("#", "");
+  return [
+    parseInt(h.substring(0, 2), 16),
+    parseInt(h.substring(2, 4), 16),
+    parseInt(h.substring(4, 6), 16),
+  ];
+}
+
+function rgbToHex(r: number, g: number, b: number): string {
+  const clamp = (v: number) => Math.max(0, Math.min(255, Math.round(v)));
+  return (
+    "#" +
+    [r, g, b]
+      .map((v) => clamp(v).toString(16).padStart(2, "0"))
+      .join("")
+  );
+}
+
+/** Mix a color toward black (factor 0 → untouched, 1 → black) */
+function shade(hex: string, factor: number): string {
+  const [r, g, b] = hexToRgbArray(hex);
+  return rgbToHex(r * (1 - factor), g * (1 - factor), b * (1 - factor));
+}
+
+/** Mix a color toward white (factor 0 → untouched, 1 → white) */
+function tint(hex: string, factor: number): string {
+  const [r, g, b] = hexToRgbArray(hex);
+  return rgbToHex(r + (255 - r) * factor, g + (255 - g) * factor, b + (255 - b) * factor);
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const { colors } = content;
-
-  const hexToRgb = (hex: string) => {
-    const h = hex.replace("#", "");
-    const r = parseInt(h.substring(0, 2), 16);
-    const g = parseInt(h.substring(2, 4), 16);
-    const b = parseInt(h.substring(4, 6), 16);
-    return `${r} ${g} ${b}`;
-  };
+  const { primary, primaryHover, bgLight, bgDark, textPrimary, textSecondary } = colors;
 
   const colorVars = `
     :root {
-      --color-accent: ${colors.primary};
-      --color-accent-hover: ${colors.primaryHover};
-      --color-brand-50: ${colors.bgLight};
-      --color-brand-900: ${colors.textPrimary};
-      --color-brand-700: ${colors.textSecondary};
-      --color-brand-950: ${colors.bgDark};
-      --color-accent-rgb: ${hexToRgb(colors.primary)};
+      --user-accent: ${primary};
+      --user-accent-hover: ${primaryHover};
+      --user-accent-rgb: ${hexToRgb(primary)};
+      --user-brand-50: ${bgLight};
+      --user-brand-100: ${tint(primary, 0.85)};
+      --user-brand-200: ${tint(primary, 0.65)};
+      --user-brand-300: ${tint(primary, 0.45)};
+      --user-brand-400: ${primary};
+      --user-brand-500: ${primaryHover};
+      --user-brand-600: ${shade(primary, 0.25)};
+      --user-brand-700: ${textSecondary};
+      --user-brand-800: ${shade(primary, 0.55)};
+      --user-brand-900: ${textPrimary};
+      --user-brand-950: ${bgDark};
     }
   `;
 

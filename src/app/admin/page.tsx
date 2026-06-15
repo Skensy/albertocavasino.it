@@ -190,11 +190,7 @@ export default function AdminPage() {
   }, []);
 
   const handleQueue = useCallback(() => {
-    const existing = localStorage.getItem("pending_content");
-    const toQueue = existing ? JSON.parse(existing) : content;
-    /* Merge current editor content into the pending blob */
-    const merged = { ...toQueue, ...content };
-    localStorage.setItem("pending_content", JSON.stringify(merged));
+    localStorage.setItem("pending_content", JSON.stringify(content));
     setPendingCount((prev) => prev + 1);
     setSaveStatus("saved");
     setTimeout(() => setSaveStatus("idle"), 1500);
@@ -206,8 +202,7 @@ export default function AdminPage() {
   }, []);
 
   const handlePublish = useCallback(async () => {
-    const stored = localStorage.getItem("pending_content");
-    const toPublish = stored ? JSON.parse(stored) : content;
+    const toPublish = content;
 
     /* Check if anything actually changed */
     if (originalContent && JSON.stringify(toPublish) === JSON.stringify(originalContent)) {
@@ -226,7 +221,6 @@ export default function AdminPage() {
       const json = JSON.stringify(toPublish, null, 2);
       const newSha = await saveContent(pat2, json, sha);
       setSha(newSha);
-      setContent(toPublish);
       localStorage.removeItem("pending_content");
       setPendingCount(0);
       setSaveStatus("saved");
@@ -431,13 +425,11 @@ export default function AdminPage() {
 
       {/* Pending diff viewer */}
       {diffOpen && pendingCount > 0 && (() => {
-        const stored = localStorage.getItem("pending_content");
-        if (!stored || !originalContent) return null;
+        if (!originalContent) return null;
         try {
-          const pending = JSON.parse(stored);
           const diffs = getPendingDiff(
             originalContent as unknown as Record<string, unknown>,
-            pending as unknown as Record<string, unknown>
+            content as unknown as Record<string, unknown>
           );
           if (diffs.length === 0) return null;
           return (
