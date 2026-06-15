@@ -25,6 +25,12 @@
   --animate-fade-in: fade-in 0.5s ease-out forwards;
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-soft: pulse-soft 4s ease-in-out infinite;
+  --animate-reveal: reveal 0.7s ease-out forwards;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Base styles ── */
@@ -35,6 +41,15 @@ html {
 body {
   font-family: var(--font-sans);
 }
+
+/* ── Section dark (alternanza sezioni) ── */
+.section-dark {
+  background: rgb(var(--user-brand-950, 26 26 26));
+  color: #e5e5e5;
+}
+.section-dark .text-brand-900 { color: #f5f5f5; }
+.section-dark .text-brand-700 { color: #d4d4d4; }
+.section-dark .text-brand-600 { color: #a3a3a3; }
 
 /* ── Keyframes ── */
 @keyframes fade-in-up {

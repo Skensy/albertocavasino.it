@@ -19,35 +19,40 @@ const gridContainer = {
 };
 
 const cardItem = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.45, ease: "easeOut" as const },
-  },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
 };
 
+/** Bento layout: col-span-2 for featured projects */
+function projectSpan(i: number): string {
+  if (i === 0 || i === 3) return "sm:col-span-2";
+  return "";
+}
+
+function projectAspect(i: number): string {
+  if (i === 0 || i === 3) return "aspect-[16/9]";
+  return "aspect-[4/5]";
+}
+
 export default function Portfolio() {
-  const content = useContent();
-  const { portfolio } = content;
+  const { portfolio } = useContent();
   const [tappedIndex, setTappedIndex] = useState<number | null>(null);
 
   return (
-    <section id="portfolio" className="relative py-20 md:py-28 section-fade-top">
+    <section id="portfolio" className="relative py-24 md:py-32 section-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           variants={sectionVariants}
-          className="text-center mb-14 md:mb-18"
+          className="text-center mb-16"
         >
-          <h2 className="font-serif text-3xl md:text-4xl font-semibold text-brand-900 mb-4">
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4">
             {portfolio.title}
           </h2>
-          <div className="w-12 h-0.5 bg-accent mx-auto mb-4 rounded-full" />
-          <p className="text-brand-600 max-w-xl mx-auto">
+          <div className="w-16 h-1 bg-accent mx-auto mb-6 rounded-full" />
+          <p className="text-brand-600 max-w-xl mx-auto text-lg">
             {portfolio.subtitle}
           </p>
         </motion.div>
@@ -57,68 +62,44 @@ export default function Portfolio() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
         >
           {portfolio.projects.map((project, i) => (
             <motion.div
               key={`${project.title}-${i}`}
               variants={cardItem}
-              whileHover={{ scale: 1.03, y: -4 }}
+              whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               onClick={() => {
-                if (window.innerWidth < 768) {
+                if (window.innerWidth < 640) {
                   setTappedIndex(tappedIndex === i ? null : i);
                 }
               }}
-              className="group relative block rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 cursor-pointer"
+              className={`group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 cursor-pointer ${projectSpan(i)}`}
             >
-              <div className="relative w-full aspect-[4/3]">
+              <div className={`relative w-full ${projectAspect(i)}`}>
                 <Image
                   src={project.src}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
 
-              {/* Animated overlay gradient */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/20 to-transparent pointer-events-none"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-
-              {/* Hover overlay: desktop hover + mobile tap */}
-              <div
-                className={`absolute inset-0 transition-all duration-500 flex items-center justify-center ${
-                  tappedIndex === i
-                    ? "opacity-100 visible bg-brand-900/40 backdrop-blur-sm pointer-events-auto"
-                    : "opacity-0 invisible md:group-hover:opacity-100 md:group-hover:visible bg-brand-900/40 backdrop-blur-sm pointer-events-none md:group-hover:pointer-events-auto"
-                }`}
-              >
-                <span className="text-white text-sm font-medium border border-white/30 px-4 py-2 rounded-xl backdrop-blur-sm bg-white/10">
-                  Vedi progetto
-                </span>
-              </div>
-
-              {/* Tap hint on mobile */}
-              {tappedIndex !== i && (
-                <div className="absolute inset-0 flex items-center justify-center md:hidden">
-                  <span className="text-white/40 text-xs border border-white/20 px-3 py-1.5 rounded-full backdrop-blur-sm bg-white/5">
-                    Tocca per vedere
-                  </span>
-                </div>
-              )}
-
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 via-black/20 to-transparent">
-                <h3 className="text-white font-semibold text-sm">
+              {/* Always-visible bottom overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 bg-gradient-to-t from-black/80 via-black/30 to-transparent">
+                <h3 className="text-white font-semibold text-sm md:text-base">
                   {project.title}
                 </h3>
                 <p className="text-white/60 text-xs mt-0.5">
                   {project.category}
                 </p>
               </div>
+
+              {/* Mobile tap overlay */}
+              {tappedIndex === i && (
+                <div className="absolute inset-0 bg-brand-900/30 backdrop-blur-[2px] sm:hidden" />
+              )}
             </motion.div>
           ))}
         </motion.div>
