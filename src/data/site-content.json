@@ -199,8 +199,8 @@
     "copyright": "© {year} Alberto Cavasino. Tutti i diritti riservati."
   },
   "colors": {
-    "primary": "#1155CC",
-    "primaryHover": "#3377EE",
+    "primary": "#1A1A1A",
+    "primaryHover": "#1A1A1A",
     "bgLight": "#FFFFFF",
     "bgDark": "#1A1A1A",
     "textPrimary": "#1A1A1A",
