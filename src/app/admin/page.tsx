@@ -164,7 +164,8 @@ export default function AdminPage() {
     try {
       const pat2 = sessionStorage.getItem("gh_pat") || pat;
       const json = JSON.stringify(content, null, 2);
-      await saveContent(pat2, json, sha);
+      const newSha = await saveContent(pat2, json, sha);
+      setSha(newSha);
       setSaveStatus("saved");
       setTimeout(() => setSaveStatus("idle"), 3000);
     } catch (err: unknown) {

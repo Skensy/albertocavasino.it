@@ -55,7 +55,7 @@ export async function saveContent(
   newContent: string,
   sha: string,
   message?: string
-): Promise<void> {
+): Promise<string> {
   const encoded = toBase64(newContent);
 
   const res = await fetch(
@@ -81,4 +81,7 @@ export async function saveContent(
       `GitHub API error: ${res.status} ${res.statusText}\n${errBody}`
     );
   }
+
+  const data = await res.json();
+  return data.content.sha as string;
 }
