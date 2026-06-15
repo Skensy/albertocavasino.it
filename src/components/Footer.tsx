@@ -1,5 +1,25 @@
+"use client";
+
+import { motion } from "framer-motion";
 import content from "@/lib/content";
 import { renderSocialIcon } from "@/lib/icons";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+  },
+};
+
+const colItem = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
+};
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -14,15 +34,21 @@ export default function Footer() {
       <div className="glass-divider" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid sm:grid-cols-3 gap-8">
-          <div>
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid sm:grid-cols-3 gap-8"
+        >
+          <motion.div variants={colItem}>
             <h3 className="font-serif text-xl font-semibold text-white mb-2">
               {site.name}
             </h3>
             <p className="text-sm text-brand-400">{site.role}</p>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div variants={colItem}>
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
               {footer.linkSectionTitle}
             </h4>
@@ -37,9 +63,9 @@ export default function Footer() {
                 </a>
               ))}
             </nav>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div variants={colItem}>
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
               {footer.socialSectionTitle}
             </h4>
@@ -55,8 +81,8 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         <div className="glass-divider mt-10" />
         <div className="pt-6 text-center">

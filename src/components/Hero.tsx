@@ -1,5 +1,17 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import content from "@/lib/content";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" as const, delay: i * 0.2 },
+  }),
+};
 
 export default function Hero() {
   const { hero } = content;
@@ -21,25 +33,52 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <div className="glass-panel px-6 py-3 inline-block mb-8 rounded-full border-white/15">
+        <motion.div
+          custom={0}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="glass-panel px-6 py-3 inline-block mb-8 rounded-full border-white/15"
+        >
           <span className="text-sm font-medium text-white/80 tracking-wider uppercase">
             {hero.badge}
           </span>
-        </div>
+        </motion.div>
 
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-tight mb-6 drop-shadow-lg">
+        <motion.h1
+          custom={1}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-tight mb-6 drop-shadow-lg"
+        >
           {hero.headingLine1}{" "}
           <span className="text-accent">{hero.headingAccent}</span>
-        </h1>
-        <p className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow">
-          {hero.subtitle}
-        </p>
-        <a
-          href={hero.ctaHref}
-          className="inline-block glass-button text-white font-medium px-8 py-3.5 rounded-xl"
+        </motion.h1>
+
+        <motion.p
+          custom={2}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow"
         >
-          {hero.ctaText}
-        </a>
+          {hero.subtitle}
+        </motion.p>
+
+        <motion.div
+          custom={3}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+        >
+          <a
+            href={hero.ctaHref}
+            className="inline-block glass-button text-white font-medium px-8 py-3.5 rounded-xl"
+          >
+            {hero.ctaText}
+          </a>
+        </motion.div>
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-brand-50/80 to-transparent z-10" />

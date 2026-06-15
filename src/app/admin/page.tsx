@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, type ReactNode } from "react";
 import type { SiteContent } from "@/lib/content";
 import { fetchContent, saveContent } from "@/lib/github-api";
 import { availableServiceIconNames } from "@/lib/icons";
@@ -1114,13 +1114,88 @@ function SectionColors({
 }) {
   const { colors } = content;
 
-  const fields: { label: string; key: keyof SiteContent["colors"] }[] = [
-    { label: "Colore primario (accent)", key: "primary" },
-    { label: "Colore hover primario", key: "primaryHover" },
-    { label: "Sfondo chiaro", key: "bgLight" },
-    { label: "Sfondo scuro (footer)", key: "bgDark" },
-    { label: "Testo principale", key: "textPrimary" },
-    { label: "Testo secondario", key: "textSecondary" },
+  const fields: {
+    label: string;
+    key: keyof SiteContent["colors"];
+    desc: string;
+    mockup: (color: string, bgLight: string) => ReactNode;
+  }[] = [
+    {
+      label: "Colore primario (accent)",
+      key: "primary",
+      desc: "Icone servizi, divider, link hover, glow effects, bottoni, bg-accent/10",
+      mockup: (c) => (
+        <div className="flex items-center gap-1">
+          <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: c }}>
+            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+          </div>
+          <span className="text-[10px] text-gray-500">Icone</span>
+        </div>
+      ),
+    },
+    {
+      label: "Hover primario",
+      key: "primaryHover",
+      desc: "Stato hover di bottoni e link accent, variante pi\u00f9 scura del primario",
+      mockup: (c) => (
+        <div className="flex items-center gap-1">
+          <div className="w-6 h-6 rounded border border-dashed border-gray-500 flex items-center justify-center" style={{ backgroundColor: c }}>
+            <span className="text-[9px] text-white font-bold">H</span>
+          </div>
+          <span className="text-[10px] text-gray-500">Hover</span>
+        </div>
+      ),
+    },
+    {
+      label: "Sfondo chiaro",
+      key: "bgLight",
+      desc: "Sfondo principale del sito e navbar dopo scroll, gradienti di base",
+      mockup: (c, _) => (
+        <div className="flex items-center gap-1">
+          <div className="w-9 h-6 rounded border border-gray-600" style={{ backgroundColor: c }} />
+          <span className="text-[10px] text-gray-500">Sfondo sito</span>
+        </div>
+      ),
+    },
+    {
+      label: "Sfondo scuro (footer)",
+      key: "bgDark",
+      desc: "Sfondo del footer, usato anche per overlay scuri nell'hero",
+      mockup: (c) => (
+        <div className="flex items-center gap-1">
+          <div className="w-9 h-6 rounded flex items-center justify-center" style={{ backgroundColor: c }}>
+            <span className="text-[8px] text-white/70 font-medium">Footer</span>
+          </div>
+          <span className="text-[10px] text-gray-500">Footer</span>
+        </div>
+      ),
+    },
+    {
+      label: "Testo titoli",
+      key: "textPrimary",
+      desc: "Titoli sezioni (h1, h2, h3), nome del brand nel logo, testo principale",
+      mockup: (c) => (
+        <div className="flex items-center gap-1">
+          <span className="text-lg font-bold leading-none" style={{ color: c }}>Aa</span>
+          <span className="text-[10px] text-gray-500">Titoli</span>
+        </div>
+      ),
+    },
+    {
+      label: "Testo corpo",
+      key: "textSecondary",
+      desc: "Paragrafi, descrizioni servizi, label form, testi secondari",
+      mockup: (c) => (
+        <div className="flex items-center gap-1">
+          <span className="text-[10px] leading-tight max-w-[60px]" style={{ color: c }}>
+            Lorem ipsum dolor sit amet
+          </span>
+          <span className="text-[10px] text-gray-500">Corpo</span>
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -1132,12 +1207,15 @@ function SectionColors({
         Personalizza la palette del sito. I cambiamenti saranno visibili dopo la pubblicazione.
       </p>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         {fields.map((field) => (
-          <div key={field.key}>
-            <label className="block text-xs font-medium text-gray-400 mb-1.5">
+          <div key={field.key} className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50">
+            <label className="block text-xs font-medium text-gray-300 mb-1">
               {field.label}
             </label>
+            <p className="text-[11px] text-gray-500 mb-2.5 leading-relaxed">
+              {field.desc}
+            </p>
             <div className="flex items-center gap-3">
               {/* Color swatch + picker */}
               <div className="relative">
@@ -1162,21 +1240,13 @@ function SectionColors({
                 onChange={(e) =>
                   update(["colors", field.key], e.target.value)
                 }
-                className="w-32 px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm font-mono"
+                className="w-28 px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm font-mono"
                 placeholder="#000000"
               />
-              {/* Live preview text */}
-              <span
-                className="text-xs px-2 py-1 rounded"
-                style={{
-                  backgroundColor: colors.bgLight,
-                  color: colors[field.key],
-                  border: "1px solid",
-                  borderColor: colors.primary + "40",
-                }}
-              >
-                Anteprima
-              </span>
+              {/* Contextual mockup */}
+              <div className="ml-auto shrink-0">
+                {field.mockup(colors[field.key], colors.bgLight)}
+              </div>
             </div>
           </div>
         ))}
@@ -1185,7 +1255,7 @@ function SectionColors({
       {/* Palette preview */}
       <div className="mt-6">
         <label className="block text-xs font-medium text-gray-400 mb-2">
-          Anteprima palette
+          Anteprima palette completa
         </label>
         <div className="flex gap-2">
           {fields.map((field) => (

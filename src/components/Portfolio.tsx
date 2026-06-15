@@ -1,5 +1,31 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import content from "@/lib/content";
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
+
+const gridContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+  },
+};
+
+const cardItem = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.45, ease: "easeOut" as const },
+  },
+};
 
 export default function Portfolio() {
   const { portfolio } = content;
@@ -7,7 +33,13 @@ export default function Portfolio() {
   return (
     <section id="portfolio" className="relative py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14 md:mb-18">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={sectionVariants}
+          className="text-center mb-14 md:mb-18"
+        >
           <h2 className="font-serif text-3xl md:text-4xl font-semibold text-brand-900 mb-4">
             {portfolio.title}
           </h2>
@@ -15,12 +47,19 @@ export default function Portfolio() {
           <p className="text-brand-600 max-w-xl mx-auto">
             {portfolio.subtitle}
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
+        <motion.div
+          variants={gridContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6"
+        >
           {portfolio.projects.map((project, i) => (
-            <a
+            <motion.a
               key={`${project.title}-${i}`}
+              variants={cardItem}
               href="#"
               className="group relative block rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
             >
@@ -47,9 +86,9 @@ export default function Portfolio() {
                   {project.category}
                 </p>
               </div>
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

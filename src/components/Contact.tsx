@@ -1,5 +1,32 @@
+"use client";
+
+import { motion } from "framer-motion";
 import content from "@/lib/content";
 import { renderSocialIcon } from "@/lib/icons";
+
+const fromLeft = {
+  hidden: { opacity: 0, x: -50 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
+
+const fromRight = {
+  hidden: { opacity: 0, x: 50 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
+
+const sectionTitle = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
+
+const infoCard = {
+  hidden: { opacity: 0, y: 20 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" as const, delay: 0.2 + i * 0.15 },
+  }),
+};
 
 export default function Contact() {
   const { contact } = content;
@@ -8,7 +35,13 @@ export default function Contact() {
   return (
     <section id="contact" className="relative py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14 md:mb-18">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={sectionTitle}
+          className="text-center mb-14 md:mb-18"
+        >
           <h2 className="font-serif text-3xl md:text-4xl font-semibold text-brand-900 mb-4">
             {contact.title}
           </h2>
@@ -16,10 +49,16 @@ export default function Contact() {
           <p className="text-brand-600 max-w-xl mx-auto">
             {contact.subtitle}
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-5 gap-10 md:gap-16 max-w-5xl mx-auto">
-          <form className="md:col-span-3 space-y-5 glass-card rounded-2xl p-6 md:p-8">
+          <motion.form
+            variants={fromLeft}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="md:col-span-3 space-y-5 glass-card rounded-2xl p-6 md:p-8"
+          >
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-brand-700 mb-1.5">
                 {f.name}
@@ -62,10 +101,23 @@ export default function Contact() {
             >
               {f.submit}
             </button>
-          </form>
+          </motion.form>
 
-          <div className="md:col-span-2 space-y-8">
-            <div className="glass-card rounded-2xl p-6">
+          <motion.div
+            variants={fromRight}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="md:col-span-2 space-y-8"
+          >
+            <motion.div
+              custom={0}
+              variants={infoCard}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="glass-card rounded-2xl p-6"
+            >
               <h3 className="text-lg font-semibold text-brand-900 mb-4">
                 {contact.sidebarTitle}
               </h3>
@@ -90,9 +142,16 @@ export default function Contact() {
                   <span>{contact.location}</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="glass-card rounded-2xl p-6">
+            <motion.div
+              custom={1}
+              variants={infoCard}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="glass-card rounded-2xl p-6"
+            >
               <h3 className="text-lg font-semibold text-brand-900 mb-4">
                 {contact.socialTitle}
               </h3>
@@ -108,8 +167,8 @@ export default function Contact() {
                   </a>
                 ))}
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
