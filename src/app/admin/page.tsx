@@ -137,6 +137,9 @@ export default function AdminPage() {
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
   const [saveError, setSaveError] = useState("");
   const [pendingCount, setPendingCount] = useState(0);
+  const [originalContent, setOriginalContent] = useState<SiteContent | null>(null);
+  const [diffOpen, setDiffOpen] = useState(false);
+  const [noChanges, setNoChanges] = useState(false);
 
   /* Restore PAT from sessionStorage on mount */
   useEffect(() => {
@@ -160,6 +163,7 @@ export default function AdminPage() {
       const result = await fetchContent(pat);
       const parsed: SiteContent = JSON.parse(result.content);
       setContent(parsed);
+      setOriginalContent(parsed);
       setSha(result.sha);
     } catch {
       /* If fetch fails, use default content */
@@ -186,9 +190,14 @@ export default function AdminPage() {
   }, []);
 
   const handleQueue = useCallback(() => {
-    localStorage.setItem("pending_content", JSON.stringify(content));
-    setPendingCount(1);
-    setSaveStatus("idle");
+    const existing = localStorage.getItem("pending_content");
+    const toQueue = existing ? JSON.parse(existing) : content;
+    /* Merge current editor content into the pending blob */
+    const merged = { ...toQueue, ...content };
+    localStorage.setItem("pending_content", JSON.stringify(merged));
+    setPendingCount((prev) => prev + 1);
+    setSaveStatus("saved");
+    setTimeout(() => setSaveStatus("idle"), 1500);
   }, [content]);
 
   const handleDiscardPending = useCallback(() => {
@@ -197,10 +206,19 @@ export default function AdminPage() {
   }, []);
 
   const handlePublish = useCallback(async () => {
-    /* Publish the pending content, or fall back to current content */
     const stored = localStorage.getItem("pending_content");
     const toPublish = stored ? JSON.parse(stored) : content;
-    /* Also save the current sha and re-fetch if needed */
+
+    /* Check if anything actually changed */
+    if (originalContent && JSON.stringify(toPublish) === JSON.stringify(originalContent)) {
+      setNoChanges(true);
+      setSaveStatus("saved");
+      setSaveError("");
+      setTimeout(() => { setSaveStatus("idle"); setNoChanges(false); }, 2500);
+      return;
+    }
+    setNoChanges(false);
+
     setSaveStatus("saving");
     setSaveError("");
     try {
@@ -338,8 +356,11 @@ export default function AdminPage() {
           Dashboard
         </h1>
         <div className="flex items-center gap-3">
-          {saveStatus === "saved" && (
+          {saveStatus === "saved" && !noChanges && (
             <span className="text-sm text-green-400">✓ Pubblicato</span>
+          )}
+          {saveStatus === "saved" && noChanges && (
+            <span className="text-sm text-amber-400">✓ Già aggiornato</span>
           )}
           {saveStatus === "error" && (
             <span className="text-sm text-red-400">Errore: {saveError}</span>
@@ -349,9 +370,12 @@ export default function AdminPage() {
           )}
 
           {pendingCount > 0 && (
-            <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-1 rounded-lg font-medium">
-              {pendingCount} in coda
-            </span>
+            <button
+              onClick={() => setDiffOpen(!diffOpen)}
+              className="text-xs bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 px-2 py-1 rounded-lg font-medium transition-colors"
+            >
+              {diffOpen ? "▼" : "📋"} {pendingCount} in coda
+            </button>
           )}
 
           <button
@@ -403,6 +427,42 @@ export default function AdminPage() {
             </div>
           </div>
         );
+      })()}
+
+      {/* Pending diff viewer */}
+      {diffOpen && pendingCount > 0 && (() => {
+        const stored = localStorage.getItem("pending_content");
+        if (!stored || !originalContent) return null;
+        try {
+          const pending = JSON.parse(stored);
+          const diffs = getPendingDiff(
+            originalContent as unknown as Record<string, unknown>,
+            pending as unknown as Record<string, unknown>
+          );
+          if (diffs.length === 0) return null;
+          return (
+            <div className="bg-gray-900/80 border-b border-gray-700 px-6 py-3 max-h-64 overflow-y-auto">
+              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                Modifiche in coda ({diffs.length})
+              </h3>
+              <div className="space-y-1 text-xs font-mono">
+                {diffs.slice(0, 30).map((d, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <span className="text-gray-500 shrink-0 w-2">{">"}</span>
+                    <span className="text-gray-400 shrink-0">{d.path}</span>
+                    <span className="text-red-400 line-through">{d.old}</span>
+                    <span className="text-green-400">{d.new}</span>
+                  </div>
+                ))}
+                {diffs.length > 30 && (
+                  <p className="text-gray-500 pt-1">...e altre {diffs.length - 30} modifiche</p>
+                )}
+              </div>
+            </div>
+          );
+        } catch {
+          return null;
+        }
       })()}
 
       <div className="flex flex-1">
@@ -1218,6 +1278,59 @@ function SectionFooter({
       />
     </div>
   );
+}
+
+/* ── Diff computation for pending changes viewer ── */
+function getPendingDiff(
+  original: Record<string, unknown>,
+  pending: Record<string, unknown>,
+  prefix = ""
+): Array<{ path: string; old: string; new: string }> {
+  const results: Array<{ path: string; old: string; new: string }> = [];
+
+  const allKeys = new Set([...Object.keys(original), ...Object.keys(pending)]);
+
+  for (const key of allKeys) {
+    const op = original[key];
+    const np = pending[key];
+    const path = prefix ? `${prefix}.${key}` : key;
+
+    if (op === np) continue;
+
+    if (typeof np === "string" && typeof op === "string") {
+      results.push({
+        path,
+        old: op.length > 50 ? op.substring(0, 50) + "..." : op,
+        new: np.length > 50 ? np.substring(0, 50) + "..." : np,
+      });
+    } else if (Array.isArray(np) && Array.isArray(op)) {
+      const opStr = JSON.stringify(op);
+      const npStr = JSON.stringify(np);
+      results.push({
+        path: `${path}[]`,
+        old: opStr.length > 50 ? opStr.substring(0, 50) + "..." : opStr,
+        new: npStr.length > 50 ? npStr.substring(0, 50) + "..." : npStr,
+      });
+    } else if (
+      typeof np === "object" && typeof op === "object" &&
+      np !== null && op !== null && !Array.isArray(np) && !Array.isArray(op)
+    ) {
+      const sub = getPendingDiff(
+        op as Record<string, unknown>,
+        np as Record<string, unknown>,
+        path
+      );
+      results.push(...sub);
+    } else if (op !== np) {
+      results.push({
+        path,
+        old: op !== undefined ? String(op) : "(vuoto)",
+        new: np !== undefined ? String(np) : "(vuoto)",
+      });
+    }
+  }
+
+  return results;
 }
 
 /* ── Utility: SHA-256 hash via Web Crypto API ── */

@@ -28,6 +28,14 @@ export default function RootLayout({
 }>) {
   const { colors } = content;
 
+  const hexToRgb = (hex: string) => {
+    const h = hex.replace("#", "");
+    const r = parseInt(h.substring(0, 2), 16);
+    const g = parseInt(h.substring(2, 4), 16);
+    const b = parseInt(h.substring(4, 6), 16);
+    return `${r} ${g} ${b}`;
+  };
+
   const colorVars = `
     :root {
       --color-accent: ${colors.primary};
@@ -36,6 +44,7 @@ export default function RootLayout({
       --color-brand-900: ${colors.textPrimary};
       --color-brand-700: ${colors.textSecondary};
       --color-brand-950: ${colors.bgDark};
+      --color-accent-rgb: ${hexToRgb(colors.primary)};
     }
   `;
 

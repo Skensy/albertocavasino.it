@@ -23,7 +23,7 @@ export default function Services() {
               key={`${item.title}-${i}`}
               className="glass-card glass-card-hover rounded-2xl p-6 md:p-8"
             >
-              <div className="text-accent mb-4 drop-shadow-[0_0_8px_rgba(200,169,126,0.3)]">
+              <div className="text-accent mb-4 service-icon-glow">
                 {renderServiceIcon(item.iconName)}
               </div>
               <h3 className="text-lg font-semibold text-brand-900 mb-2">
