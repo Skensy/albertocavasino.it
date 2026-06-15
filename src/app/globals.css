@@ -131,7 +131,7 @@ body {
   background: linear-gradient(
     to right,
     transparent,
-    rgba(255, 255, 255, 0.15),
+    rgb(var(--user-accent-rgb, 200 169 126) / 0.2),
     transparent
   );
 }

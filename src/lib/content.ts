@@ -72,6 +72,7 @@ export interface SiteContent {
     bgDark: string;
     textPrimary: string;
     textSecondary: string;
+    navBg: string;
   };
 }
 

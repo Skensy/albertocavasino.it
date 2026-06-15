@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import content from "@/lib/content";
@@ -29,6 +30,7 @@ const cardItem = {
 
 export default function Portfolio() {
   const { portfolio } = content;
+  const [tappedIndex, setTappedIndex] = useState<number | null>(null);
 
   return (
     <section id="portfolio" className="relative py-20 md:py-28">
@@ -57,11 +59,15 @@ export default function Portfolio() {
           className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6"
         >
           {portfolio.projects.map((project, i) => (
-            <motion.a
+            <motion.div
               key={`${project.title}-${i}`}
               variants={cardItem}
-              href="#"
-              className="group relative block rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
+              onClick={() => {
+                if (window.innerWidth < 768) {
+                  setTappedIndex(tappedIndex === i ? null : i);
+                }
+              }}
+              className="group relative block rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer"
             >
               <div className="relative w-full aspect-[4/3]">
                 <Image
@@ -72,11 +78,27 @@ export default function Portfolio() {
                 />
               </div>
 
-              <div className="absolute inset-0 opacity-0 invisible md:group-hover:opacity-100 md:group-hover:visible bg-brand-900/40 backdrop-blur-sm transition-all duration-500 flex items-center justify-center pointer-events-none md:group-hover:pointer-events-auto">
+              {/* Overlay: hover desktop + tap mobile */}
+              <div
+                className={`absolute inset-0 transition-all duration-500 flex items-center justify-center ${
+                  tappedIndex === i
+                    ? "opacity-100 visible bg-brand-900/40 backdrop-blur-sm pointer-events-auto"
+                    : "opacity-0 invisible md:group-hover:opacity-100 md:group-hover:visible bg-brand-900/40 backdrop-blur-sm pointer-events-none md:group-hover:pointer-events-auto"
+                }`}
+              >
                 <span className="text-white text-sm font-medium border border-white/30 px-4 py-2 rounded-xl backdrop-blur-sm bg-white/10">
                   Vedi progetto
                 </span>
               </div>
+
+              {/* Tap hint on mobile */}
+              {tappedIndex !== i && (
+                <div className="absolute inset-0 flex items-center justify-center md:hidden">
+                  <span className="text-white/40 text-xs border border-white/20 px-3 py-1.5 rounded-full backdrop-blur-sm bg-white/5">
+                    Tocca per vedere
+                  </span>
+                </div>
+              )}
 
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 via-black/20 to-transparent">
                 <h3 className="text-white font-semibold text-sm">
@@ -86,7 +108,7 @@ export default function Portfolio() {
                   {project.category}
                 </p>
               </div>
-            </motion.a>
+            </motion.div>
           ))}
         </motion.div>
       </div>

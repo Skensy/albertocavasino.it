@@ -67,13 +67,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const { colors } = content;
-  const { primary, primaryHover, bgLight, bgDark, textPrimary, textSecondary } = colors;
+  const { primary, primaryHover, bgLight, bgDark, textPrimary, textSecondary, navBg } = colors;
 
   const colorVars = `
     :root {
       --user-accent: ${primary};
       --user-accent-hover: ${primaryHover};
       --user-accent-rgb: ${hexToRgb(primary)};
+      --user-nav-bg-rgb: ${hexToRgb(navBg)};
       --user-brand-50: ${bgLight};
       --user-brand-100: ${tint(primary, 0.85)};
       --user-brand-200: ${tint(primary, 0.65)};
@@ -100,15 +101,15 @@ export default function RootLayout({
         {/* Decorative glass blobs — liquid depth effect */}
         <div className="noise-bg" aria-hidden="true" />
         <div
-          className="fixed top-[-20%] left-[-10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-accent/10 blur-3xl animate-float pointer-events-none"
+          className="fixed top-[-20%] left-[-10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-accent/5 blur-3xl animate-float pointer-events-none"
           aria-hidden="true"
         />
         <div
-          className="fixed bottom-[-15%] right-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-brand-300/20 blur-3xl animate-pulse-soft pointer-events-none"
+          className="fixed bottom-[-15%] right-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-brand-300/10 blur-3xl animate-pulse-soft pointer-events-none"
           aria-hidden="true"
         />
         <div
-          className="fixed top-[40%] right-[-5%] w-[30vw] h-[30vw] max-w-[400px] max-h-[400px] rounded-full bg-brand-200/10 blur-3xl animate-float pointer-events-none"
+          className="fixed top-[40%] right-[-5%] w-[30vw] h-[30vw] max-w-[400px] max-h-[400px] rounded-full bg-brand-200/5 blur-3xl animate-float pointer-events-none"
           style={{ animationDelay: "-3s", animationDuration: "8s" }}
           aria-hidden="true"
         />

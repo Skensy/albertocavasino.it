@@ -91,6 +91,7 @@ const DEFAULT_CONTENT: SiteContent = {
     bgDark: "#2D2D2D",
     textPrimary: "#2D2D2D",
     textSecondary: "#7D6148",
+    navBg: "#FAF7F2",
   },
 };
 
@@ -1193,6 +1194,19 @@ function SectionColors({
             Lorem ipsum dolor sit amet
           </span>
           <span className="text-[10px] text-gray-500">Corpo</span>
+        </div>
+      ),
+    },
+    {
+      label: "Sfondo navbar (dopo scroll)",
+      key: "navBg",
+      desc: "Sfondo della navbar dopo aver scrollato, semi-trasparente",
+      mockup: (c) => (
+        <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 px-2 py-1 rounded" style={{ backgroundColor: c + "80" }}>
+            <span className="text-[8px] font-medium" style={{ color: "#fff" }}>Nav</span>
+          </div>
+          <span className="text-[10px] text-gray-500">Navbar</span>
         </div>
       ),
     },
