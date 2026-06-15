@@ -1,0 +1,156 @@
+{
+  "site": {
+    "name": "Alessandro Rizzo",
+    "role": "Graphic Designer"
+  },
+  "nav": [
+    { "label": "Home", "href": "#home" },
+    { "label": "Chi Sono", "href": "#about" },
+    { "label": "Servizi", "href": "#services" },
+    { "label": "Portfolio", "href": "#portfolio" },
+    { "label": "Contatti", "href": "#contact" }
+  ],
+  "hero": {
+    "bgImage": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=85",
+    "bgAlt": "Creative workspace",
+    "badge": "Graphic Designer",
+    "headingLine1": "Disegno idee,",
+    "headingAccent": "costruisco identità.",
+    "subtitle": "Da oltre dieci anni trasformo visioni in progetti visivi: siti web, brochure, loghi e brand identity per aziende che vogliono raccontarsi con stile.",
+    "ctaText": "Vedi i miei lavori",
+    "ctaHref": "#portfolio"
+  },
+  "about": {
+    "photoUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=640&q=85",
+    "photoAlt": "Alessandro Rizzo — Graphic Designer",
+    "title": "Chi Sono",
+    "paragraphs": [
+      "Mi chiamo <strong>Alessandro Rizzo</strong> e da oltre un decennio lavoro come graphic designer in una realt\u00e0 di comunicazione visiva a tutto tondo. Ho avuto la fortuna di crescere in un'agenzia dove ogni giorno era diverso: si passava dalla progettazione di un sito web alla costruzione di un'identit\u00e0 di marca, dalla brochure istituzionale alla locandina per un evento.",
+      "Questa esperienza mi ha insegnato che il buon design non \u00e8 solo estetica: \u00e8 strategia, ascolto, e capacit\u00e0 di tradurre bisogni in soluzioni visive che funzionano. Ogni progetto \u00e8 una storia nuova da raccontare."
+    ],
+    "skills": [
+      { "label": "Siti Web", "icon": "🌐" },
+      { "label": "Brochure", "icon": "📄" },
+      { "label": "Locandine", "icon": "🎨" },
+      { "label": "Loghi", "icon": "✏️" },
+      { "label": "Marchi", "icon": "🏷️" },
+      { "label": "Brand Identity", "icon": "✨" }
+    ]
+  },
+  "services": {
+    "title": "Cosa Faccio",
+    "subtitle": "Dalla strategia alla realizzazione, ogni progetto segue un percorso artigianale pensato su misura per il cliente.",
+    "items": [
+      {
+        "title": "Siti Web",
+        "description": "Progetto e sviluppo di siti web moderni, responsive e ottimizzati per ogni dispositivo, con un'attenzione particolare all'esperienza utente.",
+        "iconName": "star"
+      },
+      {
+        "title": "Brochure",
+        "description": "Brochure istituzionali, cataloghi prodotti e pieghevoli pubblicitari dal concept alla stampa, curati nei dettagli e nella comunicazione.",
+        "iconName": "document"
+      },
+      {
+        "title": "Locandine",
+        "description": "Manifesti, locandine e flyer per eventi, promozioni e comunicazioni dal forte impatto visivo, studiati per catturare l'attenzione.",
+        "iconName": "poster"
+      },
+      {
+        "title": "Loghi",
+        "description": "Progettazione di loghi unici e memorabili, capaci di sintetizzare l'essenza di un brand in un segno distintivo e riconoscibile.",
+        "iconName": "sparkles"
+      },
+      {
+        "title": "Marchi",
+        "description": "Sviluppo di sistemi di marca coerenti: dalla definizione dei valori alla creazione dell'immagine coordinata, per comunicare con forza.",
+        "iconName": "grid"
+      },
+      {
+        "title": "Brand Identity",
+        "description": "Progettazione completa dell'identit\u00e0 visiva: palette, tipografia, applicazioni, tono di voce e linee guida per un brand riconoscibile.",
+        "iconName": "image"
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Una selezione di progetti realizzati negli anni, ciascuno con la propria storia e personalit\u00e0.",
+    "projects": [
+      {
+        "title": "Ristorante La Pergola",
+        "category": "Logo \u2014 Brand Ristorante",
+        "src": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=85"
+      },
+      {
+        "title": "TechFlow Agency",
+        "category": "Sito Web \u2014 Azienda Tech",
+        "src": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=85"
+      },
+      {
+        "title": "Vita Verde",
+        "category": "Brochure \u2014 Prodotti Biologici",
+        "src": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=85"
+      },
+      {
+        "title": "Notte di Gala",
+        "category": "Locandina \u2014 Evento",
+        "src": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=85"
+      },
+      {
+        "title": "Studio Architettura DM",
+        "category": "Marchio \u2014 Studio Professionale",
+        "src": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=85"
+      },
+      {
+        "title": "Essenza Cosmetics",
+        "category": "Brand Identity \u2014 Cosmetica",
+        "src": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=85"
+      },
+      {
+        "title": "Festival Musica Elettronica",
+        "category": "Locandina \u2014 Festival",
+        "src": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=85"
+      },
+      {
+        "title": "Bottega del Pane",
+        "category": "Logo \u2014 Artigianato Alimentare",
+        "src": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=85"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contattami",
+    "subtitle": "Hai un progetto in mente? Parliamone. Sar\u00f2 felice di ascoltare la tua idea e trasformarla in qualcosa di bello.",
+    "email": "alessandro@rizzo-design.it",
+    "phone": "+39 333 12 34 567",
+    "location": "Milano, Italia",
+    "formLabels": {
+      "name": "Nome",
+      "namePlaceholder": "Il tuo nome",
+      "email": "Email",
+      "emailPlaceholder": "la tua@email.com",
+      "message": "Messaggio",
+      "messagePlaceholder": "Ciao Alessandro, vorrei parlarti di...",
+      "submit": "Invia messaggio"
+    },
+    "sidebarTitle": "Informazioni",
+    "socialTitle": "Social",
+    "socials": [
+      { "label": "LinkedIn", "url": "#", "iconName": "linkedin" },
+      { "label": "Instagram", "url": "#", "iconName": "instagram" },
+      { "label": "Behance", "url": "#", "iconName": "behance" }
+    ]
+  },
+  "footer": {
+    "linkSectionTitle": "Link",
+    "socialSectionTitle": "Social",
+    "footerLinks": [
+      "Chi Sono",
+      "Servizi",
+      "Portfolio",
+      "Contatti"
+    ],
+    "copyright": "\u00a9 {year} Alessandro Rizzo. Tutti i diritti riservati."
+  }
+}

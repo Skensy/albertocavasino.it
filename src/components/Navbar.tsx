@@ -1,14 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Chi Sono", href: "#about" },
-  { label: "Servizi", href: "#services" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Contatti", href: "#contact" },
-];
+import content from "@/lib/content";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,6 +13,8 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const { nav, site } = content;
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -28,21 +23,17 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo / Nome */}
           <a
             href="#home"
             className={`text-xl md:text-2xl font-serif font-semibold tracking-wide transition-colors duration-300 ${
-              scrolled
-                ? "text-brand-900"
-                : "text-white drop-shadow-sm"
+              scrolled ? "text-brand-900" : "text-white drop-shadow-sm"
             }`}
           >
-            Alessandro Rizzo
+            {site.name}
           </a>
 
-          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {nav.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -57,7 +48,6 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Mobile hamburger */}
           <button
             className="md:hidden flex flex-col gap-1.5 p-2 relative z-10"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -82,7 +72,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu — glass panel */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-400 ${
           menuOpen ? "max-h-96" : "max-h-0"
@@ -95,7 +84,7 @@ export default function Navbar() {
               : "bg-brand-900/60 border border-white/[0.08] text-white/80"
           }`}
         >
-          {navLinks.map((link) => (
+          {nav.map((link) => (
             <a
               key={link.href}
               href={link.href}
