@@ -16,7 +16,7 @@ const stats = [
 ];
 
 export default function About() {
-  const { about, site } = useContent();
+  const { about } = useContent();
 
   return (
     <section id="about" className="relative py-24 md:py-32">
@@ -56,7 +56,7 @@ export default function About() {
           >
             <div className="relative w-64 h-[420px] md:w-[355px] md:h-[467px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/avatar-desktop.png"
+                src={about.photoUrl || "/images/avatar-desktop.png"}
                 alt={about.photoAlt}
                 fill
                 className="object-cover"
@@ -71,11 +71,15 @@ export default function About() {
             variants={fadeUp}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-              About Me
+              {about.title}
             </h2>
-            <p className="text-brand-400 leading-relaxed text-base md:text-lg">
-              {about.paragraphs[0]}
-            </p>
+            {about.paragraphs.map((p, i) => (
+              <p
+                key={i}
+                className="text-brand-400 leading-relaxed text-base md:text-lg mb-4"
+                dangerouslySetInnerHTML={{ __html: p }}
+              />
+            ))}
           </motion.div>
         </div>
 

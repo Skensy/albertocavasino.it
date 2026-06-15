@@ -14,7 +14,7 @@ const fadeUp = {
 };
 
 export default function Hero() {
-  const { hero, about, site } = useContent();
+  const { hero, about } = useContent();
 
   return (
     <section id="home" className="relative min-h-screen flex items-center py-24 md:py-0">
@@ -22,44 +22,31 @@ export default function Hero() {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
           {/* Left: text */}
           <div className="flex-1 text-center lg:text-left">
-            {/* Emoji badge */}
+            {/* Badge text (no emoji) */}
             <motion.div
               custom={0}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="inline-flex items-center gap-2 text-lg mb-6"
+              className="inline-block text-sm font-medium text-brand-400 mb-6 tracking-wider uppercase"
             >
-              <span>💼</span>
-              <span className="text-brand-400 text-sm font-medium">{hero.badge}</span>
-              <span>🎤</span>
+              {hero.badge}
             </motion.div>
 
-            {/* "I'm" + Name */}
-            <motion.div
-              custom={1}
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              className="mb-4"
-            >
-              <span className="font-serif text-5xl md:text-6xl italic text-accent">
-                I&rsquo;m
-              </span>
-            </motion.div>
-
+            {/* Heading from content */}
             <motion.h1
-              custom={2}
+              custom={1}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
               className="font-sans text-6xl sm:text-7xl md:text-8xl font-bold text-white leading-[1.05] tracking-tight mb-6"
             >
-              {site.name}
+              {hero.headingLine1}{" "}
+              <span className="text-accent">{hero.headingAccent}</span>
             </motion.h1>
 
             <motion.p
-              custom={3}
+              custom={2}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
@@ -70,7 +57,7 @@ export default function Hero() {
 
             {/* Two CTA buttons */}
             <motion.div
-              custom={4}
+              custom={3}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
@@ -83,14 +70,14 @@ export default function Hero() {
                 href="#about"
                 className="text-white font-semibold rounded-xl px-8 py-4 transition-all duration-200 border border-white/20 hover:bg-white/5"
               >
-                My Story
+                Scopri di pi&ugrave;
               </a>
             </motion.div>
           </div>
 
           {/* Right: portfolio mockup */}
           <motion.div
-            custom={5}
+            custom={4}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
@@ -99,8 +86,8 @@ export default function Hero() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-brand-800">
               <div className="aspect-[4/3] relative">
                 <Image
-                  src="/images/portfolio-hero.png"
-                  alt="Portfolio showcase"
+                  src={hero.bgImage || "/images/portfolio-hero.png"}
+                  alt={hero.bgAlt}
                   fill
                   className="object-cover"
                   priority
@@ -112,7 +99,7 @@ export default function Hero() {
 
         {/* Scroll hint */}
         <motion.div
-          custom={6}
+          custom={5}
           initial="hidden"
           animate="visible"
           variants={fadeUp}
