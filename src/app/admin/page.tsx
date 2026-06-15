@@ -620,6 +620,7 @@ function SectionGeneral({
         value={content.site.role}
         onChange={(v) => update(["site", "role"], v)}
       />
+      <TextColorPreview content={content} />
     </div>
   );
 }
@@ -808,6 +809,7 @@ function SectionAbout({
           + Aggiungi skill
         </button>
       </div>
+      <TextColorPreview content={content} />
     </div>
   );
 }
@@ -898,6 +900,7 @@ function SectionServices({
       >
         + Aggiungi servizio
       </button>
+      <TextColorPreview content={content} />
     </div>
   );
 }
@@ -984,6 +987,7 @@ function SectionPortfolio({
       >
         + Aggiungi progetto
       </button>
+      <TextColorPreview content={content} />
     </div>
   );
 }
@@ -1064,6 +1068,7 @@ function SectionContact({
         value={c.socialTitle}
         onChange={(v) => update(["contact", "socialTitle"], v)}
       />
+      <TextColorPreview content={content} />
     </div>
   );
 }
@@ -1120,6 +1125,7 @@ function SectionNav({
       >
         + Aggiungi link
       </button>
+      <TextColorPreview content={content} />
     </div>
   );
 }
@@ -1440,6 +1446,7 @@ function SectionFooter({
         onChange={(v) => update(["footer", "copyright"], v)}
         rows={2}
       />
+      <TextColorPreview content={content} />
     </div>
   );
 }
@@ -1495,6 +1502,28 @@ function getPendingDiff(
   }
 
   return results;
+}
+
+/* ── TextColorPreview: shows how textPrimary/textSecondary look ── */
+function TextColorPreview({ content }: { content: SiteContent }) {
+  const { textPrimary, textSecondary } = content.colors;
+  return (
+    <div className="mt-6 p-4 rounded-lg bg-gray-800/60 border border-gray-700/50">
+      <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+        Anteprima colori testo
+      </span>
+      <p style={{ color: textPrimary }} className="text-lg font-bold mt-2 leading-tight">
+        Titolo esempio (textPrimary)
+      </p>
+      <p style={{ color: textSecondary }} className="text-sm mt-1 leading-relaxed">
+        Testo corpo esempio con descrizione lunga per vedere come appare il colore secondario su sfondo scuro. (textSecondary)
+      </p>
+      <div className="flex gap-3 mt-2 text-[10px] font-mono">
+        <span style={{ color: textPrimary }}>{textPrimary}</span>
+        <span style={{ color: textSecondary }}>{textSecondary}</span>
+      </div>
+    </div>
+  );
 }
 
 /* ── Utility: SHA-256 hash via Web Crypto API ── */
