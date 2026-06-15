@@ -68,9 +68,9 @@ export default function About() {
             variants={fadeUp}
             className="flex justify-center md:justify-end"
           >
-            <div className="relative w-64 h-72 md:w-80 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative w-64 h-[420px] md:w-80 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src={about.photoUrl}
+                src="/images/avatar-desktop.png"
                 alt={about.photoAlt}
                 fill
                 className="object-cover"

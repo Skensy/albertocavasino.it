@@ -99,20 +99,12 @@ export default function Hero() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-brand-800">
               <div className="aspect-[4/3] relative">
                 <Image
-                  src={about.photoUrl}
-                  alt={about.photoAlt}
+                  src="/images/portfolio-hero.png"
+                  alt="Portfolio showcase"
                   fill
-                  className="object-cover opacity-80"
+                  className="object-cover"
                   priority
                 />
-                {/* Portfolio overlay mockup */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-3/4 bg-black/60 rounded-xl p-4 backdrop-blur-sm border border-white/10">
-                    <div className="w-full h-2 bg-accent/40 rounded mb-3" />
-                    <div className="w-2/3 h-2 bg-white/20 rounded mb-2" />
-                    <div className="w-1/2 h-2 bg-white/10 rounded" />
-                  </div>
-                </div>
               </div>
             </div>
           </motion.div>
