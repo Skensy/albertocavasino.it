@@ -1,14 +1,29 @@
 {
   "site": {
-    "name": "Alessandro Rizzo",
+    "name": "Alberto Cavasino",
     "role": "Graphic Designer"
   },
   "nav": [
-    { "label": "Home", "href": "#home" },
-    { "label": "Chi Sono", "href": "#about" },
-    { "label": "Servizi", "href": "#services" },
-    { "label": "Portfolio", "href": "#portfolio" },
-    { "label": "Contatti", "href": "#contact" }
+    {
+      "label": "Home",
+      "href": "#home"
+    },
+    {
+      "label": "Chi Sono",
+      "href": "#about"
+    },
+    {
+      "label": "Servizi",
+      "href": "#services"
+    },
+    {
+      "label": "Portfolio",
+      "href": "#portfolio"
+    },
+    {
+      "label": "Contatti",
+      "href": "#contact"
+    }
   ],
   "hero": {
     "bgImage": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=85",
@@ -25,16 +40,34 @@
     "photoAlt": "Alessandro Rizzo — Graphic Designer",
     "title": "Chi Sono",
     "paragraphs": [
-      "Mi chiamo <strong>Alessandro Rizzo</strong> e da oltre un decennio lavoro come graphic designer in una realt\u00e0 di comunicazione visiva a tutto tondo. Ho avuto la fortuna di crescere in un'agenzia dove ogni giorno era diverso: si passava dalla progettazione di un sito web alla costruzione di un'identit\u00e0 di marca, dalla brochure istituzionale alla locandina per un evento.",
-      "Questa esperienza mi ha insegnato che il buon design non \u00e8 solo estetica: \u00e8 strategia, ascolto, e capacit\u00e0 di tradurre bisogni in soluzioni visive che funzionano. Ogni progetto \u00e8 una storia nuova da raccontare."
+      "Mi chiamo <strong>Alessandro Rizzo</strong> e da oltre un decennio lavoro come graphic designer in una realtà di comunicazione visiva a tutto tondo. Ho avuto la fortuna di crescere in un'agenzia dove ogni giorno era diverso: si passava dalla progettazione di un sito web alla costruzione di un'identità di marca, dalla brochure istituzionale alla locandina per un evento.",
+      "Questa esperienza mi ha insegnato che il buon design non è solo estetica: è strategia, ascolto, e capacità di tradurre bisogni in soluzioni visive che funzionano. Ogni progetto è una storia nuova da raccontare."
     ],
     "skills": [
-      { "label": "Siti Web", "icon": "🌐" },
-      { "label": "Brochure", "icon": "📄" },
-      { "label": "Locandine", "icon": "🎨" },
-      { "label": "Loghi", "icon": "✏️" },
-      { "label": "Marchi", "icon": "🏷️" },
-      { "label": "Brand Identity", "icon": "✨" }
+      {
+        "label": "Siti Web",
+        "icon": "🌐"
+      },
+      {
+        "label": "Brochure",
+        "icon": "📄"
+      },
+      {
+        "label": "Locandine",
+        "icon": "🎨"
+      },
+      {
+        "label": "Loghi",
+        "icon": "✏️"
+      },
+      {
+        "label": "Marchi",
+        "icon": "🏷️"
+      },
+      {
+        "label": "Brand Identity",
+        "icon": "✨"
+      }
     ]
   },
   "services": {
@@ -68,60 +101,60 @@
       },
       {
         "title": "Brand Identity",
-        "description": "Progettazione completa dell'identit\u00e0 visiva: palette, tipografia, applicazioni, tono di voce e linee guida per un brand riconoscibile.",
+        "description": "Progettazione completa dell'identità visiva: palette, tipografia, applicazioni, tono di voce e linee guida per un brand riconoscibile.",
         "iconName": "image"
       }
     ]
   },
   "portfolio": {
     "title": "Portfolio",
-    "subtitle": "Una selezione di progetti realizzati negli anni, ciascuno con la propria storia e personalit\u00e0.",
+    "subtitle": "Una selezione di progetti realizzati negli anni, ciascuno con la propria storia e personalità.",
     "projects": [
       {
         "title": "Ristorante La Pergola",
-        "category": "Logo \u2014 Brand Ristorante",
+        "category": "Logo — Brand Ristorante",
         "src": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=85"
       },
       {
         "title": "TechFlow Agency",
-        "category": "Sito Web \u2014 Azienda Tech",
+        "category": "Sito Web — Azienda Tech",
         "src": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=85"
       },
       {
         "title": "Vita Verde",
-        "category": "Brochure \u2014 Prodotti Biologici",
+        "category": "Brochure — Prodotti Biologici",
         "src": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=85"
       },
       {
         "title": "Notte di Gala",
-        "category": "Locandina \u2014 Evento",
+        "category": "Locandina — Evento",
         "src": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=85"
       },
       {
         "title": "Studio Architettura DM",
-        "category": "Marchio \u2014 Studio Professionale",
+        "category": "Marchio — Studio Professionale",
         "src": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=85"
       },
       {
         "title": "Essenza Cosmetics",
-        "category": "Brand Identity \u2014 Cosmetica",
+        "category": "Brand Identity — Cosmetica",
         "src": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=85"
       },
       {
         "title": "Festival Musica Elettronica",
-        "category": "Locandina \u2014 Festival",
+        "category": "Locandina — Festival",
         "src": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=85"
       },
       {
         "title": "Bottega del Pane",
-        "category": "Logo \u2014 Artigianato Alimentare",
+        "category": "Logo — Artigianato Alimentare",
         "src": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=85"
       }
     ]
   },
   "contact": {
     "title": "Contattami",
-    "subtitle": "Hai un progetto in mente? Parliamone. Sar\u00f2 felice di ascoltare la tua idea e trasformarla in qualcosa di bello.",
+    "subtitle": "Hai un progetto in mente? Parliamone. Sarò felice di ascoltare la tua idea e trasformarla in qualcosa di bello.",
     "email": "alessandro@rizzo-design.it",
     "phone": "+39 333 12 34 567",
     "location": "Milano, Italia",
@@ -137,9 +170,21 @@
     "sidebarTitle": "Informazioni",
     "socialTitle": "Social",
     "socials": [
-      { "label": "LinkedIn", "url": "#", "iconName": "linkedin" },
-      { "label": "Instagram", "url": "#", "iconName": "instagram" },
-      { "label": "Behance", "url": "#", "iconName": "behance" }
+      {
+        "label": "LinkedIn",
+        "url": "#",
+        "iconName": "linkedin"
+      },
+      {
+        "label": "Instagram",
+        "url": "#",
+        "iconName": "instagram"
+      },
+      {
+        "label": "Behance",
+        "url": "#",
+        "iconName": "behance"
+      }
     ]
   },
   "footer": {
@@ -151,6 +196,6 @@
       "Portfolio",
       "Contatti"
     ],
-    "copyright": "\u00a9 {year} Alessandro Rizzo. Tutti i diritti riservati."
+    "copyright": "© {year} Alessandro Rizzo. Tutti i diritti riservati."
   }
 }
