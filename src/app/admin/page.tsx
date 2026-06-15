@@ -94,8 +94,8 @@ const DEFAULT_CONTENT: SiteContent = {
     navBg: "#000000",
   },
   seo: {
-    title: "Alessandro Rizzo | Graphic Designer",
-    description: "Graphic designer con anni di esperienza in agenzia: siti web, brochure, locandine, loghi, marchi e brand identity.",
+    title: "Designer Portfolio | UI/UX Designer",
+    description: "Portfolio di un UI/UX designer con anni di esperienza in agenzia, specializzato in siti web, brochure e brand identity.",
   },
 };
 

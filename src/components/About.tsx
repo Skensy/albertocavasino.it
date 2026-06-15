@@ -45,8 +45,25 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* About Me Section */}
+        {/* About Me Section — photo left, text right (Figma exact layout) */}
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center mb-20">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fadeUp}
+            className="flex justify-center md:justify-start"
+          >
+            <div className="relative w-64 h-[420px] md:w-[355px] md:h-[467px] rounded-2xl overflow-hidden shadow-2xl">
+              <Image
+                src="/images/avatar-desktop.png"
+                alt={about.photoAlt}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
+
           <motion.div
             initial="hidden"
             whileInView="show"
@@ -59,23 +76,6 @@ export default function About() {
             <p className="text-brand-400 leading-relaxed text-base md:text-lg">
               {about.paragraphs[0]}
             </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={fadeUp}
-            className="flex justify-center md:justify-end"
-          >
-            <div className="relative w-64 h-[420px] md:w-80 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
-              <Image
-                src="/images/avatar-desktop.png"
-                alt={about.photoAlt}
-                fill
-                className="object-cover"
-              />
-            </div>
           </motion.div>
         </div>
 
