@@ -18,9 +18,9 @@ export default function Services() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {services.items.map((item) => (
+          {services.items.map((item, i) => (
             <div
-              key={item.title}
+              key={`${item.title}-${i}`}
               className="glass-card glass-card-hover rounded-2xl p-6 md:p-8"
             >
               <div className="text-accent mb-4 drop-shadow-[0_0_8px_rgba(200,169,126,0.3)]">

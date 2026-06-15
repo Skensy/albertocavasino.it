@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import content from "@/lib/content";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,17 +26,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { colors } = content;
+
+  const colorVars = `
+    :root {
+      --color-accent: ${colors.primary};
+      --color-accent-hover: ${colors.primaryHover};
+      --color-brand-50: ${colors.bgLight};
+      --color-brand-900: ${colors.textPrimary};
+      --color-brand-700: ${colors.textSecondary};
+      --color-brand-950: ${colors.bgDark};
+    }
+  `;
+
   return (
     <html
       lang="it"
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: colorVars }} />
+      </head>
       <body className="relative min-h-full flex flex-col bg-gradient-to-br from-brand-50 via-white to-brand-100 text-brand-800 font-sans overflow-x-hidden">
         {/* Decorative glass blobs — liquid depth effect */}
-        <div
-          className="noise-bg"
-          aria-hidden="true"
-        />
+        <div className="noise-bg" aria-hidden="true" />
         <div
           className="fixed top-[-20%] left-[-10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-accent/10 blur-3xl animate-float pointer-events-none"
           aria-hidden="true"

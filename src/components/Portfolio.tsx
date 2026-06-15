@@ -18,9 +18,9 @@ export default function Portfolio() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
-          {portfolio.projects.map((project) => (
+          {portfolio.projects.map((project, i) => (
             <a
-              key={project.title}
+              key={`${project.title}-${i}`}
               href="#"
               className="group relative block rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
             >

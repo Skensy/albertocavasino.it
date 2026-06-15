@@ -5,12 +5,9 @@ export default function Footer() {
   const year = new Date().getFullYear();
   const { site, footer, contact, nav } = content;
 
-  const sectionMap: Record<string, string> = {
-    "Chi Sono": "#about",
-    Servizi: "#services",
-    Portfolio: "#portfolio",
-    Contatti: "#contact",
-  };
+  const navMap = Object.fromEntries(
+    nav.map((item) => [item.label, item.href])
+  );
 
   return (
     <footer className="relative bg-brand-900 text-brand-300 overflow-hidden">
@@ -33,7 +30,7 @@ export default function Footer() {
               {footer.footerLinks.map((label) => (
                 <a
                   key={label}
-                  href={sectionMap[label] || `#${label.toLowerCase()}`}
+                  href={navMap[label] || `#${label.toLowerCase()}`}
                   className="text-sm text-brand-400 hover:text-accent transition-colors duration-300"
                 >
                   {label}

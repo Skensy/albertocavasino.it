@@ -33,9 +33,9 @@ export default function Navbar() {
           </a>
 
           <nav className="hidden md:flex items-center gap-8">
-            {nav.map((link) => (
+            {nav.map((link, i) => (
               <a
-                key={link.href}
+                key={`${link.label}-${i}`}
                 href={link.href}
                 className={`text-sm font-medium transition-colors duration-300 ${
                   scrolled
@@ -84,9 +84,9 @@ export default function Navbar() {
               : "bg-brand-900/60 border border-white/[0.08] text-white/80"
           }`}
         >
-          {nav.map((link) => (
+          {nav.map((link, i) => (
             <a
-              key={link.href}
+              key={`${link.label}-${i}`}
               href={link.href}
               onClick={() => setMenuOpen(false)}
               className={`text-base font-medium transition-colors ${

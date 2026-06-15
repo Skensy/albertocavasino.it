@@ -65,6 +65,14 @@ export interface SiteContent {
     footerLinks: string[];
     copyright: string;
   };
+  colors: {
+    primary: string;
+    primaryHover: string;
+    bgLight: string;
+    bgDark: string;
+    textPrimary: string;
+    textSecondary: string;
+  };
 }
 
 import raw from "@/data/site-content.json";

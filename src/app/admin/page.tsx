@@ -84,6 +84,14 @@ const DEFAULT_CONTENT: SiteContent = {
     footerLinks: ["Chi Sono", "Servizi", "Portfolio", "Contatti"],
     copyright: "© {year} Alessandro Rizzo. Tutti i diritti riservati.",
   },
+  colors: {
+    primary: "#C8A97E",
+    primaryHover: "#B8946A",
+    bgLight: "#FAF7F2",
+    bgDark: "#2D2D2D",
+    textPrimary: "#2D2D2D",
+    textSecondary: "#7D6148",
+  },
 };
 
 /* ── Section tabs ── */
@@ -95,6 +103,7 @@ type SectionKey =
   | "portfolio"
   | "contact"
   | "navigation"
+  | "colors"
   | "footer";
 
 const SECTIONS: { key: SectionKey; label: string }[] = [
@@ -105,6 +114,7 @@ const SECTIONS: { key: SectionKey; label: string }[] = [
   { key: "portfolio", label: "Portfolio" },
   { key: "contact", label: "Contatti" },
   { key: "navigation", label: "Navigazione" },
+  { key: "colors", label: "Colori" },
   { key: "footer", label: "Footer" },
 ];
 
@@ -126,6 +136,7 @@ export default function AdminPage() {
   const [currentSection, setCurrentSection] = useState<SectionKey>("general");
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
   const [saveError, setSaveError] = useState("");
+  const [pendingCount, setPendingCount] = useState(0);
 
   /* Restore PAT from sessionStorage on mount */
   useEffect(() => {
@@ -155,17 +166,51 @@ export default function AdminPage() {
       setLoginError("Impossibile caricare i contenuti. Verifica il PAT.");
       setAuthenticated(false);
     }
+
+    /* Check for pending content in localStorage */
+    checkPendingContent();
   }, [password, pat]);
 
-  /* ── Save handler ── */
-  const handleSave = useCallback(async () => {
+  /* ── Queue / Publish handlers ── */
+  const checkPendingContent = useCallback(() => {
+    const stored = localStorage.getItem("pending_content");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        const count = Object.keys(parsed).length;
+        setPendingCount(count > 0 ? count : 0);
+      } catch {
+        localStorage.removeItem("pending_content");
+      }
+    }
+  }, []);
+
+  const handleQueue = useCallback(() => {
+    localStorage.setItem("pending_content", JSON.stringify(content));
+    setPendingCount(1);
+    setSaveStatus("idle");
+  }, [content]);
+
+  const handleDiscardPending = useCallback(() => {
+    localStorage.removeItem("pending_content");
+    setPendingCount(0);
+  }, []);
+
+  const handlePublish = useCallback(async () => {
+    /* Publish the pending content, or fall back to current content */
+    const stored = localStorage.getItem("pending_content");
+    const toPublish = stored ? JSON.parse(stored) : content;
+    /* Also save the current sha and re-fetch if needed */
     setSaveStatus("saving");
     setSaveError("");
     try {
       const pat2 = sessionStorage.getItem("gh_pat") || pat;
-      const json = JSON.stringify(content, null, 2);
+      const json = JSON.stringify(toPublish, null, 2);
       const newSha = await saveContent(pat2, json, sha);
       setSha(newSha);
+      setContent(toPublish);
+      localStorage.removeItem("pending_content");
+      setPendingCount(0);
       setSaveStatus("saved");
       setTimeout(() => setSaveStatus("idle"), 3000);
     } catch (err: unknown) {
@@ -292,25 +337,73 @@ export default function AdminPage() {
         <h1 className="font-serif text-xl font-semibold text-gray-100">
           Dashboard
         </h1>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {saveStatus === "saved" && (
-            <span className="text-sm text-green-400">✓ Salvato</span>
+            <span className="text-sm text-green-400">✓ Pubblicato</span>
           )}
           {saveStatus === "error" && (
             <span className="text-sm text-red-400">Errore: {saveError}</span>
           )}
           {saveStatus === "saving" && (
-            <span className="text-sm text-gray-400">Salvataggio...</span>
+            <span className="text-sm text-gray-400">Pubblicazione...</span>
           )}
+
+          {pendingCount > 0 && (
+            <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-1 rounded-lg font-medium">
+              {pendingCount} in coda
+            </span>
+          )}
+
           <button
-            onClick={handleSave}
+            onClick={handleQueue}
             disabled={saveStatus === "saving"}
-            className="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2 rounded-xl text-sm disabled:opacity-50 transition-colors"
+            className="bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium px-4 py-2 rounded-xl text-sm disabled:opacity-50 transition-colors"
           >
-            Salva modifiche
+            Accoda modifiche
+          </button>
+
+          <button
+            onClick={handlePublish}
+            disabled={saveStatus === "saving"}
+            className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-5 py-2 rounded-xl text-sm disabled:opacity-50 transition-colors"
+          >
+            📤 Pubblica tutto
           </button>
         </div>
       </header>
+
+      {/* Pending content restore banner */}
+      {pendingCount > 0 && (() => {
+        const stored = localStorage.getItem("pending_content");
+        if (!stored) return null;
+        return (
+          <div className="bg-amber-500/10 border-b border-amber-500/20 px-6 py-2 flex items-center justify-between">
+            <p className="text-sm text-amber-300">
+              Hai {pendingCount} modifica{pendingCount > 1 ? "e" : ""} in coda, non ancora pubblicata{pendingCount > 1 ? "e" : ""} su GitHub.
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  try {
+                    const parsed = JSON.parse(stored);
+                    setContent(parsed);
+                    handleDiscardPending();
+                  } catch { /* ignore */ }
+                }}
+                className="text-xs bg-amber-600/30 hover:bg-amber-600/50 text-amber-300 px-3 py-1 rounded-lg transition-colors"
+              >
+                Ripristina modifiche
+              </button>
+              <button
+                onClick={handleDiscardPending}
+                className="text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 px-3 py-1 rounded-lg transition-colors"
+              >
+                Scarta
+              </button>
+            </div>
+          </div>
+        );
+      })()}
 
       <div className="flex flex-1">
         {/* Sidebar */}
@@ -372,6 +465,9 @@ export default function AdminPage() {
               addArrItem={addArrItem}
               removeArrItem={removeArrItem}
             />
+          )}
+          {currentSection === "colors" && (
+            <SectionColors content={content} update={update} />
           )}
           {currentSection === "footer" && (
             <SectionFooter content={content} update={update} />
@@ -647,6 +743,7 @@ function SectionAbout({
 /* ── Services ── */
 function SectionServices({
   content,
+  update,
   updateArrItem,
   addArrItem,
   removeArrItem,
@@ -666,16 +763,12 @@ function SectionServices({
       <InputField
         label="Titolo sezione"
         value={s.title}
-        onChange={(v) => {
-          /* use parent update via closure since we have services path */
-        }}
+        onChange={(v) => update(["services", "title"], v)}
       />
       <InputField
         label="Sottotitolo"
         value={s.subtitle}
-        onChange={(v) => {
-          /* need to access setContent differently */
-        }}
+        onChange={(v) => update(["services", "subtitle"], v)}
         rows={2}
       />
       {s.items.map((item, i) => (
@@ -955,6 +1048,104 @@ function SectionNav({
       >
         + Aggiungi link
       </button>
+    </div>
+  );
+}
+
+/* ── Colors ── */
+function SectionColors({
+  content,
+  update,
+}: {
+  content: SiteContent;
+  update: (path: string[], val: unknown) => void;
+}) {
+  const { colors } = content;
+
+  const fields: { label: string; key: keyof SiteContent["colors"] }[] = [
+    { label: "Colore primario (accent)", key: "primary" },
+    { label: "Colore hover primario", key: "primaryHover" },
+    { label: "Sfondo chiaro", key: "bgLight" },
+    { label: "Sfondo scuro (footer)", key: "bgDark" },
+    { label: "Testo principale", key: "textPrimary" },
+    { label: "Testo secondario", key: "textSecondary" },
+  ];
+
+  return (
+    <div className="max-w-xl space-y-5">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
+        Colori
+      </h2>
+      <p className="text-sm text-gray-400">
+        Personalizza la palette del sito. I cambiamenti saranno visibili dopo la pubblicazione.
+      </p>
+
+      <div className="space-y-4">
+        {fields.map((field) => (
+          <div key={field.key}>
+            <label className="block text-xs font-medium text-gray-400 mb-1.5">
+              {field.label}
+            </label>
+            <div className="flex items-center gap-3">
+              {/* Color swatch + picker */}
+              <div className="relative">
+                <div
+                  className="w-9 h-9 rounded-lg border border-gray-600 shrink-0"
+                  style={{ backgroundColor: colors[field.key] }}
+                />
+                <input
+                  type="color"
+                  value={colors[field.key]}
+                  onChange={(e) =>
+                    update(["colors", field.key], e.target.value)
+                  }
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  title={field.label}
+                />
+              </div>
+              {/* Hex input */}
+              <input
+                type="text"
+                value={colors[field.key]}
+                onChange={(e) =>
+                  update(["colors", field.key], e.target.value)
+                }
+                className="w-32 px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm font-mono"
+                placeholder="#000000"
+              />
+              {/* Live preview text */}
+              <span
+                className="text-xs px-2 py-1 rounded"
+                style={{
+                  backgroundColor: colors.bgLight,
+                  color: colors[field.key],
+                  border: "1px solid",
+                  borderColor: colors.primary + "40",
+                }}
+              >
+                Anteprima
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Palette preview */}
+      <div className="mt-6">
+        <label className="block text-xs font-medium text-gray-400 mb-2">
+          Anteprima palette
+        </label>
+        <div className="flex gap-2">
+          {fields.map((field) => (
+            <div
+              key={field.key}
+              className="w-10 h-10 rounded-lg border border-gray-700"
+              style={{ backgroundColor: colors[field.key] }}
+              title={`${field.label}: ${colors[field.key]}`}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
