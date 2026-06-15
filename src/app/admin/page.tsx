@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, type ReactNode } from "react";
 import type { SiteContent } from "@/lib/content";
-import { fetchContent, saveContent } from "@/lib/github-api";
+import { fetchContent, saveContent, checkDeployStatus } from "@/lib/github-api";
 import { availableServiceIconNames } from "@/lib/icons";
 
 /* ── Pre-computed SHA-256 hash of the default password "admin" ── */
@@ -147,6 +147,9 @@ export default function AdminPage() {
   const [originalContent, setOriginalContent] = useState<SiteContent | null>(null);
   const [diffOpen, setDiffOpen] = useState(false);
   const [noChanges, setNoChanges] = useState(false);
+  const [deployPhase, setDeployPhase] = useState<"idle" | "saving" | "building" | "deployed" | "error">("idle");
+  const [deployCommitSha, setDeployCommitSha] = useState<string | null>(null);
+  const [deployError, setDeployError] = useState("");
 
   /* Restore PAT from sessionStorage on mount */
   useEffect(() => {
@@ -223,21 +226,55 @@ export default function AdminPage() {
 
     setSaveStatus("saving");
     setSaveError("");
+    setDeployPhase("saving");
     try {
       const pat2 = sessionStorage.getItem("gh_pat") || pat;
       const json = JSON.stringify(toPublish, null, 2);
-      const newSha = await saveContent(pat2, json, sha);
-      setSha(newSha);
+      const result = await saveContent(pat2, json, sha);
+      setSha(result.contentSha);
+      setDeployCommitSha(result.commitSha);
       localStorage.removeItem("pending_content");
       setPendingCount(0);
-      setSaveStatus("saved");
-      setTimeout(() => setSaveStatus("idle"), 3000);
+
+      // Start deploy polling
+      setDeployPhase("building");
+      pollDeployStatus(pat2, result.commitSha, 0);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Errore sconosciuto";
       setSaveError(msg);
       setSaveStatus("error");
+      setDeployPhase("error");
+      setDeployError(msg);
     }
   }, [content, sha, pat]);
+
+  /* ── Deploy polling ── */
+  const pollDeployStatus = useCallback(async (token: string, commitSha: string, attempt: number) => {
+    const MAX_ATTEMPTS = 15;
+    if (attempt >= MAX_ATTEMPTS) {
+      setDeployPhase("deployed");
+      setSaveStatus("saved");
+      setTimeout(() => { setSaveStatus("idle"); setDeployPhase("idle"); }, 5000);
+      return;
+    }
+    try {
+      const status = await checkDeployStatus(token, commitSha);
+      if (status.status === "built" || status.status === "queued") {
+        setDeployPhase("deployed");
+        setSaveStatus("saved");
+        setTimeout(() => { setSaveStatus("idle"); setDeployPhase("idle"); }, 5000);
+        return;
+      }
+      if (status.status === "errored") {
+        setDeployPhase("error");
+        setDeployError("Il build è fallito. Verifica le GitHub Actions.");
+        return;
+      }
+    } catch {
+      // keep polling
+    }
+    setTimeout(() => pollDeployStatus(token, commitSha, attempt + 1), 7000);
+  }, []);
 
   /* ── Content updater helpers ── */
   const update = (path: string[], value: unknown) => {
@@ -406,6 +443,58 @@ export default function AdminPage() {
           </button>
         </div>
       </header>
+
+      {/* Deploy progress bar */}
+      {deployPhase !== "idle" && (
+        <div className="border-b border-gray-800 px-6 py-3 bg-gray-900/50">
+          <div className="flex items-center gap-3">
+            {/* Animated segments */}
+            <div className="flex-1 h-2 bg-gray-800 rounded-full overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all duration-700 ease-out ${
+                  deployPhase === "saving" ? "w-1/3 bg-amber-500" :
+                  deployPhase === "building" ? "w-2/3 bg-amber-500 animate-pulse" :
+                  deployPhase === "deployed" ? "w-full bg-emerald-500" :
+                  deployPhase === "error" ? "w-full bg-red-500" : "w-0"
+                }`}
+              />
+            </div>
+
+            {/* Text */}
+            <div className="shrink-0 flex items-center gap-2">
+              {(deployPhase === "saving" || deployPhase === "building") && (
+                <svg className="w-4 h-4 text-amber-400 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+              )}
+
+              {deployPhase === "saving" && (
+                <span className="text-sm text-amber-400">Salvando su GitHub...</span>
+              )}
+              {deployPhase === "building" && (
+                <span className="text-sm text-amber-400">Build e deploy in corso sui server GitHub...</span>
+              )}
+              {deployPhase === "deployed" && (
+                <span className="text-sm text-emerald-400">✅ Sito aggiornato! Le modifiche sono online.</span>
+              )}
+              {deployPhase === "error" && (
+                <span className="text-sm text-red-400">❌ Errore: {deployError}</span>
+              )}
+
+              {/* Close button */}
+              {(deployPhase === "deployed" || deployPhase === "error") && (
+                <button
+                  onClick={() => setDeployPhase("idle")}
+                  className="text-gray-500 hover:text-gray-300 ml-2"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Pending content restore banner */}
       {pendingCount > 0 && (() => {

@@ -20,9 +20,18 @@ export interface GitHubFile {
   sha: string;
 }
 
+export interface SaveResult {
+  contentSha: string;
+  commitSha: string;
+}
+
+export interface DeployStatus {
+  status: "queued" | "in_progress" | "built" | "errored" | "unknown";
+  url?: string;
+}
+
 /**
  * Fetch the current site-content.json from GitHub via the Contents API.
- * Requires a PAT with "Contents: Read and Write" access to the repo.
  */
 export async function fetchContent(token: string): Promise<GitHubFile> {
   const res = await fetch(
@@ -37,9 +46,7 @@ export async function fetchContent(token: string): Promise<GitHubFile> {
   );
 
   if (!res.ok) {
-    throw new Error(
-      `GitHub API error: ${res.status} ${res.statusText}`
-    );
+    throw new Error(`GitHub API error: ${res.status} ${res.statusText}`);
   }
 
   const data = await res.json();
@@ -49,13 +56,14 @@ export async function fetchContent(token: string): Promise<GitHubFile> {
 
 /**
  * Save (commit) updated content to site-content.json on GitHub.
+ * Returns the new content SHA + commit SHA.
  */
 export async function saveContent(
   token: string,
   newContent: string,
   sha: string,
   message?: string
-): Promise<string> {
+): Promise<SaveResult> {
   const encoded = toBase64(newContent);
 
   const res = await fetch(
@@ -77,11 +85,61 @@ export async function saveContent(
 
   if (!res.ok) {
     const errBody = await res.text();
-    throw new Error(
-      `GitHub API error: ${res.status} ${res.statusText}\n${errBody}`
-    );
+    throw new Error(`GitHub API error: ${res.status} ${res.statusText}\n${errBody}`);
   }
 
   const data = await res.json();
-  return data.content.sha as string;
+  return {
+    contentSha: data.content.sha as string,
+    commitSha: data.commit.sha as string,
+  };
+}
+
+/**
+ * Check the latest Pages build status.
+ */
+export async function checkDeployStatus(
+  token: string,
+  commitSha: string
+): Promise<DeployStatus> {
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/pages/builds/latest`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      return { status: "unknown" };
+    }
+
+    const data = await res.json();
+
+    // Check if this build is for our commit
+    if (data.commit && data.commit.sha !== commitSha) {
+      // The latest build might be from a different commit — check status
+      return { status: "in_progress", url: data.pages?.html_url };
+    }
+
+    const statusMap: Record<string, "queued" | "in_progress" | "built" | "errored"> = {
+      queued: "queued",
+      in_progress: "in_progress",
+      deployed: "built",
+      built: "built",
+      errored: "errored",
+      cancelled: "errored",
+    };
+
+    return {
+      status: statusMap[data.status] || "unknown",
+      url: data.pages?.html_url,
+    };
+  } catch {
+    return { status: "unknown" };
+  }
 }
