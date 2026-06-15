@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import content from "@/lib/content";
+import { useContent } from "@/lib/content-context";
 
 const container = {
   hidden: { opacity: 0 },
@@ -28,6 +28,7 @@ const itemFromRight = {
 };
 
 export default function About() {
+  const content = useContent();
   const { about } = content;
 
   return (

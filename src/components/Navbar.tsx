@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import content from "@/lib/content";
+import { useContent } from "@/lib/content-context";
 
 export default function Navbar() {
+  const content = useContent();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 

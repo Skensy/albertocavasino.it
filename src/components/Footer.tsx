@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import content from "@/lib/content";
+import { useContent } from "@/lib/content-context";
 import { renderSocialIcon } from "@/lib/icons";
 
 const container = {
@@ -22,6 +22,7 @@ const colItem = {
 };
 
 export default function Footer() {
+  const content = useContent();
   const year = new Date().getFullYear();
   const { site, footer, contact, nav } = content;
 

@@ -74,6 +74,10 @@ export interface SiteContent {
     textSecondary: string;
     navBg: string;
   };
+  seo: {
+    title: string;
+    description: string;
+  };
 }
 
 import raw from "@/data/site-content.json";

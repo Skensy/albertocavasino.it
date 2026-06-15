@@ -93,6 +93,10 @@ const DEFAULT_CONTENT: SiteContent = {
     textSecondary: "#7D6148",
     navBg: "#FAF7F2",
   },
+  seo: {
+    title: "Alessandro Rizzo | Graphic Designer",
+    description: "Graphic designer con anni di esperienza in agenzia: siti web, brochure, locandine, loghi, marchi e brand identity.",
+  },
 };
 
 /* ── Section tabs ── */
@@ -105,6 +109,7 @@ type SectionKey =
   | "contact"
   | "navigation"
   | "colors"
+  | "seo"
   | "footer";
 
 const SECTIONS: { key: SectionKey; label: string }[] = [
@@ -116,6 +121,7 @@ const SECTIONS: { key: SectionKey; label: string }[] = [
   { key: "contact", label: "Contatti" },
   { key: "navigation", label: "Navigazione" },
   { key: "colors", label: "Colori" },
+  { key: "seo", label: "SEO" },
   { key: "footer", label: "Footer" },
 ];
 
@@ -374,6 +380,16 @@ export default function AdminPage() {
           )}
 
           <button
+            onClick={() => {
+              localStorage.setItem("preview_content", JSON.stringify(content));
+              window.open("/", "_blank");
+            }}
+            className="bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium px-3 py-2 rounded-xl text-sm transition-colors"
+          >
+            👁 Anteprima
+          </button>
+
+          <button
             onClick={handleQueue}
             disabled={saveStatus === "saving"}
             className="bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium px-4 py-2 rounded-xl text-sm disabled:opacity-50 transition-colors"
@@ -518,6 +534,9 @@ export default function AdminPage() {
               addArrItem={addArrItem}
               removeArrItem={removeArrItem}
             />
+          )}
+          {currentSection === "seo" && (
+            <SectionSeo content={content} update={update} />
           )}
           {currentSection === "colors" && (
             <SectionColors content={content} update={update} />
@@ -1101,6 +1120,75 @@ function SectionNav({
       >
         + Aggiungi link
       </button>
+    </div>
+  );
+}
+
+/* ── SEO ── */
+function SectionSeo({
+  content,
+  update,
+}: {
+  content: SiteContent;
+  update: (path: string[], val: unknown) => void;
+}) {
+  const { seo, hero, about, services, portfolio, contact } = content;
+
+  const headingStructure = [
+    { tag: "H1", text: `${hero.headingLine1} ${hero.headingAccent}`, section: "Hero" },
+    { tag: "H2", text: about.title, section: "Chi Sono" },
+    { tag: "H2", text: services.title, section: "Servizi" },
+    { tag: "H2", text: portfolio.title, section: "Portfolio" },
+    { tag: "H2", text: contact.title, section: "Contatti" },
+    { tag: "H3", text: content.site.name, section: "Footer" },
+  ];
+
+  return (
+    <div className="max-w-xl space-y-5">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
+        SEO &amp; Titoli
+      </h2>
+
+      <div className="space-y-4">
+        <InputField
+          label="Titolo browser (title tag)"
+          value={seo?.title || ""}
+          onChange={(v) => update(["seo", "title"], v)}
+        />
+        <InputField
+          label="Meta description"
+          value={seo?.description || ""}
+          onChange={(v) => update(["seo", "description"], v)}
+          rows={3}
+        />
+      </div>
+
+      <div className="mt-8">
+        <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+          🏷️ Struttura titoli del sito
+        </h3>
+        <div className="space-y-1.5">
+          {headingStructure.map((h) => (
+            <div
+              key={h.tag + h.text}
+              className="flex items-center gap-3 bg-gray-800/50 rounded-lg px-3 py-2"
+            >
+              <span className="text-[10px] font-bold text-indigo-400 bg-indigo-500/15 px-1.5 py-0.5 rounded shrink-0">
+                {h.tag}
+              </span>
+              <span className="text-xs text-gray-300 truncate flex-1">
+                {h.text || "(vuoto)"}
+              </span>
+              <span className="text-[10px] text-gray-500 shrink-0">
+                &rarr; {h.section}
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="text-[11px] text-gray-500 mt-2">
+          I titoli si modificano nelle rispettive sezioni (Hero, Chi Sono, Servizi, ecc.)
+        </p>
+      </div>
     </div>
   );
 }

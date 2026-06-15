@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import content from "@/lib/content";
+import { useContent } from "@/lib/content-context";
 import { renderServiceIcon } from "@/lib/icons";
 
 const sectionVariants = {
@@ -28,6 +28,7 @@ const cardItem = {
 };
 
 export default function Services() {
+  const content = useContent();
   const { services } = content;
 
   return (

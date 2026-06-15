@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import content from "@/lib/content";
+import { useContent } from "@/lib/content-context";
 import { renderSocialIcon } from "@/lib/icons";
 
 const fromLeft = {
@@ -29,6 +29,7 @@ const infoCard = {
 };
 
 export default function Contact() {
+  const content = useContent();
   const { contact } = content;
   const f = contact.formLabels;
 

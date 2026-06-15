@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import content from "@/lib/content";
+import { useContent } from "@/lib/content-context";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -29,6 +29,7 @@ const cardItem = {
 };
 
 export default function Portfolio() {
+  const content = useContent();
   const { portfolio } = content;
   const [tappedIndex, setTappedIndex] = useState<number | null>(null);
 

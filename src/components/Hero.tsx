@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import content from "@/lib/content";
+import { useContent } from "@/lib/content-context";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -14,6 +14,7 @@ const fadeUp = {
 };
 
 export default function Hero() {
+  const content = useContent();
   const { hero } = content;
 
   return (
