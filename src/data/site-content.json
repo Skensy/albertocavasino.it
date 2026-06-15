@@ -201,7 +201,7 @@
   "colors": {
     "primary": "#1A1A1A",
     "primaryHover": "#666666",
-    "bgLight": "#FFFFFF",
+    "bgLight": "#F5F5F5",
     "bgDark": "#1A1A1A",
     "textPrimary": "#1A1A1A",
     "textSecondary": "#666666",
