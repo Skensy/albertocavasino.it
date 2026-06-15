@@ -155,16 +155,16 @@
   "contact": {
     "title": "Contattami",
     "subtitle": "Hai un progetto in mente? Parliamone. Sarò felice di ascoltare la tua idea e trasformarla in qualcosa di bello.",
-    "email": "alessandro@rizzo-design.it",
-    "phone": "+39 333 12 34 567",
-    "location": "Milano, Italia",
+    "email": "info@albertocavasino.it",
+    "phone": "+39 1234566789",
+    "location": "Viterbo, Italia",
     "formLabels": {
       "name": "Nome",
       "namePlaceholder": "Il tuo nome",
       "email": "Email",
       "emailPlaceholder": "la tua@email.com",
       "message": "Messaggio",
-      "messagePlaceholder": "Ciao Alessandro, vorrei parlarti di...",
+      "messagePlaceholder": "Ciao Alberto, vorrei parlarti di...",
       "submit": "Invia messaggio"
     },
     "sidebarTitle": "Informazioni",
