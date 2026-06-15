@@ -230,14 +230,14 @@ export default function AdminPage() {
   if (!authenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="glass-card rounded-2xl p-8 w-full max-w-md">
-          <h1 className="font-serif text-2xl font-semibold text-brand-900 mb-6 text-center">
+        <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8 w-full max-w-md">
+          <h1 className="font-serif text-2xl font-semibold text-gray-100 mb-6 text-center">
             Dashboard
           </h1>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-brand-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Password
               </label>
               <input
@@ -246,12 +246,12 @@ export default function AdminPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleLogin()}
                 placeholder="••••••••"
-                className="w-full px-4 py-2.5 rounded-xl glass-input text-brand-800"
+                className="w-full px-4 py-2.5 rounded-xl bg-gray-900 border border-gray-700 text-gray-100"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-brand-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 GitHub Personal Access Token
               </label>
               <input
@@ -260,20 +260,20 @@ export default function AdminPage() {
                 onChange={(e) => setPat(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleLogin()}
                 placeholder="github_pat_..."
-                className="w-full px-4 py-2.5 rounded-xl glass-input text-brand-800"
+                className="w-full px-4 py-2.5 rounded-xl bg-gray-900 border border-gray-700 text-gray-100"
               />
-              <p className="text-xs text-brand-400 mt-1">
+              <p className="text-xs text-gray-500 mt-1">
                 Serve un PAT con permesso <code>Contents: Read and Write</code> sul repo.
               </p>
             </div>
 
             {loginError && (
-              <p className="text-sm text-red-500">{loginError}</p>
+              <p className="text-sm text-red-400">{loginError}</p>
             )}
 
             <button
               onClick={handleLogin}
-              className="w-full glass-button text-white font-medium px-6 py-2.5 rounded-xl"
+              className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-2.5 rounded-xl transition-colors"
             >
               Accedi
             </button>
@@ -287,24 +287,24 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="glass-nav-scrolled sticky top-0 z-40 px-6 py-3 flex items-center justify-between">
-        <h1 className="font-serif text-xl font-semibold text-brand-900">
+      <header className="bg-gray-900/90 border-b border-gray-800 backdrop-blur-md sticky top-0 z-40 px-6 py-3 flex items-center justify-between">
+        <h1 className="font-serif text-xl font-semibold text-gray-100">
           Dashboard
         </h1>
         <div className="flex items-center gap-4">
           {saveStatus === "saved" && (
-            <span className="text-sm text-green-600">✓ Salvato</span>
+            <span className="text-sm text-green-400">✓ Salvato</span>
           )}
           {saveStatus === "error" && (
-            <span className="text-sm text-red-500">Errore: {saveError}</span>
+            <span className="text-sm text-red-400">Errore: {saveError}</span>
           )}
           {saveStatus === "saving" && (
-            <span className="text-sm text-brand-500">Salvataggio...</span>
+            <span className="text-sm text-gray-400">Salvataggio...</span>
           )}
           <button
             onClick={handleSave}
             disabled={saveStatus === "saving"}
-            className="glass-button text-white font-medium px-5 py-2 rounded-xl text-sm disabled:opacity-50"
+            className="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2 rounded-xl text-sm disabled:opacity-50 transition-colors"
           >
             Salva modifiche
           </button>
@@ -313,7 +313,7 @@ export default function AdminPage() {
 
       <div className="flex flex-1">
         {/* Sidebar */}
-        <aside className="w-56 shrink-0 border-r border-brand-200/50 p-4 hidden md:block">
+        <aside className="w-56 shrink-0 border-r border-gray-800 p-4 hidden md:block">
           <nav className="flex flex-col gap-1">
             {SECTIONS.map((s) => (
               <button
@@ -321,8 +321,8 @@ export default function AdminPage() {
                 onClick={() => setCurrentSection(s.key)}
                 className={`text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   currentSection === s.key
-                    ? "bg-accent/15 text-accent"
-                    : "text-brand-600 hover:text-brand-800 hover:bg-brand-100/50"
+                    ? "bg-indigo-500/20 text-indigo-400"
+                    : "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
                 }`}
               >
                 {s.label}
@@ -401,10 +401,10 @@ function InputField({
   rows?: number;
 }) {
   const cls =
-    "w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm";
+    "w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm";
   return (
     <div>
-      <label className="block text-xs font-medium text-brand-600 mb-1">
+      <label className="block text-xs font-medium text-gray-400 mb-1">
         {label}
       </label>
       {rows ? (
@@ -438,7 +438,7 @@ function SectionGeneral({
 }) {
   return (
     <div className="max-w-xl space-y-4">
-      <h2 className="font-serif text-xl font-semibold text-brand-900 mb-4">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
         Generale
       </h2>
       <InputField
@@ -466,7 +466,7 @@ function SectionHero({
   const h = content.hero;
   return (
     <div className="max-w-xl space-y-4">
-      <h2 className="font-serif text-xl font-semibold text-brand-900 mb-4">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
         Hero
       </h2>
       <InputField
@@ -525,7 +525,7 @@ function SectionAbout({
   const a = content.about;
   return (
     <div className="max-w-xl space-y-4">
-      <h2 className="font-serif text-xl font-semibold text-brand-900 mb-4">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
         Chi Sono
       </h2>
       <InputField
@@ -544,30 +544,42 @@ function SectionAbout({
         onChange={(v) => update(["about", "title"], v)}
       />
       <div>
-        <label className="block text-xs font-medium text-brand-600 mb-1">
+        <label className="block text-xs font-medium text-gray-400 mb-1">
           Paragrafi (HTML supportato)
         </label>
+        <p className="text-xs text-gray-500 mb-2">
+          HTML supportato: <code>{'<strong>testo</strong>'}</code> grassetto, <code>{'<em>testo</em>'}</code> corsivo, ecc.
+        </p>
         {a.paragraphs.map((p, i) => (
-          <div key={i} className="flex gap-2 mb-2">
-            <textarea
-              className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
-              value={p}
-              onChange={(e) => {
-                const next = [...a.paragraphs];
-                next[i] = e.target.value;
-                update(["about", "paragraphs"], next);
-              }}
-              rows={2}
-            />
-            <button
-              onClick={() => {
-                const next = a.paragraphs.filter((_, j) => j !== i);
-                update(["about", "paragraphs"], next);
-              }}
-              className="text-red-400 hover:text-red-600 text-sm shrink-0"
-            >
-              ✕
-            </button>
+          <div key={i} className="mb-3">
+            <div className="flex gap-2 mb-1">
+              <textarea
+                className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm font-mono"
+                value={p}
+                onChange={(e) => {
+                  const next = [...a.paragraphs];
+                  next[i] = e.target.value;
+                  update(["about", "paragraphs"], next);
+                }}
+                rows={2}
+              />
+              <button
+                onClick={() => {
+                  const next = a.paragraphs.filter((_, j) => j !== i);
+                  update(["about", "paragraphs"], next);
+                }}
+                className="text-red-400 hover:text-red-600 text-sm shrink-0"
+              >
+                ✕
+              </button>
+            </div>
+            {/* Live HTML preview */}
+            {p.trim() && (
+              <div
+                className="text-sm text-gray-300 bg-gray-900/60 rounded-lg px-3 py-2 border border-gray-700/50 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: p }}
+              />
+            )}
           </div>
         ))}
         <button
@@ -575,19 +587,19 @@ function SectionAbout({
             const next = [...a.paragraphs, ""];
             update(["about", "paragraphs"], next);
           }}
-          className="text-xs text-accent hover:underline"
+          className="text-xs text-indigo-400 hover:text-indigo-300 underline-offset-2"
         >
           + Aggiungi paragrafo
         </button>
       </div>
       <div>
-        <label className="block text-xs font-medium text-brand-600 mb-1">
+        <label className="block text-xs font-medium text-gray-400 mb-1">
           Skill (etichetta ⬄ icona)
         </label>
         {a.skills.map((s, i) => (
           <div key={i} className="flex gap-2 mb-2 items-center">
             <input
-              className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+              className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
               value={s.label}
               onChange={(e) => {
                 const next = [...a.skills];
@@ -597,7 +609,7 @@ function SectionAbout({
               placeholder="Etichetta"
             />
             <input
-              className="w-16 px-2 py-2 rounded-lg glass-input text-brand-800 text-sm text-center"
+              className="w-16 px-2 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm text-center"
               value={s.icon}
               onChange={(e) => {
                 const next = [...a.skills];
@@ -622,7 +634,7 @@ function SectionAbout({
             const next = [...a.skills, { label: "", icon: "✨" }];
             update(["about", "skills"], next);
           }}
-          className="text-xs text-accent hover:underline"
+          className="text-xs text-indigo-400 hover:text-indigo-300 underline-offset-2"
         >
           + Aggiungi skill
         </button>
@@ -647,7 +659,7 @@ function SectionServices({
   const s = content.services;
   return (
     <div className="max-w-xl space-y-4">
-      <h2 className="font-serif text-xl font-semibold text-brand-900 mb-4">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
         Servizi
       </h2>
       <InputField
@@ -666,9 +678,9 @@ function SectionServices({
         rows={2}
       />
       {s.items.map((item, i) => (
-        <div key={i} className="glass-card rounded-xl p-4 space-y-3">
+        <div key={i} className="bg-gray-800 border border-gray-700 rounded-xl p-4 space-y-3">
           <div className="flex justify-between items-center">
-            <span className="text-xs font-semibold text-brand-500 uppercase">
+            <span className="text-xs font-semibold text-gray-500 uppercase">
               Servizio {i + 1}
             </span>
             <button
@@ -679,13 +691,13 @@ function SectionServices({
             </button>
           </div>
           <input
-            className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
             value={item.title}
             onChange={(e) => updateArrItem(["services", "items"], i, "title", e.target.value)}
             placeholder="Titolo"
           />
           <textarea
-            className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
             value={item.description}
             onChange={(e) =>
               updateArrItem(["services", "items"], i, "description", e.target.value)
@@ -694,7 +706,7 @@ function SectionServices({
             placeholder="Descrizione"
           />
           <select
-            className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
             value={item.iconName}
             onChange={(e) =>
               updateArrItem(["services", "items"], i, "iconName", e.target.value)
@@ -716,7 +728,7 @@ function SectionServices({
             iconName: "star",
           })
         }
-        className="text-xs text-accent hover:underline"
+        className="text-xs text-indigo-400 hover:text-indigo-300 underline-offset-2"
       >
         + Aggiungi servizio
       </button>
@@ -741,7 +753,7 @@ function SectionPortfolio({
   const p = content.portfolio;
   return (
     <div className="max-w-xl space-y-4">
-      <h2 className="font-serif text-xl font-semibold text-brand-900 mb-4">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
         Portfolio
       </h2>
       <InputField
@@ -756,9 +768,9 @@ function SectionPortfolio({
         rows={2}
       />
       {p.projects.map((proj, i) => (
-        <div key={i} className="glass-card rounded-xl p-4 space-y-3">
+        <div key={i} className="bg-gray-800 border border-gray-700 rounded-xl p-4 space-y-3">
           <div className="flex justify-between items-center">
-            <span className="text-xs font-semibold text-brand-500 uppercase">
+            <span className="text-xs font-semibold text-gray-500 uppercase">
               Progetto {i + 1}
             </span>
             <button
@@ -769,7 +781,7 @@ function SectionPortfolio({
             </button>
           </div>
           <input
-            className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
             value={proj.title}
             onChange={(e) =>
               updateArrItem(["portfolio", "projects"], i, "title", e.target.value)
@@ -777,7 +789,7 @@ function SectionPortfolio({
             placeholder="Titolo"
           />
           <input
-            className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
             value={proj.category}
             onChange={(e) =>
               updateArrItem(["portfolio", "projects"], i, "category", e.target.value)
@@ -785,7 +797,7 @@ function SectionPortfolio({
             placeholder="Categoria"
           />
           <input
-            className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
             value={proj.src}
             onChange={(e) =>
               updateArrItem(["portfolio", "projects"], i, "src", e.target.value)
@@ -802,7 +814,7 @@ function SectionPortfolio({
             src: "",
           })
         }
-        className="text-xs text-accent hover:underline"
+        className="text-xs text-indigo-400 hover:text-indigo-300 underline-offset-2"
       >
         + Aggiungi progetto
       </button>
@@ -821,7 +833,7 @@ function SectionContact({
   const c = content.contact;
   return (
     <div className="max-w-xl space-y-4">
-      <h2 className="font-serif text-xl font-semibold text-brand-900 mb-4">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
         Contatti
       </h2>
       <InputField label="Titolo" value={c.title} onChange={(v) => update(["contact", "title"], v)} />
@@ -838,7 +850,7 @@ function SectionContact({
         value={c.location}
         onChange={(v) => update(["contact", "location"], v)}
       />
-      <h3 className="text-sm font-semibold text-brand-800 mt-6 mb-2">
+      <h3 className="text-sm font-semibold text-gray-300 mt-6 mb-2">
         Etichette form
       </h3>
       <InputField
@@ -906,13 +918,13 @@ function SectionNav({
 }) {
   return (
     <div className="max-w-xl space-y-4">
-      <h2 className="font-serif text-xl font-semibold text-brand-900 mb-4">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
         Navigazione
       </h2>
       {content.nav.map((link, i) => (
-        <div key={i} className="glass-card rounded-xl p-4 space-y-3">
+        <div key={i} className="bg-gray-800 border border-gray-700 rounded-xl p-4 space-y-3">
           <div className="flex justify-between items-center">
-            <span className="text-xs font-semibold text-brand-500 uppercase">
+            <span className="text-xs font-semibold text-gray-500 uppercase">
               Link {i + 1}
             </span>
             <button
@@ -923,13 +935,13 @@ function SectionNav({
             </button>
           </div>
           <input
-            className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
             value={link.label}
             onChange={(e) => updateArrItem(["nav"], i, "label", e.target.value)}
             placeholder="Etichetta"
           />
           <input
-            className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
             value={link.href}
             onChange={(e) => updateArrItem(["nav"], i, "href", e.target.value)}
             placeholder="#sezione"
@@ -938,7 +950,7 @@ function SectionNav({
       ))}
       <button
         onClick={() => addArrItem(["nav"], { label: "", href: "#" })}
-        className="text-xs text-accent hover:underline"
+        className="text-xs text-indigo-400 hover:text-indigo-300 underline-offset-2"
       >
         + Aggiungi link
       </button>
@@ -957,7 +969,7 @@ function SectionFooter({
   const f = content.footer;
   return (
     <div className="max-w-xl space-y-4">
-      <h2 className="font-serif text-xl font-semibold text-brand-900 mb-4">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
         Footer
       </h2>
       <InputField
@@ -971,13 +983,13 @@ function SectionFooter({
         onChange={(v) => update(["footer", "socialSectionTitle"], v)}
       />
       <div>
-        <label className="block text-xs font-medium text-brand-600 mb-1">
+        <label className="block text-xs font-medium text-gray-400 mb-1">
           Link footer
         </label>
         {f.footerLinks.map((link, i) => (
           <div key={i} className="flex gap-2 mb-2">
             <input
-              className="w-full px-3 py-2 rounded-lg glass-input text-brand-800 text-sm"
+              className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
               value={link}
               onChange={(e) => {
                 const next = [...f.footerLinks];
@@ -1001,7 +1013,7 @@ function SectionFooter({
             const next = [...f.footerLinks, ""];
             update(["footer", "footerLinks"], next);
           }}
-          className="text-xs text-accent hover:underline"
+          className="text-xs text-indigo-400 hover:text-indigo-300 underline-offset-2"
         >
           + Aggiungi link
         </button>
