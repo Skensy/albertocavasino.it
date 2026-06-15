@@ -1,22 +1,21 @@
 @import "tailwindcss";
 
-/* ── Brand palette + Glass design tokens (Tailwind v4) ── */
 @theme inline {
-  --color-brand-50: var(--user-brand-50, #FAF7F2);
-  --color-brand-100: var(--user-brand-100, #F5F0EB);
-  --color-brand-200: var(--user-brand-200, #EDE4DA);
-  --color-brand-300: var(--user-brand-300, #DAC8B4);
-  --color-brand-400: var(--user-brand-400, #C8A97E);
-  --color-brand-500: var(--user-brand-500, #B8946A);
-  --color-brand-600: var(--user-brand-600, #9A7A58);
-  --color-brand-700: var(--user-brand-700, #7D6148);
-  --color-brand-800: var(--user-brand-800, #5E4A38);
-  --color-brand-900: var(--user-brand-900, #2D2D2D);
-  --color-brand-950: var(--user-brand-950, #1A1A1A);
+  --color-brand-50: var(--user-brand-50, #F5F5F5);
+  --color-brand-100: var(--user-brand-100, #E8E8E8);
+  --color-brand-200: var(--user-brand-200, #D4D4D4);
+  --color-brand-300: var(--user-brand-300, #A3A3A3);
+  --color-brand-400: var(--user-brand-400, #737373);
+  --color-brand-500: var(--user-brand-500, #585858);
+  --color-brand-600: var(--user-brand-600, #444444);
+  --color-brand-700: var(--user-brand-700, #333333);
+  --color-brand-800: var(--user-brand-800, #1C1C1C);
+  --color-brand-900: var(--user-brand-900, #0D0D0D);
+  --color-brand-950: var(--user-brand-950, #000000);
 
-  --color-accent: var(--user-accent, #C8A97E);
-  --color-accent-hover: var(--user-accent-hover, #B8946A);
-  --color-accent-rgb: var(--user-accent-rgb, 200 169 126);
+  --color-accent: #FFA620;
+  --color-accent-hover: #E8960A;
+  --color-accent-rgb: 255 166 32;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), Georgia, serif;
@@ -40,133 +39,115 @@ html {
 
 body {
   font-family: var(--font-sans);
+  background: #000000;
+  color: #FFFFFF;
 }
 
-/* ── Section dark (alternanza sezioni) ── */
-.section-dark {
-  background: rgb(var(--user-brand-950, 26 26 26));
-  color: #e5e5e5;
+/* ── Section dark class (già di default su body nero) ── */
+.section-card {
+  background: #1C1C1C;
+  border-radius: 1.25rem;
 }
-.section-dark .text-brand-900 { color: #f5f5f5; }
-.section-dark .text-brand-700 { color: #d4d4d4; }
-.section-dark .text-brand-600 { color: #a3a3a3; }
 
 /* ── Keyframes ── */
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
 @keyframes float {
   0%, 100% { transform: translateY(0) scale(1); }
   50% { transform: translateY(-20px) scale(1.05); }
 }
-
 @keyframes pulse-soft {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.8; }
 }
 
-/* ── Glass utility classes ── */
-.glass-nav {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
+/* ── Glass utility classes (adattate a tema scuro) ── */
 .glass-nav-transparent {
   background: transparent;
   backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
   border-bottom: 1px solid transparent;
   transition: all 0.6s ease;
 }
 
 .glass-nav-scrolled {
-  background: rgba(250, 247, 242, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgb(var(--user-accent-rgb, 200 169 126) / 0.15);
-  box-shadow: 0 4px 24px rgb(0 0 0 / 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgb(0 0 0 / 0.3);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
-}
-
-.glass-card-hover {
-  transition: all 0.3s ease;
-}
-.glass-card-hover:hover {
-  background: rgba(255, 255, 255, 0.14);
-  transform: scale(1.02);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
-}
-
-.glass-panel {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
 }
 
-.glass-input {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
-}
-.glass-input:focus {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgb(var(--user-accent-rgb, 200 169 126) / 0.4);
-  box-shadow: 0 0 0 3px rgb(var(--user-accent-rgb, 200 169 126) / 0.15);
-  outline: none;
+.glass-panel {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
 }
 
-.glass-button {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+/* ── Button with gradient (Figma style) ── */
+.btn-gradient {
+  background: linear-gradient(179deg, rgba(255,255,255,1) 0%, rgba(58,58,58,0.99) 100%);
+  color: #000;
+  font-weight: 600;
+  border-radius: 14px;
+  padding: 1rem 2rem;
   transition: all 0.3s ease;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
 }
-.glass-button:hover {
-  background: rgba(255, 255, 255, 0.2);
+.btn-gradient::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 15px;
+  padding: 1px;
+  background: linear-gradient(140deg, rgba(68,68,68,1) 0%, rgba(255,255,255,1) 51%, rgba(136,136,136,1) 98%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.btn-gradient:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgb(var(--user-accent-rgb, 200 169 126) / 0.15);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
 }
 
-.glass-divider {
-  border: none;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgb(var(--user-accent-rgb, 200 169 126) / 0.2),
-    transparent
-  );
+/* ── Stat number gradient (Figma style: purple→pink→amber) ── */
+.stat-gradient {
+  background: linear-gradient(167deg, #981C82 0%, #ED6D65 50%, #B07900 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* ── Background noise texture (CSS-only) ── */
+/* ── Skills bar glow ── */
+.skills-bar {
+  background: #1C1C1C;
+  border-radius: 1rem;
+  box-shadow: 0 0 26px rgba(255, 255, 255, 0.08);
+}
+
+/* ── Background noise texture ── */
 .noise-bg::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.03;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -181,38 +162,9 @@ body {
   padding-right: 1rem;
 }
 
-/* ── Section fade-top for smooth color transitions ── */
-.section-fade-top {
-  position: relative;
-}
-.section-fade-top::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 80px;
-  background: linear-gradient(to bottom, var(--user-brand-50, #FAF7F2), transparent);
-  z-index: 1;
-  pointer-events: none;
-}
-
 @media (min-width: 640px) {
-  .container-section {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
+  .container-section { padding-left: 1.5rem; padding-right: 1.5rem; }
 }
-
 @media (min-width: 1024px) {
-  .container-section {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-/* ── Accent glow utilities (rispondono ai colori custom della dashboard) ── */
-.service-icon-glow {
-  filter: drop-shadow(0 0 8px rgb(var(--user-accent-rgb, 200 169 126) / 0.3));
-}
-.contact-icon-glow {
-  filter: drop-shadow(0 0 4px rgb(var(--user-accent-rgb, 200 169 126) / 0.3));
+  .container-section { padding-left: 2rem; padding-right: 2rem; }
 }

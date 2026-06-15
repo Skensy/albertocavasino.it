@@ -6,43 +6,32 @@ import { renderSocialIcon } from "@/lib/icons";
 
 const container = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
-  },
+  show: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
 const colItem = {
   hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
 export default function Footer() {
   const year = new Date().getFullYear();
   const { site, footer, contact, nav } = useContent();
 
-  const navMap = Object.fromEntries(
-    nav.map((item) => [item.label, item.href])
-  );
+  const navMap = Object.fromEntries(nav.map((item) => [item.label, item.href]));
 
   return (
-    <footer className="relative bg-brand-950 text-brand-300 pt-16 pb-8">
+    <footer className="relative border-t border-white/5 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true }}
           className="grid md:grid-cols-3 gap-10 pb-12"
         >
           <motion.div variants={colItem}>
-            <h3 className="font-serif text-2xl font-bold text-white mb-2">
-              {site.name}
-            </h3>
+            <h3 className="text-2xl font-bold text-white mb-2">{site.name}</h3>
             <p className="text-sm text-brand-400">{site.role}</p>
           </motion.div>
 
@@ -55,7 +44,7 @@ export default function Footer() {
                 <a
                   key={label}
                   href={navMap[label] || `#${label.toLowerCase()}`}
-                  className="text-sm text-brand-400 hover:text-accent transition-colors duration-300"
+                  className="text-sm text-brand-400 hover:text-accent transition-colors"
                 >
                   {label}
                 </a>
@@ -82,7 +71,7 @@ export default function Footer() {
           </motion.div>
         </motion.div>
 
-        <div className="h-px bg-accent/10" />
+        <div className="h-px bg-white/5" />
         <div className="pt-8 text-center">
           <p className="text-sm text-brand-500">
             {footer.copyright.replace("{year}", String(year))}

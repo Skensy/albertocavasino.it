@@ -199,13 +199,13 @@
     "copyright": "© {year} Alberto Cavasino. Tutti i diritti riservati."
   },
   "colors": {
-    "primary": "#1A1A1A",
-    "primaryHover": "#666666",
-    "bgLight": "#F5F5F5",
-    "bgDark": "#1A1A1A",
-    "textPrimary": "#1A1A1A",
-    "textSecondary": "#666666",
-    "navBg": "#1A1A1A"
+    "primary": "#FFA620",
+    "primaryHover": "#E8960A",
+    "bgLight": "#1C1C1C",
+    "bgDark": "#000000",
+    "textPrimary": "#FFFFFF",
+    "textSecondary": "#9F9F9F",
+    "navBg": "#000000"
   },
   "seo": {
     "title": "Alberto Cavasino | Graphic Web Designer",
