@@ -96,7 +96,7 @@ export async function saveContent(
 }
 
 /**
- * Check the latest Pages build status.
+ * Check the latest deploy status via GitHub Actions API.
  */
 export async function checkDeployStatus(
   token: string,
@@ -104,7 +104,7 @@ export async function checkDeployStatus(
 ): Promise<DeployStatus> {
   try {
     const res = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/pages/builds/latest`,
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/runs?head_sha=${commitSha}&event=push&per_page=1`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -119,26 +119,25 @@ export async function checkDeployStatus(
     }
 
     const data = await res.json();
+    const runs = data.workflow_runs;
 
-    // Check if this build is for our commit
-    if (data.commit && data.commit.sha !== commitSha) {
-      // The latest build might be from a different commit — check status
-      return { status: "in_progress", url: data.pages?.html_url };
+    if (!runs || runs.length === 0) {
+      // Workflow not yet created — still in progress
+      return { status: "in_progress" };
     }
 
-    const statusMap: Record<string, "queued" | "in_progress" | "built" | "errored"> = {
-      queued: "queued",
-      in_progress: "in_progress",
-      deployed: "built",
-      built: "built",
-      errored: "errored",
-      cancelled: "errored",
-    };
+    const latestRun = runs[0];
 
-    return {
-      status: statusMap[data.status] || "unknown",
-      url: data.pages?.html_url,
-    };
+    if (latestRun.status === "completed") {
+      if (latestRun.conclusion === "success") {
+        return { status: "built" };
+      }
+      // failure, cancelled, skipped, etc.
+      return { status: "errored" };
+    }
+
+    // queued, in_progress, pending, waiting…
+    return { status: "in_progress" };
   } catch {
     return { status: "unknown" };
   }

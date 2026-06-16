@@ -257,7 +257,7 @@ export default function AdminPage() {
 
   /* ── Deploy polling ── */
   const pollDeployStatus = useCallback(async (token: string, commitSha: string, attempt: number) => {
-    const MAX_ATTEMPTS = 15;
+    const MAX_ATTEMPTS = 30;
     if (attempt >= MAX_ATTEMPTS) {
       setDeployPhase("deployed");
       setSaveStatus("saved");
@@ -266,7 +266,7 @@ export default function AdminPage() {
     }
     try {
       const status = await checkDeployStatus(token, commitSha);
-      if (status.status === "built" || status.status === "queued") {
+      if (status.status === "built") {
         setDeployPhase("deployed");
         setSaveStatus("saved");
         setTimeout(() => { setSaveStatus("idle"); setDeployPhase("idle"); }, 5000);
@@ -280,7 +280,7 @@ export default function AdminPage() {
     } catch {
       // keep polling
     }
-    setTimeout(() => pollDeployStatus(token, commitSha, attempt + 1), 7000);
+    setTimeout(() => pollDeployStatus(token, commitSha, attempt + 1), 4000);
   }, []);
 
   /* ── Content updater helpers ── */
