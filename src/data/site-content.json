@@ -228,9 +228,15 @@
     "serifFont": "Baloo 2"
   },
   "spacing": {
-    "sectionPaddingY": { "mobile": 6, "desktop": 8 },
+    "sectionPaddingY": {
+      "mobile": 6,
+      "desktop": 8.5
+    },
     "sectionHeaderMb": 4,
-    "sectionContentGap": { "mobile": 3, "desktop": 4 },
+    "sectionContentGap": {
+      "mobile": 3,
+      "desktop": 4
+    },
     "footerPaddingTop": 4,
     "footerPaddingBottom": 2
   },
