@@ -227,6 +227,13 @@
     "sansFont": "Montserrat",
     "serifFont": "Baloo 2"
   },
+  "spacing": {
+    "sectionPaddingY": { "mobile": 6, "desktop": 8 },
+    "sectionHeaderMb": 4,
+    "sectionContentGap": { "mobile": 3, "desktop": 4 },
+    "footerPaddingTop": 4,
+    "footerPaddingBottom": 2
+  },
   "seo": {
     "title": "Designer Portfolio | UI/UX Designer",
     "description": "Portfolio di un UI/UX designer con anni di esperienza in agenzia, specializzato in siti web, brochure e brand identity."

@@ -10,11 +10,12 @@ const fadeUp = {
 };
 
 export default function About() {
-  const { about } = useContent();
+  const { about, spacing } = useContent();
   const stats = about.stats;
 
   return (
-    <section id="about" className="relative py-24 md:py-32">
+    <section id="about" className="relative"
+      style={{ paddingTop: 'var(--spacing-section-py)', paddingBottom: 'var(--spacing-section-py)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Skills inline bar (Figma Frame 12 style) */}
         <motion.div
@@ -22,7 +23,8 @@ export default function About() {
           whileInView="show"
           viewport={{ once: true }}
           variants={fadeUp}
-          className="skills-bar p-4 md:p-6 mb-16 overflow-x-auto"
+          className="skills-bar p-4 md:p-6 overflow-x-auto"
+          style={{ marginBottom: 'var(--spacing-section-header-mb)' }}
         >
           <div className="flex items-center gap-4 md:gap-6 min-w-max justify-center">
             {about.skills.map((skill, i) => (
@@ -84,7 +86,8 @@ export default function About() {
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUp}
-          className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16"
+          className="flex flex-col md:flex-row items-center justify-center"
+          style={{ gap: 'var(--spacing-section-gap)' }}
         >
           {stats?.map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-8 md:gap-16">

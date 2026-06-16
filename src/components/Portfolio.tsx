@@ -18,17 +18,19 @@ const cardItem = {
 };
 
 export default function Portfolio() {
-  const { portfolio } = useContent();
+  const { portfolio, spacing } = useContent();
 
   return (
-    <section id="portfolio" className="relative py-24 md:py-32">
+    <section id="portfolio" className="relative"
+      style={{ paddingTop: 'var(--spacing-section-py)', paddingBottom: 'var(--spacing-section-py)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           variants={cardItem}
-          className="text-center mb-16"
+          className="text-center"
+          style={{ marginBottom: 'var(--spacing-section-header-mb)' }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             {portfolio.title}
@@ -44,7 +46,8 @@ export default function Portfolio() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="grid sm:grid-cols-2 lg:grid-cols-3"
+          style={{ gap: 'var(--spacing-section-gap)' }}
         >
           {portfolio.projects.map((project, i) => (
             <motion.div

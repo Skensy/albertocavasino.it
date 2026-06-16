@@ -10,18 +10,20 @@ const fadeUp = {
 };
 
 export default function Contact() {
-  const { contact } = useContent();
+  const { contact, spacing } = useContent();
   const f = contact.formLabels;
 
   return (
-    <section id="contact" className="relative py-24 md:py-32">
+    <section id="contact" className="relative"
+      style={{ paddingTop: 'var(--spacing-section-py)', paddingBottom: 'var(--spacing-section-py)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUp}
-          className="text-center mb-16"
+          className="text-center"
+          style={{ marginBottom: 'var(--spacing-section-header-mb)' }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             {contact.title}
@@ -32,7 +34,8 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-5 gap-12 md:gap-16 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-5 max-w-5xl mx-auto"
+          style={{ gap: 'var(--spacing-section-gap)' }}>
           <motion.form
             variants={fadeUp}
             initial="hidden"

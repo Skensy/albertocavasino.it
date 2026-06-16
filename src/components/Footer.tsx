@@ -16,12 +16,14 @@ const colItem = {
 
 export default function Footer() {
   const year = new Date().getFullYear();
-  const { site, footer, contact, nav } = useContent();
+  const { site, footer, contact, nav, spacing } = useContent();
 
   const navMap = Object.fromEntries(nav.map((item) => [item.label, item.href]));
 
   return (
-    <footer className="relative border-t border-white/5 pt-16 pb-8">
+    <footer className="relative border-t border-white/5"
+      style={{ paddingTop: 'var(--spacing-footer-pt)', paddingBottom: 'var(--spacing-footer-pb)' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={container}

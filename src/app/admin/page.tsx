@@ -104,6 +104,13 @@ const DEFAULT_CONTENT: SiteContent = {
     sansFont: "Inter",
     serifFont: "Playfair Display",
   },
+  spacing: {
+    sectionPaddingY: { mobile: 6, desktop: 8 },
+    sectionHeaderMb: 4,
+    sectionContentGap: { mobile: 3, desktop: 4 },
+    footerPaddingTop: 4,
+    footerPaddingBottom: 2,
+  },
   seo: {
     title: "Designer Portfolio | UI/UX Designer",
     description: "Portfolio di un UI/UX designer con anni di esperienza in agenzia, specializzato in siti web, brochure e brand identity.",
@@ -121,6 +128,7 @@ type SectionKey =
   | "navigation"
   | "colors"
   | "typography"
+  | "spacing"
   | "seo"
   | "footer";
 
@@ -134,6 +142,7 @@ const SECTIONS: { key: SectionKey; label: string }[] = [
   { key: "navigation", label: "Navigazione" },
   { key: "colors", label: "Colori" },
   { key: "typography", label: "Tipografia" },
+  { key: "spacing", label: "Spaziatura" },
   { key: "seo", label: "SEO" },
   { key: "footer", label: "Footer" },
 ];
@@ -645,6 +654,9 @@ export default function AdminPage() {
           )}
           {currentSection === "typography" && (
             <SectionTypography content={content} update={update} />
+          )}
+          {currentSection === "spacing" && (
+            <SectionSpacing content={content} update={update} />
           )}
           {currentSection === "footer" && (
             <SectionFooter content={content} update={update} />
@@ -1733,6 +1745,120 @@ function SectionTypography({
         <p style={{ fontFamily: t.serifFont }} className="text-2xl font-bold text-white">
           Titolo Elegante — 12345
         </p>
+      </div>
+    </div>
+  );
+}
+
+/* ── Spacing ── */
+function SectionSpacing({
+  content,
+  update,
+}: {
+  content: SiteContent;
+  update: (path: string[], val: unknown) => void;
+}) {
+  const s = content.spacing;
+
+  return (
+    <div className="max-w-xl space-y-5">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
+        Spaziatura
+      </h2>
+      <p className="text-sm text-gray-400">
+        Controlla padding e margini globali del sito. I valori sono in <strong>rem</strong> (1&nbsp;rem&nbsp;≈&nbsp;16&nbsp;px).
+      </p>
+
+      {/* Section padding Y */}
+      <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 space-y-3">
+        <label className="block text-xs font-medium text-gray-300">
+          Padding verticale sezioni (Hero, About, Servizi, Portfolio, Contatti)
+        </label>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-[10px] text-gray-500 block mb-1">Mobile</label>
+            <input
+              type="number" min={1} max={20} step={0.5}
+              value={s.sectionPaddingY.mobile}
+              onChange={(e) => update(["spacing", "sectionPaddingY", "mobile"], parseFloat(e.target.value))}
+              className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
+            />
+          </div>
+          <div>
+            <label className="text-[10px] text-gray-500 block mb-1">Desktop</label>
+            <input
+              type="number" min={1} max={20} step={0.5}
+              value={s.sectionPaddingY.desktop}
+              onChange={(e) => update(["spacing", "sectionPaddingY", "desktop"], parseFloat(e.target.value))}
+              className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Section header margin */}
+      <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 space-y-3">
+        <label className="block text-xs font-medium text-gray-300">
+          Margine sotto i titoli sezione
+        </label>
+        <input
+          type="number" min={1} max={12} step={0.5}
+          value={s.sectionHeaderMb}
+          onChange={(e) => update(["spacing", "sectionHeaderMb"], parseFloat(e.target.value))}
+          className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
+        />
+      </div>
+
+      {/* Content gap */}
+      <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 space-y-3">
+        <label className="block text-xs font-medium text-gray-300">
+          Spazio tra elementi interni (card, colonne, form)
+        </label>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-[10px] text-gray-500 block mb-1">Mobile</label>
+            <input
+              type="number" min={0.5} max={12} step={0.5}
+              value={s.sectionContentGap.mobile}
+              onChange={(e) => update(["spacing", "sectionContentGap", "mobile"], parseFloat(e.target.value))}
+              className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
+            />
+          </div>
+          <div>
+            <label className="text-[10px] text-gray-500 block mb-1">Desktop</label>
+            <input
+              type="number" min={0.5} max={12} step={0.5}
+              value={s.sectionContentGap.desktop}
+              onChange={(e) => update(["spacing", "sectionContentGap", "desktop"], parseFloat(e.target.value))}
+              className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 space-y-3">
+        <label className="block text-xs font-medium text-gray-300">Footer</label>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-[10px] text-gray-500 block mb-1">Padding top</label>
+            <input
+              type="number" min={0} max={16} step={0.5}
+              value={s.footerPaddingTop}
+              onChange={(e) => update(["spacing", "footerPaddingTop"], parseFloat(e.target.value))}
+              className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
+            />
+          </div>
+          <div>
+            <label className="text-[10px] text-gray-500 block mb-1">Padding bottom</label>
+            <input
+              type="number" min={0} max={16} step={0.5}
+              value={s.footerPaddingBottom}
+              onChange={(e) => update(["spacing", "footerPaddingBottom"], parseFloat(e.target.value))}
+              className="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

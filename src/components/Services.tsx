@@ -23,17 +23,19 @@ const cardItem = {
 };
 
 export default function Services() {
-  const { services } = useContent();
+  const { services, spacing } = useContent();
 
   return (
-    <section id="services" className="relative py-24 md:py-32">
+    <section id="services" className="relative"
+      style={{ paddingTop: 'var(--spacing-section-py)', paddingBottom: 'var(--spacing-section-py)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           variants={sectionVariants}
-          className="text-center mb-16"
+          className="text-center"
+          style={{ marginBottom: 'var(--spacing-section-header-mb)' }}
         >
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4">
             {services.title}
@@ -49,7 +51,8 @@ export default function Services() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3"
+          style={{ gap: 'var(--spacing-section-gap)' }}
         >
           {services.items.map((item, i) => (
             <motion.div

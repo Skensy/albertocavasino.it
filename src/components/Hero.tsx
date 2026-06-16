@@ -14,10 +14,12 @@ const fadeUp = {
 };
 
 export default function Hero() {
-  const { hero, about } = useContent();
+  const { hero, about, spacing } = useContent();
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center py-24 md:py-0">
+    <section id="home" className="relative min-h-screen flex items-center"
+      style={{ paddingTop: 'var(--spacing-section-py)', paddingBottom: 0 }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
           {/* Left: text */}

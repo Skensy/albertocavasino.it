@@ -81,6 +81,13 @@ export interface SiteContent {
     sansFont: string;
     serifFont: string;
   };
+  spacing: {
+    sectionPaddingY: { mobile: number; desktop: number };
+    sectionHeaderMb: number;
+    sectionContentGap: { mobile: number; desktop: number };
+    footerPaddingTop: number;
+    footerPaddingBottom: number;
+  };
   seo: {
     title: string;
     description: string;

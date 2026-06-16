@@ -32,7 +32,7 @@ function tint(hex: string, factor: number): string {
 }
 
 export default function ColorVarsInjector() {
-  const { colors } = useContent();
+  const { colors, spacing } = useContent();
   const {
     primary, primaryHover, bgLight, bgDark,
     textPrimary, textSecondary, navBg,
@@ -42,6 +42,16 @@ export default function ColorVarsInjector() {
   // Combine hex + opacity into rgba
   const [sr, sg, sb] = hexToRgbArray(serviceNumberColor || "#FFFFFF");
   const serviceNumberRgba = `rgba(${sr},${sg},${sb},${(serviceNumberOpacity ?? 5) / 100})`;
+
+  // Spacing values with fallbacks
+  const s = spacing || {};
+  const pyM = s.sectionPaddingY?.mobile ?? 6;
+  const pyD = s.sectionPaddingY?.desktop ?? 8;
+  const hMb = s.sectionHeaderMb ?? 4;
+  const gapM = s.sectionContentGap?.mobile ?? 3;
+  const gapD = s.sectionContentGap?.desktop ?? 4;
+  const fPt = s.footerPaddingTop ?? 4;
+  const fPb = s.footerPaddingBottom ?? 2;
 
   const colorVars = `
     :root {
@@ -72,6 +82,22 @@ export default function ColorVarsInjector() {
 
       /* Service number color (hex + opacity combined) */
       --user-service-number: ${serviceNumberRgba};
+
+      /* Spacing */
+      --spacing-section-py: ${pyM}rem;
+      --spacing-section-py-desktop: ${pyD}rem;
+      --spacing-section-header-mb: ${hMb}rem;
+      --spacing-section-gap: ${gapM}rem;
+      --spacing-section-gap-desktop: ${gapD}rem;
+      --spacing-footer-pt: ${fPt}rem;
+      --spacing-footer-pb: ${fPb}rem;
+    }
+
+    @media (min-width: 768px) {
+      :root {
+        --spacing-section-py: var(--spacing-section-py-desktop);
+        --spacing-section-gap: var(--spacing-section-gap-desktop);
+      }
     }
   `;
 
