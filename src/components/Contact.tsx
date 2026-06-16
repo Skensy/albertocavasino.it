@@ -57,7 +57,7 @@ export default function Contact() {
             />
             <button
               type="submit"
-              className="btn-gradient inline-block w-full sm:w-auto"
+              className="btn-outline w-full sm:w-auto"
             >
               {f.submit}
             </button>

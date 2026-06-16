@@ -37,7 +37,7 @@ export default function RootLayout({
       <head>
         <ColorVarsInjector />
       </head>
-      <body className="relative min-h-full flex flex-col bg-black text-white font-sans overflow-x-hidden">
+      <body className="relative min-h-full flex flex-col text-white font-sans overflow-x-hidden">
         <SeoInjector />
         <ScrollProgress />
         <div className="noise-bg" aria-hidden="true" />

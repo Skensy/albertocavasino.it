@@ -68,6 +68,11 @@
         "label": "Brand Identity",
         "icon": "✨"
       }
+    ],
+    "stats": [
+      { "number": "5+", "label": "Years of Design<br/>Experience" },
+      { "number": "50+", "label": "Overall Global<br/>Customers" },
+      { "number": "90+", "label": "Projects I Have<br/>Worked on" }
     ]
   },
   "services": {

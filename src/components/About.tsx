@@ -9,14 +9,9 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
-const stats = [
-  { number: "5+", label: "Years of Design<br/>Experience" },
-  { number: "50+", label: "Overall Global<br/>Customers" },
-  { number: "90+", label: "Projects I Have<br/>Worked on" },
-];
-
 export default function About() {
   const { about } = useContent();
+  const stats = about.stats;
 
   return (
     <section id="about" className="relative py-24 md:py-32">
@@ -29,7 +24,7 @@ export default function About() {
           variants={fadeUp}
           className="skills-bar p-4 md:p-6 mb-16 overflow-x-auto"
         >
-          <div className="flex items-center gap-4 md:gap-6 min-w-max">
+          <div className="flex items-center gap-4 md:gap-6 min-w-max justify-center">
             {about.skills.map((skill, i) => (
               <div key={skill.label} className="flex items-center gap-3">
                 {i > 0 && (
@@ -91,7 +86,7 @@ export default function About() {
           variants={fadeUp}
           className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16"
         >
-          {stats.map((stat, i) => (
+          {stats?.map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-8 md:gap-16">
               <div className="text-center">
                 <div className="text-7xl md:text-8xl font-bold stat-gradient leading-none mb-2 drop-shadow-[0_0_12px_rgba(152,28,130,0.3)]">
@@ -102,7 +97,7 @@ export default function About() {
                   dangerouslySetInnerHTML={{ __html: stat.label }}
                 />
               </div>
-              {i < stats.length - 1 && (
+              {stats && i < stats.length - 1 && (
                 <div className="w-px h-24 bg-brand-500 hidden md:block" />
               )}
             </div>

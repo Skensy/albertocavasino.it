@@ -17,6 +17,7 @@ export interface SiteContent {
     title: string;
     paragraphs: string[];
     skills: Array<{ label: string; icon: string }>;
+    stats: Array<{ number: string; label: string }>;
   };
   services: {
     title: string;

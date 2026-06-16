@@ -42,6 +42,11 @@ const DEFAULT_CONTENT: SiteContent = {
       { label: "Marchi", icon: "🏷️" },
       { label: "Brand Identity", icon: "✨" },
     ],
+    stats: [
+      { number: "5+", label: "Years of Design<br/>Experience" },
+      { number: "50+", label: "Overall Global<br/>Customers" },
+      { number: "90+", label: "Projects I Have<br/>Worked on" },
+    ],
   },
   services: {
     title: "Cosa Faccio",
@@ -900,6 +905,59 @@ function SectionAbout({
           + Aggiungi skill
         </button>
       </div>
+
+      {/* ── Stats ── */}
+      <div>
+        <label className="block text-xs font-medium text-gray-400 mb-1">
+          Statistiche (numeri grandi con gradiente)
+        </label>
+        <p className="text-xs text-gray-500 mb-2">
+          HTML supportato nelle label: <code>{'<br/>'}</code> per andare a capo
+        </p>
+        {(a.stats || []).map((stat, i) => (
+          <div key={i} className="flex gap-2 mb-2 items-start">
+            <input
+              className="w-20 px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm text-center font-bold"
+              value={stat.number}
+              onChange={(e) => {
+                const next = [...(a.stats || [])];
+                next[i] = { ...next[i], number: e.target.value };
+                update(["about", "stats"], next);
+              }}
+              placeholder="5+"
+            />
+            <input
+              className="flex-1 px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
+              value={stat.label}
+              onChange={(e) => {
+                const next = [...(a.stats || [])];
+                next[i] = { ...next[i], label: e.target.value };
+                update(["about", "stats"], next);
+              }}
+              placeholder="Years of Design<br/>Experience"
+            />
+            <button
+              onClick={() => {
+                const next = (a.stats || []).filter((_, j) => j !== i);
+                update(["about", "stats"], next);
+              }}
+              className="text-red-400 hover:text-red-600 text-sm shrink-0 mt-2"
+            >
+              ✕
+            </button>
+          </div>
+        ))}
+        <button
+          onClick={() => {
+            const next = [...(a.stats || []), { number: "", label: "" }];
+            update(["about", "stats"], next);
+          }}
+          className="text-xs text-indigo-400 hover:text-indigo-300 underline-offset-2"
+        >
+          + Aggiungi statistica
+        </button>
+      </div>
+
       <TextColorPreview content={content} />
     </div>
   );

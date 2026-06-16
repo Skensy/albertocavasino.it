@@ -65,6 +65,8 @@ export default function ColorVarsInjector() {
       --user-brand-900: ${textPrimary};
       --user-brand-950: ${bgDark};
 
+      --user-bg: ${bgLight};
+
       --color-accent: ${primary};
       --color-accent-rgb: ${hexToRgb(primary)};
 

@@ -63,12 +63,12 @@ export default function Hero() {
               variants={fadeUp}
               className="flex flex-col sm:flex-row items-center gap-4"
             >
-              <a href={hero.ctaHref} className="btn-gradient inline-block">
+              <a href={hero.ctaHref} className="btn-outline">
                 {hero.ctaText}
               </a>
               <a
                 href="#about"
-                className="text-white font-semibold rounded-xl px-8 py-4 transition-all duration-200 border border-white/20 hover:bg-white/5"
+                className="btn-outline"
               >
                 Scopri di pi&ugrave;
               </a>
