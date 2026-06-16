@@ -33,7 +33,15 @@ function tint(hex: string, factor: number): string {
 
 export default function ColorVarsInjector() {
   const { colors } = useContent();
-  const { primary, primaryHover, bgLight, bgDark, textPrimary, textSecondary, navBg } = colors;
+  const {
+    primary, primaryHover, bgLight, bgDark,
+    textPrimary, textSecondary, navBg,
+    serviceNumberColor, serviceNumberOpacity,
+  } = colors;
+
+  // Combine hex + opacity into rgba
+  const [sr, sg, sb] = hexToRgbArray(serviceNumberColor || "#FFFFFF");
+  const serviceNumberRgba = `rgba(${sr},${sg},${sb},${(serviceNumberOpacity ?? 5) / 100})`;
 
   const colorVars = `
     :root {
@@ -43,19 +51,25 @@ export default function ColorVarsInjector() {
       --user-nav-bg-rgb: ${hexToRgb(navBg)};
       --user-text-primary: ${textPrimary};
       --user-text-secondary: ${textSecondary};
+
+      /* Brand scale: anchored at textSecondary (brand-400) instead of derived from textPrimary */
       --user-brand-50: ${bgLight};
       --user-brand-100: ${bgLight};
-      --user-brand-200: ${tint(textPrimary, 0.17)};
-      --user-brand-300: ${tint(textPrimary, 0.36)};
-      --user-brand-400: ${tint(textPrimary, 0.55)};
-      --user-brand-500: ${tint(textPrimary, 0.66)};
-      --user-brand-600: ${tint(textPrimary, 0.73)};
-      --user-brand-700: ${tint(textPrimary, 0.8)};
-      --user-brand-800: ${shade(textPrimary, 0.93)};
+      --user-brand-200: ${tint(textSecondary, 0.5)};
+      --user-brand-300: ${tint(textSecondary, 0.35)};
+      --user-brand-400: ${textSecondary};
+      --user-brand-500: ${shade(textSecondary, 0.2)};
+      --user-brand-600: ${shade(textSecondary, 0.38)};
+      --user-brand-700: ${shade(textSecondary, 0.55)};
+      --user-brand-800: ${bgLight};
       --user-brand-900: ${textPrimary};
       --user-brand-950: ${bgDark};
+
       --color-accent: ${primary};
       --color-accent-rgb: ${hexToRgb(primary)};
+
+      /* Service number color (hex + opacity combined) */
+      --user-service-number: ${serviceNumberRgba};
     }
   `;
 

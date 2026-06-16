@@ -60,7 +60,7 @@ export default function Services() {
             >
               {/* Giant number */}
               <span
-                className="absolute top-4 right-6 text-7xl md:text-8xl font-bold text-white/5 select-none pointer-events-none"
+                className="absolute top-4 right-6 text-7xl md:text-8xl font-bold text-service-number select-none pointer-events-none"
                 aria-hidden="true"
               >
                 {String(i + 1).padStart(2, "0")}

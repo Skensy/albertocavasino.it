@@ -90,8 +90,10 @@ const DEFAULT_CONTENT: SiteContent = {
     bgLight: "#1C1C1C",
     bgDark: "#000000",
     textPrimary: "#FFFFFF",
-    textSecondary: "#9F9F9F",
+    textSecondary: "#8C8C8C",
     navBg: "#000000",
+    serviceNumberColor: "#FFFFFF",
+    serviceNumberOpacity: 5,
   },
   seo: {
     title: "Designer Portfolio | UI/UX Designer",
@@ -1300,7 +1302,7 @@ function SectionColors({
 
   const fields: {
     label: string;
-    key: keyof SiteContent["colors"];
+    key: Exclude<keyof SiteContent["colors"], "serviceNumberOpacity">;
     desc: string;
     mockup: (color: string, bgLight: string) => ReactNode;
   }[] = [
@@ -1447,6 +1449,76 @@ function SectionColors({
             </div>
           </div>
         ))}
+
+        {/* Numeri servizi — color picker + opacity slider (two values) */}
+        <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50">
+          <label className="block text-xs font-medium text-gray-300 mb-1">
+            Numeri servizi
+          </label>
+          <p className="text-[11px] text-gray-500 mb-2.5 leading-relaxed">
+            Colore dei numeri grandi (01, 02…) nelle card servizi
+          </p>
+          <div className="flex items-center gap-3">
+            {/* Color swatch + picker */}
+            <div className="relative">
+              <div
+                className="w-9 h-9 rounded-lg border border-gray-600 shrink-0"
+                style={{ backgroundColor: colors.serviceNumberColor }}
+              />
+              <input
+                type="color"
+                value={colors.serviceNumberColor}
+                onChange={(e) =>
+                  update(["colors", "serviceNumberColor"], e.target.value)
+                }
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                title="Numeri servizi"
+              />
+            </div>
+            {/* Hex input */}
+            <input
+              type="text"
+              value={colors.serviceNumberColor}
+              onChange={(e) =>
+                update(["colors", "serviceNumberColor"], e.target.value)
+              }
+              className="w-28 px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm font-mono"
+              placeholder="#FFFFFF"
+            />
+            {/* Opacity slider */}
+            <div className="flex items-center gap-2 ml-2">
+              <label className="text-[10px] text-gray-500 shrink-0">
+                Opacità
+              </label>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={colors.serviceNumberOpacity}
+                onChange={(e) =>
+                  update(["colors", "serviceNumberOpacity"], parseInt(e.target.value))
+                }
+                className="w-20 h-1.5 accent-accent cursor-pointer"
+                title="Opacità 0–100%"
+              />
+              <span className="text-[11px] text-gray-400 font-mono w-8 text-right">
+                {colors.serviceNumberOpacity}%
+              </span>
+            </div>
+            {/* Preview */}
+            <div className="ml-auto shrink-0">
+              <span
+                className="text-lg font-bold leading-none select-none"
+                style={{
+                  color: colors.serviceNumberColor,
+                  opacity: colors.serviceNumberOpacity / 100,
+                }}
+              >
+                01
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Palette preview */}

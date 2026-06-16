@@ -204,8 +204,10 @@
     "bgLight": "#1C1C1C",
     "bgDark": "#000000",
     "textPrimary": "#FFFFFF",
-    "textSecondary": "#6b6b6b",
-    "navBg": "#000000"
+    "textSecondary": "#8C8C8C",
+    "navBg": "#000000",
+    "serviceNumberColor": "#FFFFFF",
+    "serviceNumberOpacity": 5
   },
   "seo": {
     "title": "Designer Portfolio | UI/UX Designer",

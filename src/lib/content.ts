@@ -73,6 +73,8 @@ export interface SiteContent {
     textPrimary: string;
     textSecondary: string;
     navBg: string;
+    serviceNumberColor: string;
+    serviceNumberOpacity: number;
   };
   seo: {
     title: string;
