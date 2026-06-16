@@ -77,6 +77,10 @@ export interface SiteContent {
     serviceNumberColor: string;
     serviceNumberOpacity: number;
   };
+  typography: {
+    sansFont: string;
+    serifFont: string;
+  };
   seo: {
     title: string;
     description: string;

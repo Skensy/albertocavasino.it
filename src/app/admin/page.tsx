@@ -100,6 +100,10 @@ const DEFAULT_CONTENT: SiteContent = {
     serviceNumberColor: "#FFFFFF",
     serviceNumberOpacity: 5,
   },
+  typography: {
+    sansFont: "Inter",
+    serifFont: "Playfair Display",
+  },
   seo: {
     title: "Designer Portfolio | UI/UX Designer",
     description: "Portfolio di un UI/UX designer con anni di esperienza in agenzia, specializzato in siti web, brochure e brand identity.",
@@ -116,6 +120,7 @@ type SectionKey =
   | "contact"
   | "navigation"
   | "colors"
+  | "typography"
   | "seo"
   | "footer";
 
@@ -128,6 +133,7 @@ const SECTIONS: { key: SectionKey; label: string }[] = [
   { key: "contact", label: "Contatti" },
   { key: "navigation", label: "Navigazione" },
   { key: "colors", label: "Colori" },
+  { key: "typography", label: "Tipografia" },
   { key: "seo", label: "SEO" },
   { key: "footer", label: "Footer" },
 ];
@@ -636,6 +642,9 @@ export default function AdminPage() {
           )}
           {currentSection === "colors" && (
             <SectionColors content={content} update={update} />
+          )}
+          {currentSection === "typography" && (
+            <SectionTypography content={content} update={update} />
           )}
           {currentSection === "footer" && (
             <SectionFooter content={content} update={update} />
@@ -1594,6 +1603,136 @@ function SectionColors({
             />
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Font groups for SectionTypography ── */
+const FONT_GROUPS: { label: string; fonts: string[] }[] = [
+  {
+    label: "Sans-serif",
+    fonts: [
+      "Inter", "Roboto", "Open Sans", "Lato", "Montserrat", "Poppins",
+      "Raleway", "Nunito", "Ubuntu", "PT Sans", "Source Sans 3",
+      "DM Sans", "Work Sans", "Quicksand", "Rubik", "Karla", "Cabin",
+      "Mukta", "Noto Sans", "Fira Sans", "IBM Plex Sans", "Figtree",
+      "Outfit", "Plus Jakarta Sans", "Space Grotesk", "Manrope",
+      "Lexend", "Sora", "Archivo", "Public Sans", "Be Vietnam Pro",
+      "Albert Sans", "Urbanist", "Sen", "Epilogue", "Commissioner",
+      "Golos Text", "Onest", "Instrument Sans", "Nunito Sans",
+      "Encode Sans", "Arimo", "Sarabun", "Prompt", "Mitr", "Kanit",
+    ],
+  },
+  {
+    label: "Serif",
+    fonts: [
+      "Playfair Display", "Merriweather", "Lora", "PT Serif",
+      "Noto Serif", "Source Serif 4", "Libre Baskerville",
+      "Crimson Text", "Bitter", "DM Serif Display", "EB Garamond",
+      "Cormorant Garamond", "Spectral", "Vollkorn", "Alice",
+      "Bodoni Moda", "Fraunces", "Newsreader", "Besley", "Gupter",
+      "Sorts Mill Goudy", "Tinos",
+    ],
+  },
+  {
+    label: "Display / Decorativo",
+    fonts: [
+      "Abril Fatface", "Anton", "Bebas Neue", "Oswald",
+      "League Spartan", "Righteous", "Lobster", "Pacifico",
+      "Dancing Script", "Caveat", "Satisfy", "Permanent Marker",
+      "Comfortaa", "Baloo 2", "Fredoka", "Bubblegum Sans",
+      "Luckiest Guy", "Sigmar", "Monoton", "Rubik Mono One",
+      "Chakra Petch", "Orbitron", "Rajdhani", "Aldrich",
+      "Bruno Ace SC", "Russo One", "Black Ops One",
+      "Press Start 2P", "VT323",
+    ],
+  },
+  {
+    label: "Monospace",
+    fonts: [
+      "Courier Prime", "JetBrains Mono", "Fira Code",
+      "Source Code Pro", "Inconsolata", "Space Mono",
+      "Share Tech Mono", "Cutive Mono", "Anonymous Pro",
+    ],
+  },
+];
+
+function SelectFont({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div className="space-y-2">
+      <label className="block text-xs font-medium text-gray-300">{label}</label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full px-3 py-2.5 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 text-sm"
+      >
+        {FONT_GROUPS.map((group) => (
+          <optgroup key={group.label} label={group.label}>
+            {group.fonts.map((f) => (
+              <option key={f} value={f}>
+                {f}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+/* ── Typography ── */
+function SectionTypography({
+  content,
+  update,
+}: {
+  content: SiteContent;
+  update: (path: string[], val: unknown) => void;
+}) {
+  const t = content.typography;
+
+  return (
+    <div className="max-w-xl space-y-5">
+      <h2 className="font-serif text-xl font-semibold text-gray-100 mb-4">
+        Tipografia
+      </h2>
+      <p className="text-sm text-gray-400">
+        Scegli i font Google per titoli e corpo testo. Anteprima immediata.
+      </p>
+
+      <SelectFont
+        label="Font sans-serif (corpo, navbar, bottoni)"
+        value={t.sansFont}
+        onChange={(v) => update(["typography", "sansFont"], v)}
+      />
+
+      <SelectFont
+        label="Font serif (titoli sezioni)"
+        value={t.serifFont}
+        onChange={(v) => update(["typography", "serifFont"], v)}
+      />
+
+      {/* Anteprima */}
+      <div className="bg-gray-800/60 rounded-lg p-5 border border-gray-700/50 space-y-4">
+        <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+          Anteprima
+        </span>
+        <p style={{ fontFamily: t.sansFont }} className="text-base text-gray-200">
+          ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
+          abcdefghijklmnopqrstuvwxyz<br />
+          <strong>0123456789 .,;:!?@#$%&amp;</strong>
+        </p>
+        <p style={{ fontFamily: t.serifFont }} className="text-2xl font-bold text-white">
+          Titolo Elegante — 12345
+        </p>
       </div>
     </div>
   );

@@ -223,6 +223,10 @@
     "serviceNumberColor": "#FFFFFF",
     "serviceNumberOpacity": 33
   },
+  "typography": {
+    "sansFont": "Inter",
+    "serifFont": "Playfair Display"
+  },
   "seo": {
     "title": "Designer Portfolio | UI/UX Designer",
     "description": "Portfolio di un UI/UX designer con anni di esperienza in agenzia, specializzato in siti web, brochure e brand identity."
