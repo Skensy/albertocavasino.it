@@ -224,8 +224,8 @@
     "serviceNumberOpacity": 33
   },
   "typography": {
-    "sansFont": "Inter",
-    "serifFont": "Playfair Display"
+    "sansFont": "Montserrat",
+    "serifFont": "Baloo 2"
   },
   "seo": {
     "title": "Designer Portfolio | UI/UX Designer",
