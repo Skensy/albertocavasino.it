@@ -70,9 +70,14 @@
       }
     ],
     "stats": [
-      { "number": "5+", "label": "Years of Design<br/>Experience" },
-      { "number": "50+", "label": "Overall Global<br/>Customers" },
-      { "number": "90+", "label": "Projects I Have<br/>Worked on" }
+      {
+        "number": "15+",
+        "label": "Anni di<br/>Esperienza"
+      },
+      {
+        "number": "60+",
+        "label": "Progetti su cui<br/>Lavorato"
+      }
     ]
   },
   "services": {
