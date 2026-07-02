@@ -83,16 +83,16 @@ export default function Portfolio() {
         >
           <div className="flex items-center gap-4 md:gap-6 min-w-max justify-center">
             <span className="text-sm text-brand-500 font-medium uppercase tracking-wider">
-              Companies I&rsquo;ve Worked With
+              Collaboro con
             </span>
             <svg className="w-4 h-4 text-accent shrink-0" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span className="text-brand-900 font-bold text-lg">BBC Studios</span>
+            <span className="text-brand-900 font-bold text-lg">Infosoft Srl</span>
             <svg className="w-4 h-4 text-accent shrink-0" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span className="text-brand-900 font-bold text-lg">Blizzard</span>
+            <span className="text-brand-900 font-bold text-lg">Freelance</span>
           </div>
         </motion.div>
       </div>

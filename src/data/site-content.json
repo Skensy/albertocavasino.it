@@ -1,7 +1,7 @@
 {
   "site": {
     "name": "Alberto Cavasino",
-    "role": "Graphic Web Designer"
+    "role": "Grafico Pubblicitario, Web Designer & Esperto Digitale"
   },
   "nav": [
     {
@@ -28,140 +28,140 @@
   "hero": {
     "bgImage": "https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "bgAlt": "Creative workspace",
-    "badge": "Graphic Web Designer",
-    "headingLine1": "Disegno idee,",
-    "headingAccent": "costruisco identità.",
-    "subtitle": "Da oltre dieci anni trasformo visioni in progetti visivi: siti web, brochure, loghi e brand identity per aziende che vogliono raccontarsi con stile.",
+    "badge": "Grafico Pubblicitario & Web Designer",
+    "headingLine1": "Creatività,",
+    "headingAccent": "competenza ed empatia.",
+    "subtitle": "Dal 2013 disegno identità visive, sviluppo siti web e gestisco la comunicazione digitale per aziende e professionisti. Con una solida formazione nell'insegnamento, credo nel design che include, innova e fa crescere le persone.",
     "ctaText": "Vedi i miei lavori",
     "ctaHref": "#portfolio"
   },
   "about": {
     "photoUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=640&q=85",
-    "photoAlt": "Alberto Cavasino — Graphic Web Designer",
+    "photoAlt": "Alberto Cavasino — Grafico Pubblicitario & Web Designer",
     "title": "Chi Sono",
     "paragraphs": [
-      "Mi chiamo <strong>Alberto Cavasino</strong> e da oltre un decennio lavoro come graphic designer in una realtà di comunicazione visiva a tutto tondo. Ho avuto la fortuna di crescere in un'agenzia dove ogni giorno era diverso: si passava dalla progettazione di un sito web alla costruzione di un'identità di marca, dalla brochure istituzionale alla locandina per un evento.",
-      "Questa esperienza mi ha insegnato che il buon design non è solo estetica: è strategia, ascolto, e capacità di tradurre bisogni in soluzioni visive che funzionano. Ogni progetto è una storia nuova da raccontare."
+      "Mi chiamo <strong>Alberto Cavasino</strong> e dal 2013 lavoro come grafico pubblicitario e web designer presso Infosoft Srl a Viterbo. Qui mi occupo di progettazione di siti web, CMS, app e software, oltre che di grafica editoriale e social per l'identità visiva aziendale. Seguo anche l'assistenza tecnica ai clienti su hosting, domini, DNS e strumenti di collaboration.",
+      "Parallelamente alla professione, ho coltivato una forte passione per la formazione: ho conseguito l'abilitazione TFA Sostegno (30/30) e la certificazione per l'insegnamento di Tecnologie e Tecniche delle Comunicazioni Multimediali — classe B022 (30/30). Creatività, competenza ed empatia sono i valori che guidano ogni mio progetto, insieme a innovazione, inclusione e crescita delle persone."
     ],
     "skills": [
       {
-        "label": "Siti Web",
-        "icon": "🌐"
-      },
-      {
-        "label": "Brochure",
-        "icon": "📄"
-      },
-      {
-        "label": "Locandine",
+        "label": "Adobe Creative Cloud",
         "icon": "🎨"
       },
       {
-        "label": "Loghi",
-        "icon": "✏️"
+        "label": "Web & CMS",
+        "icon": "🌐"
       },
       {
-        "label": "Marchi",
-        "icon": "🏷️"
+        "label": "Social Media",
+        "icon": "📱"
       },
       {
-        "label": "Brand Identity",
-        "icon": "✨"
+        "label": "SEO & Google",
+        "icon": "🔍"
+      },
+      {
+        "label": "AI & Canva",
+        "icon": "🤖"
+      },
+      {
+        "label": "Copywriting",
+        "icon": "✍️"
       }
     ],
     "stats": [
       {
-        "number": "15+",
+        "number": "13+",
         "label": "Anni di<br/>Esperienza"
       },
       {
-        "number": "60+",
-        "label": "Progetti Su Cui<br/>Ho Lavorato"
+        "number": "30/30",
+        "label": "Abilitazioni<br/>con Lode"
       },
       {
-        "number": "10+",
-        "label": "Anni di <br/> Formazione"
+        "number": "3",
+        "label": "Abilitazioni<br/>Professionali"
       }
     ]
   },
   "services": {
     "title": "Cosa Faccio?",
-    "subtitle": "Dalla strategia alla realizzazione, ogni progetto segue un percorso artigianale pensato su misura per il cliente.",
+    "subtitle": "Dalla grafica allo sviluppo web, dal social media marketing alla formazione: un approccio completo alla comunicazione visiva e digitale.",
     "items": [
       {
-        "title": "Siti Web",
-        "description": "Progetto e sviluppo di siti web moderni, responsive e ottimizzati per ogni dispositivo, con un'attenzione particolare all'esperienza utente.",
-        "iconName": "star"
+        "title": "Siti Web & CMS",
+        "description": "Progetto e sviluppo siti web moderni, responsive e ottimizzati. Esperienza con CMS, app e software su misura per ogni esigenza.",
+        "iconName": "globe"
       },
       {
-        "title": "Brochure",
-        "description": "Brochure istituzionali, cataloghi prodotti e pieghevoli pubblicitari dal concept alla stampa, curati nei dettagli e nella comunicazione.",
+        "title": "Grafica Editoriale",
+        "description": "Brochure, cataloghi, loghi e identità visiva coordinata. Dal concept alla stampa, con la cura artigianale di chi conosce il mestiere.",
         "iconName": "document"
       },
       {
-        "title": "Locandine",
-        "description": "Manifesti, locandine e flyer per eventi, promozioni e comunicazioni dal forte impatto visivo, studiati per catturare l'attenzione.",
-        "iconName": "poster"
+        "title": "Social Media",
+        "description": "Gestione social network, campagne Facebook Ads e Meta Business Suite. Strategie di comunicazione per far crescere la tua presenza online.",
+        "iconName": "chat"
       },
       {
-        "title": "Loghi",
-        "description": "Progettazione di loghi unici e memorabili, capaci di sintetizzare l'essenza di un brand in un segno distintivo e riconoscibile.",
+        "title": "SEO & Visibilità",
+        "description": "Ottimizzazione per motori di ricerca, gestione domini, hosting e DNS. Ti aiuto a far trovare la tua azienda su Google.",
+        "iconName": "search"
+      },
+      {
+        "title": "AI & Innovazione",
+        "description": "Utilizzo strumenti di intelligenza artificiale e Canva per accelerare la creatività e produrre contenuti di qualità in meno tempo.",
         "iconName": "sparkles"
       },
       {
-        "title": "Marchi",
-        "description": "Sviluppo di sistemi di marca coerenti: dalla definizione dei valori alla creazione dell'immagine coordinata, per comunicare con forza.",
-        "iconName": "grid"
-      },
-      {
-        "title": "Brand Identity",
-        "description": "Progettazione completa dell'identità visiva: palette, tipografia, applicazioni, tono di voce e linee guida per un brand riconoscibile.",
-        "iconName": "image"
+        "title": "Formazione",
+        "description": "Abilitato all'insegnamento (TFA Sostegno e B022), offro formazione su strumenti digitali, comunicazione multimediale e didattica inclusiva.",
+        "iconName": "academic"
       }
     ]
   },
   "portfolio": {
     "title": "Portfolio",
-    "subtitle": "Una selezione di progetti realizzati negli anni, ciascuno con la propria storia e personalità.",
+    "subtitle": "Una selezione di progetti realizzati in oltre dieci anni di attività, tra siti web, brand identity e comunicazione visiva.",
     "projects": [
       {
-        "title": "Ristorante La Pergola",
-        "category": "Logo — Brand Ristorante",
+        "title": "Infosoft Srl — Rebranding",
+        "category": "Brand Identity — Azienda Tech",
         "src": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=85"
       },
       {
-        "title": "TechFlow Agency",
-        "category": "Sito Web — Azienda Tech",
+        "title": "Portale Web Aziendale",
+        "category": "Sito Web — CMS Personalizzato",
         "src": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=85"
       },
       {
-        "title": "Vita Verde",
-        "category": "Brochure — Prodotti Biologici",
+        "title": "Catalogo Prodotti 2024",
+        "category": "Brochure — Grafica Editoriale",
         "src": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=85"
       },
       {
-        "title": "Notte di Gala",
-        "category": "Locandina — Evento",
+        "title": "Campagna Social Media",
+        "category": "Social — Facebook Ads",
         "src": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=85"
       },
       {
-        "title": "Studio Architettura DM",
-        "category": "Marchio — Studio Professionale",
+        "title": "Studio Professionale DM",
+        "category": "Marchio — Brand Identity",
         "src": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=85"
       },
       {
-        "title": "Essenza Cosmetics",
-        "category": "Brand Identity — Cosmetica",
+        "title": "Materiale Didattico Digitale",
+        "category": "Formazione — Grafica & Layout",
         "src": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=85"
       },
       {
-        "title": "Festival Musica Elettronica",
-        "category": "Locandina — Festival",
+        "title": "Locandina Evento 2025",
+        "category": "Locandina — Evento",
         "src": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=85"
       },
       {
-        "title": "Bottega del Pane",
-        "category": "Logo — Artigianato Alimentare",
+        "title": "Logo Artigianato Locale",
+        "category": "Logo — Design & Comunicazione",
         "src": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=85"
       }
     ]
@@ -170,7 +170,7 @@
     "title": "Contattami",
     "subtitle": "Hai un progetto in mente? Parliamone. Sarò felice di ascoltare la tua idea e trasformarla in qualcosa di bello.",
     "email": "info@albertocavasino.it",
-    "phone": "+39 1383937234",
+    "phone": "+39 346 6663859",
     "location": "Viterbo, Italia",
     "formLabels": {
       "name": "Nome",
@@ -241,7 +241,7 @@
     "footerPaddingBottom": 2
   },
   "seo": {
-    "title": "Designer Portfolio | UI/UX Designer",
-    "description": "Portfolio di un UI/UX designer con anni di esperienza in agenzia, specializzato in siti web, brochure e brand identity."
+    "title": "Alberto Cavasino | Grafico Pubblicitario & Web Designer",
+    "description": "Alberto Cavasino — Grafico pubblicitario e web designer a Viterbo. Siti web, brand identity, social media, SEO e formazione digitale. Creatività, competenza ed empatia."
   }
 }

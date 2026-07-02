@@ -40,6 +40,9 @@ yarn-error.log*
 .reasonix/
 .codegraph/
 
+# cv (private)
+cv_alberto_cavasino.md
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
