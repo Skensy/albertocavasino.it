@@ -1,0 +1,298 @@
+# ──────────────────────────────────────────────
+# Decap CMS configuration for albertocavasino.it
+# ──────────────────────────────────────────────
+
+# GitHub backend — commits directly to the repo
+# Authentication: via Netlify's free OAuth gateway
+# → Requires a GitHub OAuth App:
+#   Homepage URL: https://skensy.github.io/albertocavasino.it
+#   Callback URL: https://api.netlify.com/auth/done
+backend:
+  name: github
+  repo: Skensy/albertocavasino.it
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# Enable local backend proxy for development:
+#   npx decap-server
+# then uncomment the next two lines:
+# local_backend: true
+# backend:
+#   name: git-gateway
+
+# Where media files are stored (relative to repo root)
+media_folder: public/images/uploads
+# Public URL path prefix for media files
+public_folder: /albertocavasino.it/images/uploads
+
+# ── Collections ─────────────────────────────
+collections:
+
+  # ── 1. Site Identity ──
+  - name: identity
+    label: "🏠 Identità Sito"
+    editor:
+      preview: false
+    files:
+      - name: site
+        label: "Informazioni Sito"
+        file: src/data/site-content.json
+        fields:
+          # Site
+          - name: site
+            label: "Sito"
+            widget: object
+            fields:
+              - { name: name, label: "Nome", widget: string, default: "Alberto Cavasino" }
+              - { name: role, label: "Ruolo", widget: string, default: "Grafico Pubblicitario, Web Designer & Esperto Digitale" }
+
+          # Nav
+          - name: nav
+            label: "Navigazione"
+            widget: list
+            summary: "{{label}} → {{href}}"
+            fields:
+              - { name: label, label: "Etichetta", widget: string }
+              - { name: href, label: "Link (ancora)", widget: string, pattern: ["^#", "Deve iniziare con #"] }
+
+          # Hero
+          - name: hero
+            label: "Hero (Home)"
+            widget: object
+            fields:
+              - { name: bgImage, label: "Immagine Sfondo Hero", widget: image, required: false }
+              - { name: bgAlt, label: "Testo Alternativo Immagine", widget: string }
+              - { name: badge, label: "Badge (testo piccolo sopra)", widget: string }
+              - { name: headingLine1, label: "Titolo — Prima Parte", widget: string }
+              - { name: headingAccent, label: "Titolo — Parte Accentata (colorata)", widget: string }
+              - { name: subtitle, label: "Sottotitolo", widget: text }
+              - { name: ctaText, label: "Testo Bottone CTA", widget: string }
+              - { name: ctaHref, label: "Link Bottone CTA", widget: string, pattern: ["^#", "Deve iniziare con #"] }
+
+          # About
+          - name: about
+            label: "Chi Sono"
+            widget: object
+            fields:
+              - { name: photoUrl, label: "Foto Personale", widget: image, required: false }
+              - { name: photoAlt, label: "Testo Alternativo Foto", widget: string }
+              - { name: title, label: "Titolo Sezione", widget: string }
+              - name: paragraphs
+                label: "Paragrafi"
+                widget: list
+                summary: "{{fields.text | truncate(60)}}"
+                fields:
+                  - { name: text, label: "Testo", widget: text, hint: "Puoi usare <strong>grassetto</strong>" }
+              - name: skills
+                label: "Competenze"
+                widget: list
+                summary: "{{icon}} {{label}}"
+                fields:
+                  - { name: icon, label: "Emoji", widget: string, default: "🎨" }
+                  - { name: label, label: "Etichetta", widget: string }
+              - name: stats
+                label: "Statistiche"
+                widget: list
+                summary: "{{number}} — {{label}}"
+                max: 6
+                fields:
+                  - { name: number, label: "Numero", widget: string }
+                  - { name: label, label: "Etichetta", widget: text, hint: "Usa <br/> per andare a capo" }
+
+          # Services
+          - name: services
+            label: "Servizi"
+            widget: object
+            fields:
+              - { name: title, label: "Titolo Sezione", widget: string }
+              - { name: subtitle, label: "Sottotitolo", widget: text }
+              - name: items
+                label: "Servizi"
+                widget: list
+                summary: "{{title}}"
+                max: 12
+                fields:
+                  - { name: title, label: "Titolo Servizio", widget: string }
+                  - { name: description, label: "Descrizione", widget: text }
+                  - name: iconName
+                    label: "Icona"
+                    widget: select
+                    options:
+                      - { label: "🌐 Web/Globe", value: globe }
+                      - { label: "📄 Documento", value: document }
+                      - { label: "🎨 Poster", value: poster }
+                      - { label: "✨ Sparkles/AI", value: sparkles }
+                      - { label: "🔲 Grid", value: grid }
+                      - { label: "🖼️ Image", value: image }
+                      - { label: "⭐ Star", value: star }
+                      - { label: "💬 Chat/Social", value: chat }
+                      - { label: "🔍 Search/SEO", value: search }
+                      - { label: "🎓 Academic/Formazione", value: academic }
+
+          # Portfolio
+          - name: portfolio
+            label: "Portfolio"
+            widget: object
+            fields:
+              - { name: title, label: "Titolo Sezione", widget: string }
+              - { name: subtitle, label: "Sottotitolo", widget: text }
+              - name: projects
+                label: "Progetti"
+                widget: list
+                summary: "{{title}} — {{category}}"
+                max: 20
+                fields:
+                  - { name: title, label: "Titolo Progetto", widget: string }
+                  - { name: category, label: "Categoria", widget: string }
+                  - { name: src, label: "Immagine", widget: image }
+
+          # Contact
+          - name: contact
+            label: "Contatti"
+            widget: object
+            fields:
+              - { name: title, label: "Titolo Sezione", widget: string }
+              - { name: subtitle, label: "Sottotitolo", widget: text }
+              - { name: email, label: "Email", widget: string }
+              - { name: phone, label: "Telefono", widget: string }
+              - { name: location, label: "Luogo", widget: string }
+              - name: formLabels
+                label: "Etichette Form"
+                widget: object
+                fields:
+                  - { name: name, label: "Label Nome", widget: string }
+                  - { name: namePlaceholder, label: "Placeholder Nome", widget: string }
+                  - { name: email, label: "Label Email", widget: string }
+                  - { name: emailPlaceholder, label: "Placeholder Email", widget: string }
+                  - { name: message, label: "Label Messaggio", widget: string }
+                  - { name: messagePlaceholder, label: "Placeholder Messaggio", widget: string }
+                  - { name: submit, label: "Testo Bottone Invia", widget: string }
+              - { name: sidebarTitle, label: "Titolo Sidebar", widget: string }
+              - { name: socialTitle, label: "Titolo Social", widget: string }
+              - name: socials
+                label: "Social Network"
+                widget: list
+                summary: "{{label}}"
+                max: 10
+                fields:
+                  - { name: label, label: "Nome", widget: string }
+                  - { name: url, label: "URL", widget: string }
+                  - name: iconName
+                    label: "Icona"
+                    widget: select
+                    options:
+                      - { label: "LinkedIn", value: linkedin }
+                      - { label: "Instagram", value: instagram }
+                      - { label: "Behance", value: behance }
+
+          # Footer
+          - name: footer
+            label: "Footer"
+            widget: object
+            fields:
+              - { name: linkSectionTitle, label: "Titolo Sezione Link", widget: string }
+              - { name: socialSectionTitle, label: "Titolo Sezione Social", widget: string }
+              - name: footerLinks
+                label: "Link Footer"
+                widget: list
+                summary: "{{fields.text}}"
+                max: 8
+                fields:
+                  - { name: text, label: "Etichetta", widget: string }
+              - name: copyright
+                label: "Copyright"
+                widget: string
+                hint: "Usa {year} per l'anno corrente"
+
+          # Colors
+          - name: colors
+            label: "🎨 Palette Colori"
+            widget: object
+            fields:
+              - { name: primary, label: "Colore Accent", widget: color }
+              - { name: primaryHover, label: "Colore Accent Hover", widget: color }
+              - { name: bgLight, label: "Sfondo Chiaro", widget: color }
+              - { name: bgDark, label: "Sfondo Scuro", widget: color }
+              - { name: textPrimary, label: "Testo Principale", widget: color }
+              - { name: textSecondary, label: "Testo Secondario", widget: color }
+              - { name: navBg, label: "Sfondo Navbar", widget: color }
+              - { name: serviceNumberColor, label: "Colore Numeri Servizi", widget: color }
+              - { name: serviceNumberOpacity, label: "Opacità Numeri Servizi (%)", widget: number, valueType: int, min: 1, max: 100 }
+
+          # Typography
+          - name: typography
+            label: "🔤 Tipografia"
+            widget: object
+            fields:
+              - name: sansFont
+                label: "Font Sans (corpo/testo)"
+                widget: select
+                options:
+                  - { label: "Montserrat", value: Montserrat }
+                  - { label: "Inter", value: Inter }
+                  - { label: "Open Sans", value: "Open Sans" }
+                  - { label: "Lato", value: Lato }
+                  - { label: "Poppins", value: Poppins }
+                  - { label: "Roboto", value: Roboto }
+                  - { label: "Nunito", value: Nunito }
+                  - { label: "Raleway", value: Raleway }
+                  - { label: "Quicksand", value: Quicksand }
+              - name: serifFont
+                label: "Font Serif (titoli sezione)"
+                widget: select
+                options:
+                  - { label: "Baloo 2", value: "Baloo 2" }
+                  - { label: "Playfair Display", value: "Playfair Display" }
+                  - { label: "Lora", value: Lora }
+                  - { label: "Merriweather", value: Merriweather }
+                  - { label: "Cormorant Garamond", value: "Cormorant Garamond" }
+                  - { label: "Libre Baskerville", value: "Libre Baskerville" }
+                  - { label: "DM Serif Display", value: "DM Serif Display" }
+
+          # Spacing
+          - name: spacing
+            label: "📏 Spaziatura"
+            widget: object
+            fields:
+              - name: sectionPaddingY
+                label: "Padding Verticale Sezioni (rem)"
+                widget: object
+                fields:
+                  - { name: mobile, label: "Mobile", widget: number, valueType: float, min: 1, max: 20, step: 0.5 }
+                  - { name: desktop, label: "Desktop", widget: number, valueType: float, min: 1, max: 20, step: 0.5 }
+              - { name: sectionHeaderMb, label: "Margine Sotto Header Sezioni (rem)", widget: number, valueType: float, min: 1, max: 10, step: 0.5 }
+              - name: sectionContentGap
+                label: "Gap tra Card/Elementi (rem)"
+                widget: object
+                fields:
+                  - { name: mobile, label: "Mobile", widget: number, valueType: float, min: 0.5, max: 10, step: 0.5 }
+                  - { name: desktop, label: "Desktop", widget: number, valueType: float, min: 0.5, max: 10, step: 0.5 }
+              - { name: footerPaddingTop, label: "Padding Top Footer (rem)", widget: number, valueType: float, min: 1, max: 10, step: 0.5 }
+              - { name: footerPaddingBottom, label: "Padding Bottom Footer (rem)", widget: number, valueType: float, min: 0, max: 5, step: 0.5 }
+
+          # SEO
+          - name: seo
+            label: "🔍 SEO / Meta"
+            widget: object
+            fields:
+              - { name: title, label: "Meta Title", widget: string }
+              - { name: description, label: "Meta Description", widget: text }
+
+# ── Local development ────────────────────────
+# Terminal 1: npm run dev          (Next.js)
+# Terminal 2: npm run cms-proxy    (npx decap-server)
+# Then uncomment the line below:
+# local_backend: true
+# (the backend config above is used for production;
+#  decap-server intercepts and handles the git-gateway)
+
+# ── Production OAuth setup ────────────────────
+# 1. Create a GitHub OAuth App at:
+#    https://github.com/settings/developers
+#    → Homepage URL:  https://skensy.github.io/albertocavasino.it
+#    → Callback URL:  https://api.netlify.com/auth/done
+# 2. Netlify's free gateway handles the token exchange
+#    — no additional configuration needed
+# 3. Users visit /admin/ and click "Login with GitHub"
+# ──────────────────────────────────────────────
