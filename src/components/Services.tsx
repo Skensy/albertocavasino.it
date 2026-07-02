@@ -37,11 +37,11 @@ export default function Services() {
           className="text-center"
           style={{ marginBottom: 'var(--spacing-section-header-mb)' }}
         >
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-brand-900 mb-4 tracking-tight">
             {services.title}
           </h2>
           <div className="w-16 h-1 bg-accent mx-auto mb-6 rounded-full" />
-          <p className="text-brand-400 max-w-xl mx-auto text-lg">
+          <p className="text-brand-500 max-w-xl mx-auto text-lg">
             {services.subtitle}
           </p>
         </motion.div>
@@ -58,10 +58,10 @@ export default function Services() {
             <motion.div
               key={`${item.title}-${i}`}
               variants={cardItem}
-              whileHover={{ y: -4, borderColor: "var(--color-accent)" }}
-              className="relative rounded-2xl border border-white/10 p-8 transition-all duration-300"
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="glass-card p-8 transition-all duration-300 cursor-default"
             >
-              {/* Giant number */}
+              {/* Number */}
               <span
                 className="absolute top-4 right-6 text-7xl md:text-8xl font-bold text-service-number select-none pointer-events-none"
                 aria-hidden="true"
@@ -70,13 +70,13 @@ export default function Services() {
               </span>
 
               <div className="relative">
-                <div className="w-12 h-12 text-accent mb-6 service-icon-glow">
+                <div className="w-12 h-12 text-accent mb-6">
                   {renderServiceIcon(item.iconName)}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">
+                <h3 className="text-xl font-bold text-brand-900 mb-3 tracking-tight">
                   {item.title}
                 </h3>
-                <p className="text-brand-400 leading-relaxed">
+                <p className="text-brand-500 leading-relaxed">
                   {item.description}
                 </p>
               </div>

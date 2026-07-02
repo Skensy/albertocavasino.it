@@ -24,24 +24,22 @@ export default function Hero() {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
           {/* Left: text */}
           <div className="flex-1 text-center lg:text-left">
-            {/* Badge text (no emoji) */}
             <motion.div
               custom={0}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="inline-block text-sm font-medium text-brand-400 mb-6 tracking-wider uppercase"
+              className="inline-block text-sm font-semibold text-accent mb-6 tracking-wider uppercase"
             >
               {hero.badge}
             </motion.div>
 
-            {/* Heading from content */}
             <motion.h1
               custom={1}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="font-sans text-6xl sm:text-7xl md:text-8xl font-bold text-white leading-[1.05] tracking-tight mb-6"
+              className="font-sans text-6xl sm:text-7xl md:text-8xl font-bold text-brand-900 leading-[1.05] tracking-tight mb-6"
             >
               {hero.headingLine1}{" "}
               <span className="text-accent">{hero.headingAccent}</span>
@@ -52,12 +50,11 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="text-base md:text-lg text-brand-400 max-w-xl leading-relaxed mb-10"
+              className="text-base md:text-lg text-brand-500 max-w-xl leading-relaxed mb-10"
             >
               {hero.subtitle}
             </motion.p>
 
-            {/* Two CTA buttons */}
             <motion.div
               custom={3}
               initial="hidden"
@@ -65,7 +62,7 @@ export default function Hero() {
               variants={fadeUp}
               className="flex flex-col sm:flex-row items-center gap-4"
             >
-              <a href={hero.ctaHref} className="btn-outline">
+              <a href={hero.ctaHref} className="btn-primary">
                 {hero.ctaText}
               </a>
               <a
@@ -77,7 +74,7 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: portfolio mockup */}
+          {/* Right: portfolio mockup in glass card */}
           <motion.div
             custom={4}
             initial="hidden"
@@ -85,15 +82,17 @@ export default function Hero() {
             variants={fadeUp}
             className="shrink-0 w-full max-w-md lg:max-w-lg"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-brand-800">
-              <div className="aspect-[4/3] relative">
-                <Image
-                  src={hero.bgImage || "/images/portfolio-hero.png"}
-                  alt={hero.bgAlt}
-                  fill
-                  className="object-cover"
-                  priority
-                />
+            <div className="glass-card p-3">
+              <div className="relative rounded-xl overflow-hidden">
+                <div className="aspect-[4/3] relative">
+                  <Image
+                    src={hero.bgImage || "/images/portfolio-hero.png"}
+                    alt={hero.bgAlt}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </motion.div>

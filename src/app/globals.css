@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-brand-50: var(--user-brand-50, #1C1C1C);
-  --color-brand-100: var(--user-brand-100, #1C1C1C);
-  --color-brand-200: var(--user-brand-200, #C6C6C6);
-  --color-brand-300: var(--user-brand-300, #B4B4B4);
-  --color-brand-400: var(--user-brand-400, #8C8C8C);
-  --color-brand-500: var(--user-brand-500, #707070);
-  --color-brand-600: var(--user-brand-600, #575757);
-  --color-brand-700: var(--user-brand-700, #3F3F3F);
-  --color-brand-800: var(--user-brand-800, #1C1C1C);
-  --color-brand-900: var(--user-brand-900, #FFFFFF);
+  --color-brand-50: var(--user-brand-50, #fafafa);
+  --color-brand-100: var(--user-brand-100, #f5f5f5);
+  --color-brand-200: var(--user-brand-200, #e5e5e5);
+  --color-brand-300: var(--user-brand-300, #d4d4d4);
+  --color-brand-400: var(--user-brand-400, #737373);
+  --color-brand-500: var(--user-brand-500, #525252);
+  --color-brand-600: var(--user-brand-600, #404040);
+  --color-brand-700: var(--user-brand-700, #262626);
+  --color-brand-800: var(--user-brand-800, #171717);
+  --color-brand-900: var(--user-brand-900, #0a0a0a);
   --color-brand-950: var(--user-brand-950, #000000);
 
-  --color-accent: #FFA620;
-  --color-accent-hover: #E8960A;
-  --color-accent-rgb: 255 166 32;
+  --color-accent: #FF9F0A;
+  --color-accent-hover: #E8890A;
+  --color-accent-rgb: 255 159 10;
 
-  --color-service-number: var(--user-service-number, rgba(255,255,255,0.05));
+  --color-service-number: var(--user-service-number, rgba(0,0,0,0.03));
 
   --font-sans: var(--user-font-sans, ui-sans-serif, system-ui, sans-serif);
   --font-serif: var(--user-font-serif, Georgia, serif);
@@ -32,23 +32,6 @@
 @keyframes reveal {
   from { opacity: 0; transform: translateY(32px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Base styles ── */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-sans);
-  background: var(--user-bg, #1C1C1C);
-  color: #FFFFFF;
-}
-
-/* ── Section dark class (già di default su body nero) ── */
-.section-card {
-  background: #1C1C1C;
-  border-radius: 1.25rem;
 }
 
 /* ── Keyframes ── */
@@ -69,102 +52,166 @@ body {
   50% { opacity: 0.8; }
 }
 
-/* ── Glass utility classes (adattate a tema scuro) ── */
+/* ── Base styles ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--user-bg, #f0f0f5);
+  color: #1d1d1f;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Apple-style frosted glass background with vibrant gradient orbs ── */
+.apple-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.apple-bg::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -20%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse at center, rgba(255, 159, 10, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+.apple-bg::after {
+  content: "";
+  position: absolute;
+  bottom: -20%;
+  right: -15%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(0, 122, 255, 0.10) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+/* ── Apple glass navbar ── */
 .glass-nav-transparent {
   background: transparent;
   backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
   border-bottom: 1px solid transparent;
-  transition: all 0.6s ease;
+  transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .glass-nav-scrolled {
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px rgb(0 0 0 / 0.3);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(30px);
+  -webkit-backdrop-filter: saturate(180%) blur(30px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.06);
 }
 
+/* ── Apple frosted glass card ── */
 .glass-card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: saturate(180%) blur(30px);
+  -webkit-backdrop-filter: saturate(180%) blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.glass-card-dark {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: saturate(180%) blur(30px);
+  -webkit-backdrop-filter: saturate(180%) blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .glass-panel {
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: saturate(180%) blur(30px);
+  -webkit-backdrop-filter: saturate(180%) blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
-/* ── Button with gradient (Figma style) ── */
-.btn-gradient {
-  background: linear-gradient(179deg, rgba(255,255,255,1) 0%, rgba(58,58,58,0.99) 100%);
-  color: #000;
+/* ── Apple-style primary button ── */
+.btn-primary {
+  background: #1d1d1f;
+  color: #ffffff;
   font-weight: 600;
-  border-radius: 14px;
-  padding: 1rem 2rem;
-  transition: all 0.3s ease;
-  border: 1px solid transparent;
-  background-clip: padding-box;
-  position: relative;
-}
-.btn-gradient::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 15px;
-  padding: 1px;
-  background: linear-gradient(140deg, rgba(68,68,68,1) 0%, rgba(255,255,255,1) 51%, rgba(136,136,136,1) 98%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-.btn-gradient:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
-}
-
-/* ── Outline button (standard for all CTA buttons) ── */
-.btn-outline {
-  color: #fff;
-  font-weight: 600;
-  border-radius: 0.75rem;
-  padding: 1rem 2rem;
-  transition: all 0.2s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.9375rem;
+  border-radius: 980px;
+  padding: 0.875rem 1.75rem;
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  border: none;
   display: inline-block;
   text-align: center;
+  letter-spacing: -0.01em;
 }
-.btn-outline:hover {
-  background: rgba(255, 255, 255, 0.05);
+.btn-primary:hover {
+  background: #2d2d2f;
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
-/* ── Stat number gradient (Figma style: purple→pink→amber) ── */
+/* ── Apple-style outline button ── */
+.btn-outline {
+  color: #1d1d1f;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: 980px;
+  padding: 0.875rem 1.75rem;
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: inline-block;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.25);
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Accent gradient text (kept for stat numbers) ── */
 .stat-gradient {
-  background: linear-gradient(167deg, #981C82 0%, #ED6D65 50%, #B07900 100%);
+  background: linear-gradient(135deg, #FF9F0A 0%, #FF6B35 50%, #E84855 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* ── Skills bar glow ── */
+/* ── Skills bar (Apple-style pill) ── */
 .skills-bar {
-  background: #1C1C1C;
-  border-radius: 1rem;
-  box-shadow: 0 0 26px rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: saturate(180%) blur(30px);
+  -webkit-backdrop-filter: saturate(180%) blur(30px);
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
-/* ── Background noise texture ── */
+/* ── Noise texture (subtle grain on background) ── */
 .noise-bg::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.02;
+  opacity: 0.015;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;

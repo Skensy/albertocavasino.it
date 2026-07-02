@@ -26,9 +26,10 @@ export default function RootLayout({
         <ColorVarsInjector />
         <FontInjector />
       </head>
-      <body className="relative min-h-full flex flex-col text-white font-sans overflow-x-hidden">
+      <body className="relative min-h-full flex flex-col text-brand-900 font-sans overflow-x-hidden">
         <SeoInjector />
         <ScrollProgress />
+        <div className="apple-bg" aria-hidden="true" />
         <div className="noise-bg" aria-hidden="true" />
         <ContentProvider>{children}</ContentProvider>
       </body>

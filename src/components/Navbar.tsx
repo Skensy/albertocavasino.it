@@ -24,7 +24,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#home" className="text-xl font-bold text-white tracking-tight">
+          <a href="#home" className="text-xl font-bold text-brand-900 tracking-tight">
             {site.name}
           </a>
 
@@ -33,10 +33,10 @@ export default function Navbar() {
               <a
                 key={`${link.label}-${i}`}
                 href={link.href}
-                className="relative text-sm font-medium text-white/60 hover:text-white transition-colors duration-300 group"
+                className="relative text-sm font-medium text-brand-500 hover:text-brand-900 transition-colors duration-300 group"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full w-0" />
+                <span className="absolute -bottom-1 left-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full w-0 rounded-full" />
               </a>
             ))}
           </nav>
@@ -46,9 +46,9 @@ export default function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
-            <span className={`block w-6 h-[1.5px] bg-white/90 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
-            <span className={`block w-6 h-[1.5px] bg-white/90 transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-6 h-[1.5px] bg-white/90 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
+            <span className={`block w-6 h-[1.5px] bg-brand-900 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
+            <span className={`block w-6 h-[1.5px] bg-brand-900 transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-[1.5px] bg-brand-900 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
           </button>
         </div>
       </div>
@@ -64,7 +64,7 @@ export default function Navbar() {
               key={`${link.label}-${i}`}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-base font-medium text-white/60 hover:text-white transition-colors"
+              className="text-base font-medium text-brand-600 hover:text-brand-900 transition-colors"
             >
               {link.label}
             </a>

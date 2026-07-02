@@ -21,7 +21,7 @@ export default function Footer() {
   const navMap = Object.fromEntries(nav.map((item) => [item.label, item.href]));
 
   return (
-    <footer className="relative border-t border-white/5"
+    <footer className="relative border-t border-black/5"
       style={{ paddingTop: 'var(--spacing-footer-pt)', paddingBottom: 'var(--spacing-footer-pb)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,12 +33,12 @@ export default function Footer() {
           className="grid md:grid-cols-3 gap-10 pb-12"
         >
           <motion.div variants={colItem}>
-            <h3 className="text-2xl font-bold text-white mb-2">{site.name}</h3>
-            <p className="text-sm text-brand-400">{site.role}</p>
+            <h3 className="text-2xl font-bold text-brand-900 mb-2 tracking-tight">{site.name}</h3>
+            <p className="text-sm text-brand-500">{site.role}</p>
           </motion.div>
 
           <motion.div variants={colItem}>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">
               {footer.linkSectionTitle}
             </h4>
             <nav className="flex flex-col gap-2">
@@ -46,7 +46,7 @@ export default function Footer() {
                 <a
                   key={label}
                   href={navMap[label] || `#${label.toLowerCase()}`}
-                  className="text-sm text-brand-400 hover:text-accent transition-colors"
+                  className="text-sm text-brand-500 hover:text-accent transition-colors"
                 >
                   {label}
                 </a>
@@ -55,7 +55,7 @@ export default function Footer() {
           </motion.div>
 
           <motion.div variants={colItem}>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">
               {footer.socialSectionTitle}
             </h4>
             <div className="flex gap-3">
@@ -63,7 +63,7 @@ export default function Footer() {
                 <a
                   key={s.label}
                   href={s.url}
-                  className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-brand-400 hover:text-accent hover:border-accent/40 transition-all duration-300"
+                  className="w-9 h-9 rounded-lg bg-white/50 border border-black/10 flex items-center justify-center text-brand-500 hover:text-accent hover:border-accent/40 transition-all duration-300"
                   aria-label={s.label}
                 >
                   {renderSocialIcon(s.iconName, "w-4 h-4")}
@@ -73,9 +73,9 @@ export default function Footer() {
           </motion.div>
         </motion.div>
 
-        <div className="h-px bg-white/5" />
+        <div className="h-px bg-black/5" />
         <div className="pt-8 text-center">
-          <p className="text-sm text-brand-500">
+          <p className="text-sm text-brand-400">
             {footer.copyright.replace("{year}", String(year))}
           </p>
         </div>

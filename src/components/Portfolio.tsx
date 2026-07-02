@@ -32,11 +32,11 @@ export default function Portfolio() {
           className="text-center"
           style={{ marginBottom: 'var(--spacing-section-header-mb)' }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-brand-900 mb-4 tracking-tight">
             {portfolio.title}
           </h2>
           <div className="w-16 h-1 bg-accent mx-auto mb-6 rounded-full" />
-          <p className="text-brand-400 max-w-xl mx-auto text-base md:text-lg">
+          <p className="text-brand-500 max-w-xl mx-auto text-base md:text-lg">
             {portfolio.subtitle}
           </p>
         </motion.div>
@@ -53,27 +53,27 @@ export default function Portfolio() {
             <motion.div
               key={`${project.title}-${i}`}
               variants={cardItem}
-              whileHover={{ scale: 1.02, y: -4 }}
+              whileHover={{ scale: 1.03, y: -4 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer bg-brand-800"
+              className="glass-card p-3 overflow-hidden cursor-pointer group"
             >
-              <div className="relative w-full aspect-[4/3]">
+              <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
                   src={project.src}
                   alt={project.title}
                   fill
-                  className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
-                <h3 className="text-white font-semibold text-sm">{project.title}</h3>
-                <p className="text-white/50 text-xs mt-0.5">{project.category}</p>
+              <div className="px-1 py-4">
+                <h3 className="text-brand-900 font-semibold text-sm tracking-tight">{project.title}</h3>
+                <p className="text-brand-400 text-xs mt-0.5">{project.category}</p>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Companies inline bar (Figma style — part of skills bar) */}
+        {/* Companies bar */}
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -82,17 +82,17 @@ export default function Portfolio() {
           className="skills-bar p-4 md:p-6 mt-16 overflow-x-auto"
         >
           <div className="flex items-center gap-4 md:gap-6 min-w-max justify-center">
-            <span className="text-sm text-brand-400 font-medium uppercase tracking-wider">
+            <span className="text-sm text-brand-500 font-medium uppercase tracking-wider">
               Companies I&rsquo;ve Worked With
             </span>
             <svg className="w-4 h-4 text-accent shrink-0" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span className="text-white font-bold text-lg">BBC Studios</span>
+            <span className="text-brand-900 font-bold text-lg">BBC Studios</span>
             <svg className="w-4 h-4 text-accent shrink-0" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
-            <span className="text-white font-bold text-lg">Blizzard</span>
+            <span className="text-brand-900 font-bold text-lg">Blizzard</span>
           </div>
         </motion.div>
       </div>

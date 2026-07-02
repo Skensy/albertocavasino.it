@@ -213,15 +213,15 @@
     "copyright": "© {year} Alberto Cavasino. Tutti i diritti riservati."
   },
   "colors": {
-    "primary": "#FFA620",
-    "primaryHover": "#E8960A",
-    "bgLight": "#1C1C1C",
-    "bgDark": "#000000",
-    "textPrimary": "#FFFFFF",
-    "textSecondary": "#8C8C8C",
-    "navBg": "#000000",
-    "serviceNumberColor": "#FFFFFF",
-    "serviceNumberOpacity": 33
+    "primary": "#FF9F0A",
+    "primaryHover": "#E8890A",
+    "bgLight": "#f0f0f5",
+    "bgDark": "#ffffff",
+    "textPrimary": "#1d1d1f",
+    "textSecondary": "#737373",
+    "navBg": "#ffffff",
+    "serviceNumberColor": "#000000",
+    "serviceNumberOpacity": 5
   },
   "typography": {
     "sansFont": "Montserrat",
